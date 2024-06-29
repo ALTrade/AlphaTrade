@@ -37,7 +37,7 @@ library EnumerableValues {
         EnumerableSet.AddressSet storage set,
         uint256 start,
         uint256 end
-    ) internal view returns (bytes32[] memory) {
+    ) internal view returns (address[] memory) {
         uint256 max = set.length();
         if (end > max) {
             end = max;
@@ -57,7 +57,7 @@ library EnumerableValues {
         EnumerableSet.UintSet storage set,
         uint256 start,
         uint256 end
-    ) internal view returns (bytes32[] memory) {
+    ) internal view returns (uint256[] memory) {
         uint256 max = set.length();
         if (end > max) {
             end = max;
