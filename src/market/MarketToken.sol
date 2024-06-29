@@ -3,6 +3,8 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "../role/RoleStore.sol";
+import "../data/DataStore.sol";
 
 contract MarketToken is ERC20 {
     constructor(

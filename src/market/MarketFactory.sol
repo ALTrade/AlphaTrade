@@ -2,25 +2,48 @@
 
 pragma solidity ^0.8.0;
 
-import "../library/market/Market.sol";
-import "../library/market/MarketUtil.sol";
-import "../data/DataStore.sol";
 import "./MarketToken.sol";
-import "../error/Errors.sol";
+import "../library/market/Market.sol";
+import "../library/market/MarketStoreUtils.sol";
+import "../event/EventEmitter.sol";
+import "../library/Cast.sol";
 
-contract MarketFactory {
+// @title MarketFactory
+// @dev Contract to create markets
+contract MarketFactory is RoleModule {
+    using Market for Market.Props;
+
+    using EventUtils for EventUtils.AddressItems;
+    using EventUtils for EventUtils.UintItems;
+    using EventUtils for EventUtils.IntItems;
+    using EventUtils for EventUtils.BoolItems;
+    using EventUtils for EventUtils.Bytes32Items;
+    using EventUtils for EventUtils.BytesItems;
+    using EventUtils for EventUtils.StringItems;
+
     DataStore public immutable dataStore;
+    EventEmitter public immutable eventEmitter;
 
-    constructor(DataStore _dataStore) {
+    constructor(
+        RoleStore _roleStore,
+        DataStore _dataStore,
+        EventEmitter _eventEmitter
+    ) RoleModule(_roleStore) {
         dataStore = _dataStore;
+        eventEmitter = _eventEmitter;
     }
 
+    // @dev creates a market
+    // @param indexToken address of the index token for the market
+    // @param longToken address of the long token for the market
+    // @param shortToken address of the short token for the market
+    // @param marketType the type of the market
     function createMarket(
         address indexToken,
         address longToken,
         address shortToken,
         bytes32 marketType
-    ) external returns (Market.Props memory) {
+    ) external onlyMarketKeeper returns (Market.Props memory) {
         bytes32 salt = keccak256(
             abi.encode(
                 "Alpha_Trade",
@@ -32,7 +55,7 @@ contract MarketFactory {
         );
 
         address existingMarketAddress = dataStore.getAddress(
-            MarketUtil.getMarketSaltHash(salt)
+            MarketStoreUtils.getMarketSaltHash(salt)
         );
         if (existingMarketAddress != address(0)) {
             revert Errors.MarketAlreadyExists(salt, existingMarketAddress);
