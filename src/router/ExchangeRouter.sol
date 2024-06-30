@@ -3,9 +3,9 @@
 pragma solidity ^0.8.0;
 
 import "./IExchangeRouter.sol";
-import "../handler/IOrderHandler.sol";
 import "../handler/IDepositHandler.sol";
 import "../handler/IWithdrawalHandler.sol";
+import "../handler/IOrderHandler.sol";
 
 contract ExchangeRouter is IExchangeRouter {
     IDepositHandler public immutable depositHandler;
@@ -36,4 +36,10 @@ contract ExchangeRouter is IExchangeRouter {
     ) external payable override returns (bytes32) {}
 
     function cancelWithdrawal(bytes32 key) external payable override {}
+
+    function createOrder(
+        Order.CreateOrderParams calldata params
+    ) external payable returns (bytes32) {
+        return orderHandler.createOrder(msg.sender, params);
+    }
 }
