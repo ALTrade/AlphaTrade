@@ -5,10 +5,16 @@ pragma solidity ^0.8.0;
 import "../handler/DepositHandler.sol";
 import "../handler/WithdrawalHandler.sol";
 import "../library/order/Order.sol";
+import "../handler/IDepositHandler.sol";
+import "../handler/IWithdrawalHandler.sol";
 
 interface IExchangeRouter {
     function createDeposit(
         DepositHandler.CreateDepositParams calldata params
+    ) external payable returns (bytes32);
+
+    function createDeposit(
+        DepositUtils.CreateDepositParams calldata params
     ) external payable returns (bytes32);
 
     function cancelDeposit(bytes32 key) external payable;
@@ -16,6 +22,10 @@ interface IExchangeRouter {
     function createWithdrawal(
         WithdrawalHandler.CreateWithdrawalParams calldata params
     ) external payable returns (bytes32);
+
+    // function createWithdrawal(
+    //     WithdrawalHandler.CreateWithdrawalParams calldata params
+    // ) external payable returns (bytes32);
 
     function cancelWithdrawal(bytes32 key) external payable;
 
