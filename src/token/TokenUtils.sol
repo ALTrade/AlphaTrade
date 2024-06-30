@@ -13,6 +13,10 @@ import "../library/AccountUtils.sol";
 
 import "./IWNT.sol";
 
+/**
+ * @title TokenUtils
+ * @dev Library for token functions, helps with transferring of tokens and native token functions.
+ */
 library TokenUtils {
     using Address for address;
     using SafeERC20 for IERC20;

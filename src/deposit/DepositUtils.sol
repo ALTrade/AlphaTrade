@@ -2,6 +2,10 @@
 
 pragma solidity ^0.8.0;
 
+import "../data/DataStore.sol";
+import "../event/EventEmitter.sol";
+import "./DepositVault.sol";
+
 library DepositUtils {
     // @dev CreateDepositParams struct used in createDeposit to avoid stack
     // too deep errors
@@ -29,4 +33,12 @@ library DepositUtils {
         uint256 executionFee;
         uint256 callbackGasLimit;
     }
+
+    function createDeposit(
+        DataStore _dataStore,
+        EventEmitter eventEmitter,
+        DepositVault depositVault,
+        address account,
+        CreateDepositParams memory params
+    ) external returns (bytes32) {}
 }
