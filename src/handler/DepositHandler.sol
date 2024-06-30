@@ -3,27 +3,59 @@
 pragma solidity ^0.8.0;
 
 import "./IDepositHandler.sol";
+import "../library/GlobalReentrancyGuard.sol";
+import "../role/RoleModule.sol";
+import "../oracle/OracleModule.sol";
+//todo
+// import "../oracle/Oracle.sol";
+
+import "../event/EventEmitter.sol";
+import "../deposit/DepositVault.sol";
+import "../feature/FeatureUtils.sol";
 
 contract DepositHandler is
     IDepositHandler,
-    GlobalReenrancyGuard,
+    GlobalReentrancyGuard,
     RoleModule,
     OracleModule
 {
-    constructor() {}
+    // using Deposit for Deposit.Props;
 
-    struct CreateDepositParams {
-        address receiver;
-        address callbackContract;
-        address uiFeeReceiver;
-        address market;
-        address initialLongToken;
-        address initialShortToken;
-        address[] longTokenSwapPath;
-        address[] shortTokenSwapPath;
-        uint256 minMarketTokens;
-        bool shouldUnwrapNativeToken;
-        uint256 executionFee;
-        uint256 callbackGasLimit;
+    EventEmitter public immutable eventEmitter;
+    DepositVault public immutable depositVault;
+
+    // Oracle public immutable oracle;
+
+    constructor(
+        RoleStore _roleStore,
+        DataStore _dataStore,
+        EventEmitter _eventEmitter,
+        DepositVault _depositVault
+    )
+        // Oracle _oracle
+        RoleModule(_roleStore)
+        GlobalReentrancyGuard(_dataStore)
+    {
+        eventEmitter = _eventEmitter;
+        depositVault = _depositVault;
+        // oracle = _oracle;
+    }
+
+    function createDeposit(
+        address account,
+        DepositUtils.CreateDepositParams calldata params
+    ) external override globalNonReentrant onlyController returns (bytes32) {
+        FeatureUtils.requireFeature(
+            dataStore,
+            Keys.createDepositFeatureDisabledKey(address(this))
+        );
+        return
+            DepositUtils.createDeposit(
+                dataStore,
+                eventEmitter,
+                depositVault,
+                account,
+                params
+            );
     }
 }
