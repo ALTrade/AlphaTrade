@@ -3,9 +3,9 @@
 pragma solidity ^0.8.0;
 
 import "./IExchangeRouter.sol";
-import "../handler/IOrderHandler.sol";
 import "../handler/IDepositHandler.sol";
 import "../handler/IWithdrawalHandler.sol";
+import "../handler/IOrderHandler.sol";
 
 contract ExchangeRouter is IExchangeRouter {
     IDepositHandler public immutable depositHandler;

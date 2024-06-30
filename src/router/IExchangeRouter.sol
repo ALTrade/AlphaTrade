@@ -4,9 +4,9 @@ pragma solidity ^0.8.0;
 
 import "../handler/DepositHandler.sol";
 import "../handler/WithdrawalHandler.sol";
-import "../library/order/Order.sol";
 import "../handler/IDepositHandler.sol";
 import "../handler/IWithdrawalHandler.sol";
+import "../library/order/Order.sol";
 
 interface IExchangeRouter {
     function createDeposit(
