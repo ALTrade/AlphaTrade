@@ -24,7 +24,10 @@ contract ExchangeRouter is IExchangeRouter {
 
     function createDeposit(
         DepositHandler.CreateDepositParams calldata params
-    ) external payable override returns (bytes32) {}
+    ) external payable override returns (bytes32) {
+        address account = msg.sender;
+        return depositHandler.createDeposit(account, params);
+    }
 
     function cancelDeposit(bytes32 key) external payable override {}
 

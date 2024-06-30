@@ -2,10 +2,15 @@
 
 pragma solidity ^0.8.0;
 
-contract DepositHandler {
-    constructor() {
-        
-    }
+import "./IDepositHandler.sol";
+
+contract DepositHandler is
+    IDepositHandler,
+    GlobalReenrancyGuard,
+    RoleModule,
+    OracleModule
+{
+    constructor() {}
 
     struct CreateDepositParams {
         address receiver;
