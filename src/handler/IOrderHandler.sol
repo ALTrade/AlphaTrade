@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.0;
 
-import "../library/order/Order.sol";
+import "../library/order/IBaseOrderUtils.sol";
 
 interface IOrderHandler {
     function createOrder(
         address account,
-        Order.CreateOrderParams calldata params
+        IBaseOrderUtils.CreateOrderParams calldata params
     ) external returns (bytes32);
 }
