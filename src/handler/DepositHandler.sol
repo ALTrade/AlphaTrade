@@ -13,6 +13,8 @@ import "../event/EventEmitter.sol";
 import "../deposit/DepositVault.sol";
 import "../feature/FeatureUtils.sol";
 
+import "../deposit/DepositUtils.sol";
+
 contract DepositHandler is
     IDepositHandler,
     GlobalReentrancyGuard,
@@ -45,7 +47,7 @@ contract DepositHandler is
         address account,
         DepositUtils.CreateDepositParams calldata params
     ) external override globalNonReentrant onlyController returns (bytes32) {
-        FeatureUtils.requireFeature(
+        FeatureUtils.validateFeature(
             dataStore,
             Keys.createDepositFeatureDisabledKey(address(this))
         );

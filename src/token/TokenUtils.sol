@@ -13,6 +13,10 @@ import "../data/Keys.sol";
 
 import "./IWNT.sol";
 
+/**
+ * @title TokenUtils
+ * @dev Library for token functions, helps with transferring of tokens and native token functions.
+ */
 library TokenUtils {
-    //todo
+
 }
