@@ -33,4 +33,10 @@ contract ExchangeRouter is IExchangeRouter {
     ) external payable override returns (bytes32) {}
 
     function cancelWithdrawal(bytes32 key) external payable override {}
+
+    function createOrder(
+        Order.CreateOrderParams calldata params
+    ) external payable returns (bytes32) {
+        return orderHandler.createOrder(msg.sender, params);
+    }
 }
