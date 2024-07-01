@@ -5,6 +5,8 @@ pragma solidity ^0.8.0;
 import "../data/DataStore.sol";
 import "../event/EventEmitter.sol";
 import "./DepositVault.sol";
+import "../library/market/MarketUtils.sol";
+import "./Deposit.sol";
 
 library DepositUtils {
     // @dev CreateDepositParams struct used in createDeposit to avoid stack
@@ -35,10 +37,90 @@ library DepositUtils {
     }
 
     function createDeposit(
-        DataStore _dataStore,
+        DataStore dataStore,
         EventEmitter eventEmitter,
         DepositVault depositVault,
         address account,
         CreateDepositParams memory params
-    ) external returns (bytes32) {}
+    ) external returns (bytes32) {
+        AccountUtils.validateAccount(account);
+        Market.Props memory market = MarketUtils.getEnabledMarket(
+            dataStore,
+            params.market
+        );
+        MarketUtils.validateSwapPath(dataStore, params.longTokenSwapPath);
+        MarketUtils.validateSwapPath(dataStore, params.shortTokenSwapPath);
+
+        uint256 initialLongTokenAmount = depositVault.recordTransferIn(
+            params.initialLongToken
+        );
+        uint256 initialShortTokenAmount = depositVault.recordTransferIn(
+            params.initialShortToken
+        );
+
+        address wnt = TokenUtils.wnt(dataStore);
+
+        if (params.initialLongToken == wnt) {
+            initialLongTokenAmount -= params.executionFee;
+        } else if (params.initialShortToken == wnt) {
+            initialShortTokenAmount -= params.executionFee;
+        } else {
+            uint256 wntAmount = depositVault.recordTransferIn(wnt);
+            if (wntAmount < params.executionFee) {
+                revert Errors.InsufficientWntAmountForExecutionFee(
+                    wntAmount,
+                    params.executionFee
+                );
+            }
+            params.executionFee = wntAmount;
+        }
+
+        if (initialLongTokenAmount == 0 && initialShortTokenAmount == 0) {
+            revert Errors.EmptyDepositAmounts();
+        }
+        AccountUtils.validateReceiver(params.receiver);
+        Deposit.Props memory deposit = Deposit.Props(
+            Deposit.Address(
+                account,
+                params.receiver,
+                params.callbackContract,
+                params.uiFeeReceiver,
+                market.marketToken,
+                params.initialLongToken,
+                params.initialShortToken,
+                params.longTokenSwapPath,
+                params.shortTokenSwapPath
+            ),
+            Deposit.Numbers(
+                initialLongTokenAmount,
+                initialShortTokenAmount,
+                params.minMarketTokens,
+                Chain.currentBlockNumber(),
+                params.executionFee,
+                params.callbackGasLimit
+            ),
+            Deposit.Flags(params.shouldUnwrapNativeToken)
+        );
+
+        CallbackUtils.validateCallbackGasLimit(
+            dataStore,
+            deposit.callbackGasLimit()
+        );
+
+        uint256 estimatedGasLimit = GasUtils.extimateExecuteDepositGasLimit(
+            dataStore,
+            deposit
+        );
+        GasUtils.validateExecutionFee(
+            dataStore,
+            estimatedGasLimit,
+            params.executionFee
+        );
+
+        bytes32 key = NonceUtils.getNextKey(dataStore);
+        DepositStoreUtils.set(dataStore, key, deposit);
+        DepositStoreUtils.emitDepositCreated(eventEmitter, key, deposit);
+
+        return key;
+    }
 }
