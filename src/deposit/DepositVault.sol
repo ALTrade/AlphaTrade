@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.0;
 
-import "../bank/StrickBank.sol";
+import "../bank/StrictBank.sol";
 
-contract DepositVault is StrickBank {
+contract DepositVault is StrictBank {
     constructor(
         RoleStore _roleStore,
         DataStore _dataStore
-    ) StrickBank(_roleStore, _dataStore) {}
+    ) StrictBank(_roleStore, _dataStore) {}
 }
