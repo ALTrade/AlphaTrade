@@ -14,11 +14,7 @@ library Calc {
     using SafeCast for uint256;
 
     // this method assumes that min is less than max
-    function boundMagnitude(
-        int256 value,
-        uint256 min,
-        uint256 max
-    ) internal pure returns (int256) {
+    function boundMagnitude(int256 value, uint256 min, uint256 max) internal pure returns (int256) {
         uint256 magnitude = value.abs();
 
         if (magnitude < min) {
@@ -42,10 +38,7 @@ library Calc {
      * @param b the divisor
      * @return the result of dividing the first number by the second number, rounded up to the nearest integer
      */
-    function roundUpDivision(
-        uint256 a,
-        uint256 b
-    ) internal pure returns (uint256) {
+    function roundUpDivision(uint256 a, uint256 b) internal pure returns (uint256) {
         return (a + b - 1) / b;
     }
 
@@ -59,10 +52,7 @@ library Calc {
      * @param b the divisor
      * @return the result of dividing the first number by the second number, rounded up to the nearest integer
      */
-    function roundUpMagnitudeDivision(
-        int256 a,
-        uint256 b
-    ) internal pure returns (int256) {
+    function roundUpMagnitudeDivision(int256 a, uint256 b) internal pure returns (int256) {
         if (a < 0) {
             return (a - b.toInt256() + 1) / b.toInt256();
         }
@@ -77,10 +67,7 @@ library Calc {
      * @param b the second number
      * @return the result of adding the two numbers together
      */
-    function sumReturnUint256(
-        uint256 a,
-        int256 b
-    ) internal pure returns (uint256) {
+    function sumReturnUint256(uint256 a, int256 b) internal pure returns (uint256) {
         if (b > 0) {
             return a + b.abs();
         }
@@ -95,10 +82,7 @@ library Calc {
      * @param b the second number
      * @return the result of adding the two numbers together
      */
-    function sumReturnInt256(
-        uint256 a,
-        int256 b
-    ) internal pure returns (int256) {
+    function sumReturnInt256(uint256 a, int256 b) internal pure returns (int256) {
         return a.toInt256() + b;
     }
 
@@ -178,10 +162,7 @@ library Calc {
      * @param isPositive whether the result should be positive (if true) or negative (if false)
      * @return the signed integer representation of the given unsigned integer
      */
-    function toSigned(
-        uint256 a,
-        bool isPositive
-    ) internal pure returns (int256) {
+    function toSigned(uint256 a, bool isPositive) internal pure returns (int256) {
         if (isPositive) {
             return a.toInt256();
         } else {

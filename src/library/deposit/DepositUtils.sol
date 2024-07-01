@@ -8,6 +8,8 @@ import "./DepositVault.sol";
 import "../market/MarketUtils.sol";
 import "./Deposit.sol";
 import "../chain/Chain.sol";
+import "../../callback/CallbackUtils.sol";
+import "../GasUtils.sol";
 
 library DepositUtils {
     // @dev CreateDepositParams struct used in createDeposit to avoid stack
@@ -45,19 +47,12 @@ library DepositUtils {
         CreateDepositParams memory params
     ) external returns (bytes32) {
         AccountUtils.validateAccount(account);
-        Market.Props memory market = MarketUtils.getEnabledMarket(
-            dataStore,
-            params.market
-        );
+        Market.Props memory market = MarketUtils.getEnabledMarket(dataStore, params.market);
         MarketUtils.validateSwapPath(dataStore, params.longTokenSwapPath);
         MarketUtils.validateSwapPath(dataStore, params.shortTokenSwapPath);
 
-        uint256 initialLongTokenAmount = depositVault.recordTransferIn(
-            params.initialLongToken
-        );
-        uint256 initialShortTokenAmount = depositVault.recordTransferIn(
-            params.initialShortToken
-        );
+        uint256 initialLongTokenAmount = depositVault.recordTransferIn(params.initialLongToken);
+        uint256 initialShortTokenAmount = depositVault.recordTransferIn(params.initialShortToken);
 
         address wnt = TokenUtils.wnt(dataStore);
 
@@ -68,10 +63,7 @@ library DepositUtils {
         } else {
             uint256 wntAmount = depositVault.recordTransferIn(wnt);
             if (wntAmount < params.executionFee) {
-                revert Errors.InsufficientWntAmountForExecutionFee(
-                    wntAmount,
-                    params.executionFee
-                );
+                revert Errors.InsufficientWntAmountForExecutionFee(wntAmount, params.executionFee);
             }
             params.executionFee = wntAmount;
         }
@@ -103,20 +95,10 @@ library DepositUtils {
             Deposit.Flags(params.shouldUnwrapNativeToken)
         );
 
-        CallbackUtils.validateCallbackGasLimit(
-            dataStore,
-            deposit.callbackGasLimit()
-        );
+        CallbackUtils.validateCallbackGasLimit(dataStore, deposit.callbackGasLimit());
 
-        uint256 estimatedGasLimit = GasUtils.extimateExecuteDepositGasLimit(
-            dataStore,
-            deposit
-        );
-        GasUtils.validateExecutionFee(
-            dataStore,
-            estimatedGasLimit,
-            params.executionFee
-        );
+        uint256 estimatedGasLimit = GasUtils.extimateExecuteDepositGasLimit(dataStore, deposit);
+        GasUtils.validateExecutionFee(dataStore, estimatedGasLimit, params.executionFee);
 
         bytes32 key = NonceUtils.getNextKey(dataStore);
         DepositStoreUtils.set(dataStore, key, deposit);
