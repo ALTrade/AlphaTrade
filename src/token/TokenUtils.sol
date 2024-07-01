@@ -24,10 +24,26 @@ library TokenUtils {
     event TokenTransferReverted(string reason, bytes returndata);
     event NativeTokenTransferReverted(string reason);
 
+    /**
+     * @dev Returns the address of the WNT token.
+     * @param dataStore DataStore contract instance where the address of the WNT token is stored.
+     * @return The address of the WNT token.
+     */
     function wnt(DataStore dataStore) internal view returns (address) {
         return dataStore.getAddress(Keys.WNT);
     }
 
+    /**
+     * @dev Transfers the specified amount of `token` from the caller to `receiver`.
+     * limit the amount of gas forwarded so that a user cannot intentionally
+     * construct a token call that would consume all gas and prevent necessary
+     * actions like request cancellation from being executed
+     *
+     * @param dataStore The data store that contains the `tokenTransferGasLimit` for the specified `token`.
+     * @param token The address of the ERC20 token that is being transferred.
+     * @param receiver The address of the recipient of the `token` transfer.
+     * @param amount The amount of `token` to transfer.
+     */
     function transfer(
         DataStore dataStore,
         address token,
@@ -44,12 +60,15 @@ library TokenUtils {
             revert Errors.EmptyTokenTranferGasLimit(token);
         }
 
-        (bool success0, ) = nonRevertingTransferWithGasLimit(
-            IERC20(token),
-            receiver,
-            amount,
-            gasLimit
-        );
+        (
+            bool success0 /* bytes memory returndata */,
+
+        ) = nonRevertingTransferWithGasLimit(
+                IERC20(token),
+                receiver,
+                amount,
+                gasLimit
+            );
 
         if (success0) {
             return;
@@ -57,10 +76,14 @@ library TokenUtils {
 
         // HOLDING_ADRESS is the address that holds the tokens in case of a failed transfer.
         address holdingAddress = dataStore.getAddress(Keys.HOLDING_ADDRESS);
+
         if (holdingAddress == address(0)) {
             revert Errors.EmptyHoldingAddress();
         }
 
+        // in case transfers to the receiver fail due to blacklisting or other reasons
+        // send the tokens to a holding address to avoid possible gaming through reverting
+        // transfers
         (
             bool success1,
             bytes memory returndata
@@ -79,6 +102,9 @@ library TokenUtils {
         (string memory reason, ) = ErrorUtils.getRevertMessage(returndata);
         emit TokenTransferReverted(reason, returndata);
 
+        // throw custom errors to prevent spoofing of errors
+        // this is necessary because contracts like DepositHandler, WithdrawalHandler, OrderHandler
+        // do not cancel requests for specific errors
         revert Errors.TokenTransferError(token, receiver, amount);
     }
 
@@ -152,8 +178,16 @@ library TokenUtils {
     }
 
     /**
-     * Transfers the specified amount of ERC20 token to the specified receiver
-     * with a gas limit.
+     * @dev Transfers the specified amount of ERC20 token to the specified receiver
+     * address, with a gas limit to prevent the transfer from consuming all available gas.
+     * adapted from https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol
+     *
+     * @param token the ERC20 contract to transfer the tokens from
+     * @param to the address of the recipient of the token transfer
+     * @param amount the amount of tokens to transfer
+     * @param gasLimit the maximum amount of gas that the token transfer can consume
+     * @return a tuple containing a boolean indicating the success or failure of the
+     * token transfer, and a bytes value containing the return data from the token transfer
      */
     function nonRevertingTransferWithGasLimit(
         IERC20 token,
@@ -172,17 +206,32 @@ library TokenUtils {
 
         if (success) {
             if (returndata.length == 0) {
-                if (address(token).code.length > 0) {
+                // only check isContract if the call was successful and the return data is empty
+                // otherwise we already know that it was a contract
+                if (!isContract(address(token))) {
                     return (false, "Call to non-contract");
                 }
             }
 
+            // some tokens do not revert on a failed transfer, they will return a boolean instead
+            // validate that the returned boolean is true, otherwise indicate that the token transfer failed
             if (returndata.length > 0 && !abi.decode(returndata, (bool))) {
                 return (false, returndata);
             }
 
+            // transfers on some tokens do not return a boolean value, they will just revert if a transfer fails
+            // for these tokens, if success is true then the transfer should have completed
             return (true, returndata);
         }
+
         return (false, returndata);
+    }
+
+    function isContract(address account) internal view returns (bool) {
+        uint256 size;
+        assembly {
+            size := extcodesize(account)
+        }
+        return size > 0;
     }
 }
