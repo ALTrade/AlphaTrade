@@ -11,7 +11,7 @@ import "../oracle/OracleModule.sol";
 
 import "../event/EventEmitter.sol";
 import "../deposit/DepositVault.sol";
-import "../feature/FeatureUtils.sol";
+import "../library/FeatureUtils.sol";
 
 import "../deposit/DepositUtils.sol";
 
