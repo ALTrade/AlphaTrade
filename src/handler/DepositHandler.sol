@@ -10,10 +10,10 @@ import "../oracle/OracleModule.sol";
 // import "../oracle/Oracle.sol";
 
 import "../event/EventEmitter.sol";
-import "../deposit/DepositVault.sol";
+import "../library/deposit/DepositVault.sol";
 import "../library/FeatureUtils.sol";
 
-import "../deposit/DepositUtils.sol";
+import "../library/deposit/DepositUtils.sol";
 
 contract DepositHandler is
     IDepositHandler,

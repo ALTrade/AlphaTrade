@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../deposit/DepositUtils.sol";
+import "../library/deposit/DepositUtils.sol";
 
 interface IDepositHandler {
     function createDeposit(

@@ -2,11 +2,12 @@
 
 pragma solidity ^0.8.0;
 
-import "../data/DataStore.sol";
-import "../event/EventEmitter.sol";
+import "../../data/DataStore.sol";
+import "../../event/EventEmitter.sol";
 import "./DepositVault.sol";
-import "../library/market/MarketUtils.sol";
+import "../market/MarketUtils.sol";
 import "./Deposit.sol";
+import "../chain/Chain.sol";
 
 library DepositUtils {
     // @dev CreateDepositParams struct used in createDeposit to avoid stack
