@@ -10,6 +10,8 @@ import "./Deposit.sol";
 import "../chain/Chain.sol";
 import "../../callback/CallbackUtils.sol";
 import "../GasUtils.sol";
+import "../NonceUtils.sol";
+import "./DepositStoreUtils.sol";
 
 library DepositUtils {
     // @dev CreateDepositParams struct used in createDeposit to avoid stack
