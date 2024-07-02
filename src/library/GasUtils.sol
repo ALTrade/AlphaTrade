@@ -10,6 +10,21 @@ import "./Precision.sol";
 library GasUtils {
     using Deposit for Deposit.Props;
 
+    using EventUtils for EventUtils.AddressItems;
+    using EventUtils for EventUtils.UintItems;
+    using EventUtils for EventUtils.IntItems;
+    using EventUtils for EventUtils.BoolItems;
+    using EventUtils for EventUtils.Bytes32Items;
+    using EventUtils for EventUtils.BytesItems;
+    using EventUtils for EventUtils.StringItems;
+
+    // @param keeper address of the keeper
+    // @param amount the amount of execution fee received
+    event KeeperExecutionFee(address keeper, uint256 amount);
+    // @param user address of the user
+    // @param amount the amount of execution fee refunded
+    event UserRefundFee(address user, uint256 amount);
+
     // @dev the estimated gas limit for deposits
     // @param dataStore DataStore
     // @param deposit the deposit to estimate the gas limit for
