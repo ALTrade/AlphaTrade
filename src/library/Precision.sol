@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 // there is a known issue with prb-math v3.x releases
 // https://github.com/PaulRBerg/prb-math/issues/178
 // due to this, either prb-math v2.x or v4.x versions should be used instead
-// import "@prb-math/src/ud60x18/Math.sol";
+import "prb-math/contracts/PRBMathUD60x18.sol";
 // import "prb-math/contracts/PRBMathUD60x18.sol";
 
 import "@openzeppelin/contracts/utils/math/SafeCast.sol";
@@ -100,10 +100,9 @@ library Precision {
             return floatValue;
         }
 
-        //todo  waiting for check
         // `PRBMathUD60x18.pow` accepts 2 fixed point numbers 60x18
         // we need to convert float (30 decimals) to 60x18 (18 decimals) and then back to 30 decimals
-        uint256 weiValue = Math.pow(floatToWei(floatValue), floatToWei(exponentFactor));
+        uint256 weiValue = PRBMathUD60x18.pow(floatToWei(floatValue), floatToWei(exponentFactor));
 
         return weiToFloat(weiValue);
     }
