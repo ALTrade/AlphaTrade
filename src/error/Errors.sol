@@ -6,16 +6,10 @@ library Errors {
     // AdlHandler errors
     error AdlNotRequired(int256 pnlToPoolFactor, uint256 maxPnlFactorForAdl);
     error InvalidAdl(int256 nextPnlToPoolFactor, int256 pnlToPoolFactor);
-    error PnlOvercorrected(
-        int256 nextPnlToPoolFactor,
-        uint256 minPnlFactorForAdl
-    );
+    error PnlOvercorrected(int256 nextPnlToPoolFactor, uint256 minPnlFactorForAdl);
 
     // AdlUtils errors
-    error InvalidSizeDeltaForAdl(
-        uint256 sizeDeltaUsd,
-        uint256 positionSizeInUsd
-    );
+    error InvalidSizeDeltaForAdl(uint256 sizeDeltaUsd, uint256 positionSizeInUsd);
     error AdlNotEnabled();
 
     // Bank errors
@@ -26,10 +20,7 @@ library Errors {
     error CouldNotSendNativeToken(address receiver, uint256 amount);
 
     // CallbackUtils errors
-    error MaxCallbackGasLimitExceeded(
-        uint256 callbackGasLimit,
-        uint256 maxCallbackGasLimit
-    );
+    error MaxCallbackGasLimitExceeded(uint256 callbackGasLimit, uint256 maxCallbackGasLimit);
 
     // Config errors
     error InvalidBaseKey(bytes32 baseKey);
@@ -56,58 +47,30 @@ library Errors {
     error MinMarketTokens(uint256 received, uint256 expected);
     error EmptyDepositAmountsAfterSwap();
     error InvalidPoolValueForDeposit(int256 poolValue);
-    error InvalidSwapOutputToken(
-        address outputToken,
-        address expectedOutputToken
-    );
-    error InvalidReceiverForFirstDeposit(
-        address receiver,
-        address expectedReceiver
-    );
-    error InvalidMinMarketTokensForFirstDeposit(
-        uint256 minMarketTokens,
-        uint256 expectedMinMarketTokens
-    );
+    error InvalidSwapOutputToken(address outputToken, address expectedOutputToken);
+    error InvalidReceiverForFirstDeposit(address receiver, address expectedReceiver);
+    error InvalidMinMarketTokensForFirstDeposit(uint256 minMarketTokens, uint256 expectedMinMarketTokens);
 
     // ExchangeUtils errors
-    error RequestNotYetCancellable(
-        uint256 requestAge,
-        uint256 requestExpirationAge,
-        string requestType
-    );
+    error RequestNotYetCancellable(uint256 requestAge, uint256 requestExpirationAge, string requestType);
 
     // ExternalHandler errors
     error ExternalCallFailed(bytes data);
-    error InvalidExternalCallInput(
-        uint256 targetsLength,
-        uint256 dataListLength
-    );
-    error InvalidExternalReceiversInput(
-        uint256 refundTokensLength,
-        uint256 refundReceiversLength
-    );
+    error InvalidExternalCallInput(uint256 targetsLength, uint256 dataListLength);
+    error InvalidExternalReceiversInput(uint256 refundTokensLength, uint256 refundReceiversLength);
     error InvalidExternalCallTarget(address target);
 
     // FeeBatchStoreUtils errors
     error FeeBatchNotFound(bytes32 key);
 
     // FeeDistributor errors
-    error InvalidFeeBatchTokenIndex(
-        uint256 tokenIndex,
-        uint256 feeBatchTokensLength
-    );
+    error InvalidFeeBatchTokenIndex(uint256 tokenIndex, uint256 feeBatchTokensLength);
     error InvalidAmountInForFeeBatch(uint256 amountIn, uint256 remainingAmount);
     error InvalidSwapPathForV1(address[] path, address bridgingToken);
 
     // GlpMigrator errors
-    error InvalidGlpAmount(
-        uint256 totalGlpAmountToRedeem,
-        uint256 totalGlpAmount
-    );
-    error InvalidExecutionFeeForMigration(
-        uint256 totalExecutionFee,
-        uint256 msgValue
-    );
+    error InvalidGlpAmount(uint256 totalGlpAmountToRedeem, uint256 totalGlpAmount);
+    error InvalidExecutionFeeForMigration(uint256 totalExecutionFee, uint256 msgValue);
 
     // OrderHandler errors
     error OrderNotUpdatable(uint256 orderType);
@@ -120,27 +83,11 @@ library Errors {
     error InvalidClaimFeesInput(uint256 marketsLength, uint256 tokensLength);
 
     // GasUtils errors
-    error InsufficientExecutionFee(
-        uint256 minExecutionFee,
-        uint256 executionFee
-    );
-    error InsufficientWntAmountForExecutionFee(
-        uint256 wntAmount,
-        uint256 executionFee
-    );
-    error InsufficientExecutionGasForErrorHandling(
-        uint256 startingGas,
-        uint256 minHandleErrorGas
-    );
-    error InsufficientExecutionGas(
-        uint256 startingGas,
-        uint256 estimatedGasLimit,
-        uint256 minAdditionalGasForExecution
-    );
-    error InsufficientHandleExecutionErrorGas(
-        uint256 gas,
-        uint256 minHandleExecutionErrorGas
-    );
+    error InsufficientExecutionFee(uint256 minExecutionFee, uint256 executionFee);
+    error InsufficientWntAmountForExecutionFee(uint256 wntAmount, uint256 executionFee);
+    error InsufficientExecutionGasForErrorHandling(uint256 startingGas, uint256 minHandleErrorGas);
+    error InsufficientExecutionGas(uint256 startingGas, uint256 estimatedGasLimit, uint256 minAdditionalGasForExecution);
+    error InsufficientHandleExecutionErrorGas(uint256 gas, uint256 minHandleExecutionErrorGas);
 
     // MarketFactory errors
     error MarketAlreadyExists(bytes32 salt, address existingMarketAddress);
@@ -151,126 +98,60 @@ library Errors {
     // MarketUtils errors
     error EmptyMarket();
     error DisabledMarket(address market);
-    error MaxSwapPathLengthExceeded(
-        uint256 swapPathLengh,
-        uint256 maxSwapPathLength
-    );
+    error MaxSwapPathLengthExceeded(uint256 swapPathLengh, uint256 maxSwapPathLength);
     error InsufficientPoolAmount(uint256 poolAmount, uint256 amount);
     error InsufficientReserve(uint256 reservedUsd, uint256 maxReservedUsd);
-    error InsufficientReserveForOpenInterest(
-        uint256 reservedUsd,
-        uint256 maxReservedUsd
-    );
+    error InsufficientReserveForOpenInterest(uint256 reservedUsd, uint256 maxReservedUsd);
     error UnableToGetOppositeToken(address inputToken, address market);
     error UnexpectedTokenForVirtualInventory(address token, address market);
     error EmptyMarketTokenSupply();
     error InvalidSwapMarket(address market);
     error UnableToGetCachedTokenPrice(address token, address market);
-    error CollateralAlreadyClaimed(
-        uint256 adjustedClaimableAmount,
-        uint256 claimedAmount
-    );
+    error CollateralAlreadyClaimed(uint256 adjustedClaimableAmount, uint256 claimedAmount);
     error OpenInterestCannotBeUpdatedForSwapOnlyMarket(address market);
-    error MaxOpenInterestExceeded(
-        uint256 openInterest,
-        uint256 maxOpenInterest
-    );
+    error MaxOpenInterestExceeded(uint256 openInterest, uint256 maxOpenInterest);
     error MaxPoolAmountExceeded(uint256 poolAmount, uint256 maxPoolAmount);
-    error MaxPoolAmountForDepositExceeded(
-        uint256 poolAmount,
-        uint256 maxPoolAmountForDeposit
-    );
-    error UnexpectedBorrowingFactor(
-        uint256 positionBorrowingFactor,
-        uint256 cumulativeBorrowingFactor
-    );
+    error MaxPoolAmountForDepositExceeded(uint256 poolAmount, uint256 maxPoolAmountForDeposit);
+    error UnexpectedBorrowingFactor(uint256 positionBorrowingFactor, uint256 cumulativeBorrowingFactor);
     error UnableToGetBorrowingFactorEmptyPoolUsd();
     error UnableToGetFundingFactorEmptyOpenInterest();
     error InvalidPositionMarket(address market);
     error InvalidCollateralTokenForMarket(address market, address token);
-    error PnlFactorExceededForLongs(
-        int256 pnlToPoolFactor,
-        uint256 maxPnlFactor
-    );
-    error PnlFactorExceededForShorts(
-        int256 pnlToPoolFactor,
-        uint256 maxPnlFactor
-    );
+    error PnlFactorExceededForLongs(int256 pnlToPoolFactor, uint256 maxPnlFactor);
+    error PnlFactorExceededForShorts(int256 pnlToPoolFactor, uint256 maxPnlFactor);
     error InvalidUiFeeFactor(uint256 uiFeeFactor, uint256 maxUiFeeFactor);
-    error EmptyAddressInMarketTokenBalanceValidation(
-        address market,
-        address token
-    );
-    error InvalidMarketTokenBalance(
-        address market,
-        address token,
-        uint256 balance,
-        uint256 expectedMinBalance
-    );
+    error EmptyAddressInMarketTokenBalanceValidation(address market, address token);
+    error InvalidMarketTokenBalance(address market, address token, uint256 balance, uint256 expectedMinBalance);
     error InvalidMarketTokenBalanceForCollateralAmount(
-        address market,
-        address token,
-        uint256 balance,
-        uint256 collateralAmount
+        address market, address token, uint256 balance, uint256 collateralAmount
     );
     error InvalidMarketTokenBalanceForClaimableFunding(
-        address market,
-        address token,
-        uint256 balance,
-        uint256 claimableFundingFeeAmount
+        address market, address token, uint256 balance, uint256 claimableFundingFeeAmount
     );
     error UnexpectedPoolValue(int256 poolValue);
 
     // Oracle errors
     error EmptySigner(uint256 signerIndex);
-    error InvalidBlockNumber(
-        uint256 minOracleBlockNumber,
-        uint256 currentBlockNumber
-    );
-    error InvalidMinMaxBlockNumber(
-        uint256 minOracleBlockNumber,
-        uint256 maxOracleBlockNumber
-    );
+    error InvalidBlockNumber(uint256 minOracleBlockNumber, uint256 currentBlockNumber);
+    error InvalidMinMaxBlockNumber(uint256 minOracleBlockNumber, uint256 maxOracleBlockNumber);
     error HasRealtimeFeedId(address token, bytes32 feedId);
     error InvalidRealtimeFeedLengths(uint256 tokensLength, uint256 dataLength);
     error EmptyRealtimeFeedId(address token);
-    error InvalidRealtimeFeedId(
-        address token,
-        bytes32 feedId,
-        bytes32 expectedFeedId
-    );
+    error InvalidRealtimeFeedId(address token, bytes32 feedId, bytes32 expectedFeedId);
     error InvalidRealtimeBidAsk(address token, int192 bid, int192 ask);
-    error InvalidRealtimeBlockHash(
-        address token,
-        bytes32 blockHash,
-        bytes32 expectedBlockHash
-    );
+    error InvalidRealtimeBlockHash(address token, bytes32 blockHash, bytes32 expectedBlockHash);
     error InvalidRealtimePrices(address token, int192 bid, int192 ask);
-    error RealtimeMaxPriceAgeExceeded(
-        address token,
-        uint256 oracleTimestamp,
-        uint256 currentTimestamp
-    );
-    error MaxPriceAgeExceeded(
-        uint256 oracleTimestamp,
-        uint256 currentTimestamp
-    );
+    error RealtimeMaxPriceAgeExceeded(address token, uint256 oracleTimestamp, uint256 currentTimestamp);
+    error MaxPriceAgeExceeded(uint256 oracleTimestamp, uint256 currentTimestamp);
     error MinOracleSigners(uint256 oracleSigners, uint256 minOracleSigners);
     error MaxOracleSigners(uint256 oracleSigners, uint256 maxOracleSigners);
-    error BlockNumbersNotSorted(
-        uint256 minOracleBlockNumber,
-        uint256 prevMinOracleBlockNumber
-    );
+    error BlockNumbersNotSorted(uint256 minOracleBlockNumber, uint256 prevMinOracleBlockNumber);
     error MinPricesNotSorted(address token, uint256 price, uint256 prevPrice);
     error MaxPricesNotSorted(address token, uint256 price, uint256 prevPrice);
     error EmptyPriceFeedMultiplier(address token);
     error EmptyRealtimeFeedMultiplier(address token);
     error InvalidFeedPrice(address token, int256 price);
-    error PriceFeedNotUpdated(
-        address token,
-        uint256 timestamp,
-        uint256 heartbeatDuration
-    );
+    error PriceFeedNotUpdated(address token, uint256 timestamp, uint256 heartbeatDuration);
     error MaxSignerIndex(uint256 signerIndex, uint256 maxSignerIndex);
     error InvalidOraclePrice(address token);
     error InvalidSignerMinMaxPrice(uint256 minPrice, uint256 maxPrice);
@@ -280,21 +161,12 @@ library Errors {
     error EmptyPriceFeed(address token);
     error PriceAlreadySet(address token, uint256 minPrice, uint256 maxPrice);
     error MaxRefPriceDeviationExceeded(
-        address token,
-        uint256 price,
-        uint256 refPrice,
-        uint256 maxRefPriceDeviationFactor
+        address token, uint256 price, uint256 refPrice, uint256 maxRefPriceDeviationFactor
     );
-    error InvalidBlockRangeSet(
-        uint256 largestMinBlockNumber,
-        uint256 smallestMaxBlockNumber
-    );
+    error InvalidBlockRangeSet(uint256 largestMinBlockNumber, uint256 smallestMaxBlockNumber);
 
     // OracleModule errors
-    error InvalidPrimaryPricesForSimulation(
-        uint256 primaryTokensLength,
-        uint256 primaryPricesLength
-    );
+    error InvalidPrimaryPricesForSimulation(uint256 primaryTokensLength, uint256 primaryPricesLength);
     error EndOfOracleSimulation();
 
     // OracleUtils errors
@@ -306,41 +178,21 @@ library Errors {
 
     error EmptyPrimaryPrice(address token);
 
-    error OracleBlockNumbersAreSmallerThanRequired(
-        uint256[] oracleBlockNumbers,
-        uint256 expectedBlockNumber
-    );
+    error OracleBlockNumbersAreSmallerThanRequired(uint256[] oracleBlockNumbers, uint256 expectedBlockNumber);
     error OracleBlockNumberNotWithinRange(
-        uint256[] minOracleBlockNumbers,
-        uint256[] maxOracleBlockNumbers,
-        uint256 blockNumber
+        uint256[] minOracleBlockNumbers, uint256[] maxOracleBlockNumbers, uint256 blockNumber
     );
 
     // BaseOrderUtils errors
     error EmptyOrder();
     error UnsupportedOrderType();
-    error InvalidOrderPrices(
-        uint256 primaryPriceMin,
-        uint256 primaryPriceMax,
-        uint256 triggerPrice,
-        uint256 orderType
-    );
+    error InvalidOrderPrices(uint256 primaryPriceMin, uint256 primaryPriceMax, uint256 triggerPrice, uint256 orderType);
     error EmptySizeDeltaInTokens();
-    error PriceImpactLargerThanOrderSize(
-        int256 priceImpactUsd,
-        uint256 sizeDeltaUsd
-    );
+    error PriceImpactLargerThanOrderSize(int256 priceImpactUsd, uint256 sizeDeltaUsd);
     error NegativeExecutionPrice(
-        int256 executionPrice,
-        uint256 price,
-        uint256 positionSizeInUsd,
-        int256 priceImpactUsd,
-        uint256 sizeDeltaUsd
+        int256 executionPrice, uint256 price, uint256 positionSizeInUsd, int256 priceImpactUsd, uint256 sizeDeltaUsd
     );
-    error OrderNotFulfillableAtAcceptablePrice(
-        uint256 price,
-        uint256 acceptablePrice
-    );
+    error OrderNotFulfillableAtAcceptablePrice(uint256 price, uint256 acceptablePrice);
 
     // IncreaseOrderUtils errors
     error UnexpectedPositionState();
@@ -360,24 +212,15 @@ library Errors {
     error InvalidOutputToken(address tokenOut, address expectedTokenOut);
 
     // DecreasePositionUtils errors
-    error InvalidDecreaseOrderSize(
-        uint256 sizeDeltaUsd,
-        uint256 positionSizeInUsd
-    );
+    error InvalidDecreaseOrderSize(uint256 sizeDeltaUsd, uint256 positionSizeInUsd);
     error UnableToWithdrawCollateral(int256 estimatedRemainingCollateralUsd);
     error InvalidDecreasePositionSwapType(uint256 decreasePositionSwapType);
     error PositionShouldNotBeLiquidated(
-        string reason,
-        int256 remainingCollateralUsd,
-        int256 minCollateralUsd,
-        int256 minCollateralUsdForLeverage
+        string reason, int256 remainingCollateralUsd, int256 minCollateralUsd, int256 minCollateralUsdForLeverage
     );
 
     // IncreasePositionUtils errors
-    error InsufficientCollateralAmount(
-        uint256 collateralAmount,
-        int256 collateralDeltaAmount
-    );
+    error InsufficientCollateralAmount(uint256 collateralAmount, int256 collateralDeltaAmount);
     error InsufficientCollateralUsd(int256 remainingCollateralUsd);
 
     // PositionStoreUtils errors
@@ -385,28 +228,16 @@ library Errors {
 
     // PositionUtils errors
     error LiquidatablePosition(
-        string reason,
-        int256 remainingCollateralUsd,
-        int256 minCollateralUsd,
-        int256 minCollateralUsdForLeverage
+        string reason, int256 remainingCollateralUsd, int256 minCollateralUsd, int256 minCollateralUsdForLeverage
     );
 
     error EmptyPosition();
     error InvalidPositionSizeValues(uint256 sizeInUsd, uint256 sizeInTokens);
-    error MinPositionSize(
-        uint256 positionSizeInUsd,
-        uint256 minPositionSizeUsd
-    );
+    error MinPositionSize(uint256 positionSizeInUsd, uint256 minPositionSizeUsd);
 
     // PositionPricingUtils errors
-    error UsdDeltaExceedsLongOpenInterest(
-        int256 usdDelta,
-        uint256 longOpenInterest
-    );
-    error UsdDeltaExceedsShortOpenInterest(
-        int256 usdDelta,
-        uint256 shortOpenInterest
-    );
+    error UsdDeltaExceedsLongOpenInterest(int256 usdDelta, uint256 longOpenInterest);
+    error UsdDeltaExceedsShortOpenInterest(int256 usdDelta, uint256 shortOpenInterest);
 
     // SwapPricingUtils errors
     error UsdDeltaExceedsPoolValue(int256 usdDelta, uint256 poolUsd);
@@ -419,51 +250,24 @@ library Errors {
     error ThereMustBeAtLeastOneTimelockMultiSig();
 
     // ExchangeRouter errors
-    error InvalidClaimFundingFeesInput(
-        uint256 marketsLength,
-        uint256 tokensLength
-    );
-    error InvalidClaimCollateralInput(
-        uint256 marketsLength,
-        uint256 tokensLength,
-        uint256 timeKeysLength
-    );
-    error InvalidClaimAffiliateRewardsInput(
-        uint256 marketsLength,
-        uint256 tokensLength
-    );
+    error InvalidClaimFundingFeesInput(uint256 marketsLength, uint256 tokensLength);
+    error InvalidClaimCollateralInput(uint256 marketsLength, uint256 tokensLength, uint256 timeKeysLength);
+    error InvalidClaimAffiliateRewardsInput(uint256 marketsLength, uint256 tokensLength);
     error InvalidClaimUiFeesInput(uint256 marketsLength, uint256 tokensLength);
 
     // SwapUtils errors
     error InvalidTokenIn(address tokenIn, address market);
-    error InsufficientOutputAmount(
-        uint256 outputAmount,
-        uint256 minOutputAmount
-    );
-    error InsufficientSwapOutputAmount(
-        uint256 outputAmount,
-        uint256 minOutputAmount
-    );
+    error InsufficientOutputAmount(uint256 outputAmount, uint256 minOutputAmount);
+    error InsufficientSwapOutputAmount(uint256 outputAmount, uint256 minOutputAmount);
     error DuplicatedMarketInSwapPath(address market);
-    error SwapPriceImpactExceedsAmountIn(
-        uint256 amountAfterFees,
-        int256 negativeImpactAmount
-    );
+    error SwapPriceImpactExceedsAmountIn(uint256 amountAfterFees, int256 negativeImpactAmount);
 
     // SubaccountRouter errors
-    error InvalidReceiverForSubaccountOrder(
-        address receiver,
-        address expectedReceiver
-    );
+    error InvalidReceiverForSubaccountOrder(address receiver, address expectedReceiver);
 
     // SubaccountUtils errors
     error SubaccountNotAuthorized(address account, address subaccount);
-    error MaxSubaccountActionCountExceeded(
-        address account,
-        address subaccount,
-        uint256 count,
-        uint256 maxCount
-    );
+    error MaxSubaccountActionCountExceeded(address account, address subaccount, uint256 count, uint256 maxCount);
 
     // TokenUtils errors
     error EmptyTokenTranferGasLimit(address token);
@@ -475,18 +279,9 @@ library Errors {
     error EmptyReceiver();
 
     // Array errors
-    error CompactedArrayOutOfBounds(
-        uint256[] compactedValues,
-        uint256 index,
-        uint256 slotIndex,
-        string label
-    );
+    error CompactedArrayOutOfBounds(uint256[] compactedValues, uint256 index, uint256 slotIndex, string label);
 
-    error ArrayOutOfBoundsUint256(
-        uint256[] values,
-        uint256 index,
-        string label
-    );
+    error ArrayOutOfBoundsUint256(uint256[] values, uint256 index, string label);
 
     error ArrayOutOfBoundsBytes(bytes[] values, uint256 index, string label);
 
