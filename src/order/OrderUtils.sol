@@ -12,10 +12,16 @@ import "../referral/ReferralUtils.sol";
 import "../token/TokenUtils.sol";
 import "./OrderStoreUtils.sol";
 import "./OrderEventUtils.sol";
+import "@openzeppelin/contracts/utils/Arrays.sol";
+import "../callback/CallbackUtils.sol";
+import "./BaseOrderUtils.sol";
+import "../library/GasUtils.sol";
+import "../library/NonceUtils.sol";
+import "../market/MarketUtils.sol";
 
 library OrderUtils {
     using Order for Order.Props;
-    using Array for uint256[];
+    using Arrays for uint256[];
 
     // @dev creates an order in the order store
     // @param dataStore DataStore
@@ -50,13 +56,13 @@ library OrderUtils {
             // transferred to the orderVault
             initialCollateralDeltaAmount = orderVault.recordTransferIn(params.addresses.initialCollateralToken);
             if (params.addresses.initialCollateralToken == wnt) {
-                if (initialCollateralDeltaAmount < params.number.executionFee) {
+                if (initialCollateralDeltaAmount < params.numbers.executionFee) {
                     revert Errors.InsufficientWntAmountForExecutionFee(
                         initialCollateralDeltaAmount, params.numbers.executionFee
                     );
                 }
                 initialCollateralDeltaAmount -= params.numbers.executionFee;
-                shouldRecordSeparateExecutionFeeTransfer = fasle;
+                shouldRecordSeparateExecutionFeeTransfer = false;
             }
         } else if (
             params.orderType == Order.OrderType.MarketDecrease || params.orderType == Order.OrderType.LimitDecrease

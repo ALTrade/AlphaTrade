@@ -4,11 +4,17 @@ pragma solidity ^0.8.0;
 
 import "./Order.sol";
 import "../error/Errors.sol";
+import "@openzeppelin/contracts/utils/math/SafeCast.sol";
 
 library BaseOrderUtils {
+    using SafeCast for int256;
+    using SafeCast for uint256;
+
+    using Order for Order.Props;
     // @dev check if an orderType is a position order
     // @param orderType the order type
     // @return whether an orderType is a position order
+
     function isPositionOrder(Order.OrderType orderType) internal pure returns (bool) {
         return isIncreaseOrder(orderType) || isDecreaseOrder(orderType);
     }
@@ -38,5 +44,12 @@ library BaseOrderUtils {
         if (order.sizeDeltaUsd() == 0 && order.initialCollateralDeltaAmount() == 0) {
             revert Errors.EmptyOrder();
         }
+    }
+
+    // @dev check if an orderType is a swap order
+    // @param orderType the order type
+    // @return whether an orderType is a swap order
+    function isSwapOrder(Order.OrderType orderType) internal pure returns (bool) {
+        return orderType == Order.OrderType.MarketSwap || orderType == Order.OrderType.LimitSwap;
     }
 }

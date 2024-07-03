@@ -12,11 +12,12 @@ import "../event/EventEmitter.sol";
 import "../bank/StrictBank.sol";
 import "./Cast.sol";
 import "../order/Order.sol";
+import "../order/BaseOrderUtils.sol";
 
 library GasUtils {
     using Deposit for Deposit.Props;
     using Withdrawal for Withdrawal.Props;
-    // using Order for Order.Props;
+    using Order for Order.Props;
 
     using EventUtils for EventUtils.AddressItems;
     using EventUtils for EventUtils.UintItems;
@@ -207,72 +208,6 @@ library GasUtils {
 
         return dataStore.getUint(Keys.withdrawalGasLimitKey()) + withdrawal.callbackGasLimit() + gasForSwaps;
     }
-
-    // // @dev the estimated gas limit for orders
-    // // @param dataStore DataStore
-    // // @param order the order to estimate the gas limit for
-    // function estimateExecuteOrderGasLimit(DataStore dataStore, Order.Props memory order)
-    //     internal
-    //     view
-    //     returns (uint256)
-    // {
-    //     if (BaseOrderUtils.isIncreaseOrder(order.orderType())) {
-    //         return estimateExecuteIncreaseOrderGasLimit(dataStore, order);
-    //     }
-
-    //     if (BaseOrderUtils.isDecreaseOrder(order.orderType())) {
-    //         return estimateExecuteDecreaseOrderGasLimit(dataStore, order);
-    //     }
-
-    //     if (BaseOrderUtils.isSwapOrder(order.orderType())) {
-    //         return estimateExecuteSwapOrderGasLimit(dataStore, order);
-    //     }
-
-    //     revert Errors.UnsupportedOrderType();
-    // }
-
-    // // @dev the estimated gas limit for increase orders
-    // // @param dataStore DataStore
-    // // @param order the order to estimate the gas limit for
-    // function estimateExecuteIncreaseOrderGasLimit(DataStore dataStore, Order.Props memory order)
-    //     internal
-    //     view
-    //     returns (uint256)
-    // {
-    //     uint256 gasPerSwap = dataStore.getUint(Keys.singleSwapGasLimitKey());
-    //     return dataStore.getUint(Keys.increaseOrderGasLimitKey()) + gasPerSwap * order.swapPath().length
-    //         + order.callbackGasLimit();
-    // }
-
-    // // @dev the estimated gas limit for decrease orders
-    // // @param dataStore DataStore
-    // // @param order the order to estimate the gas limit for
-    // function estimateExecuteDecreaseOrderGasLimit(DataStore dataStore, Order.Props memory order)
-    //     internal
-    //     view
-    //     returns (uint256)
-    // {
-    //     uint256 gasPerSwap = dataStore.getUint(Keys.singleSwapGasLimitKey());
-    //     uint256 swapCount = order.swapPath().length;
-    //     if (order.decreasePositionSwapType() != Order.DecreasePositionSwapType.NoSwap) {
-    //         swapCount += 1;
-    //     }
-
-    //     return dataStore.getUint(Keys.decreaseOrderGasLimitKey()) + gasPerSwap * swapCount + order.callbackGasLimit();
-    // }
-
-    // // @dev the estimated gas limit for swap orders
-    // // @param dataStore DataStore
-    // // @param order the order to estimate the gas limit for
-    // function estimateExecuteSwapOrderGasLimit(DataStore dataStore, Order.Props memory order)
-    //     internal
-    //     view
-    //     returns (uint256)
-    // {
-    //     uint256 gasPerSwap = dataStore.getUint(Keys.singleSwapGasLimitKey());
-    //     return dataStore.getUint(Keys.swapOrderGasLimitKey()) + gasPerSwap * order.swapPath().length
-    //         + order.callbackGasLimit();
-    // }
 
     function emitKeeperExecutionFee(EventEmitter eventEmitter, address keeper, uint256 executionFeeAmount) internal {
         EventUtils.EventLogData memory eventData;
