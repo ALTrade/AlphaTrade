@@ -127,4 +127,50 @@ library OrderUtils {
 
         return key;
     }
+
+    // @dev cancels an order
+    // @param dataStore DataStore
+    // @param eventEmitter EventEmitter
+    // @param orderVault OrderVault
+    // @param key the key of the order to cancel
+    // @param keeper the keeper sending the transaction
+    // @param startingGas the starting gas of the transaction
+    // @param reason the reason for cancellation
+    function cancelOrder(
+        DataStore dataStore,
+        EventEmitter eventEmitter,
+        OrderVault orderVault,
+        bytes32 key,
+        address keeper,
+        uint256 startingGas,
+        string memory reason,
+        bytes memory reasonBytes
+    ) external {
+        // 63/64 gas is forwarded to external calls, reduce the startingGas to account for this
+        startingGas -= gasleft() / 63;
+
+        Order.Props memory order = OrderStoreUtils.get(dataStore, key);
+        BaseOrderUtils.validateNonEmptyOrder(order);
+
+        OrderStoreUtils.remove(dataStore, key, order.account());
+
+        if (BaseOrderUtils.isIncreaseOrder(order.orderType()) || BaseOrderUtils.isSwapOrder(order.orderType())) {
+            if (order.initialCollateralDeltaAmount() > 0) {
+                orderVault.transferOut(
+                    order.initialCollateralToken(),
+                    order.account(),
+                    order.initialCollateralDeltaAmount(),
+                    order.shouldUnwrapNativeToken()
+                );
+            }
+        }
+        OrderEventUtils.emitOrderCancelled(eventEmitter, key, order.account(), reason, reasonBytes);
+
+        EventUtils.EventLogData memory eventData;
+        CallbackUtils.afterOrderCancellation(key, order, eventData);
+
+        GasUtils.payExecutionFee(
+            dataStore, eventEmitter, orderVault, order.executionFee(), startingGas, keeper, order.account()
+        );
+    }
 }

@@ -9,6 +9,8 @@ import "../handler/IOrderHandler.sol";
 import "./BaseRouter.sol";
 import "./Router.sol";
 
+import "../order/OrderStoreUtils.sol";
+
 contract ExchangeRouter is IExchangeRouter, BaseRouter {
     IDepositHandler public immutable depositHandler;
     IWithdrawalHandler public immutable withdrawalHandler;
@@ -74,5 +76,18 @@ contract ExchangeRouter is IExchangeRouter, BaseRouter {
 
     function createOrder(Order.CreateOrderParams calldata params) external payable returns (bytes32) {
         return orderHandler.createOrder(msg.sender, params);
+    }
+
+    function cancelOrder(bytes32 key) external payable nonReentrant {
+        Order.Props memory order = OrderStoreUtils.get(dataStore, key);
+        if (order.account() == address(0)) {
+            revert Errors.EmptyOrder();
+        }
+
+        if (order.account() != msg.sender) {
+            revert Errors.Unauthorized(msg.sender, "account for cancelOrder");
+        }
+
+        orderHandler.cancelOrder(key);
     }
 }

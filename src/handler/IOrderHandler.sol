@@ -5,8 +5,9 @@ pragma solidity ^0.8.0;
 import "../order/IBaseOrderUtils.sol";
 
 interface IOrderHandler {
-    function createOrder(
-        address account,
-        IBaseOrderUtils.CreateOrderParams calldata params
-    ) external returns (bytes32);
+    function createOrder(address account, IBaseOrderUtils.CreateOrderParams calldata params)
+        external
+        returns (bytes32);
+
+    function cancelOrder(bytes32 key) external;
 }

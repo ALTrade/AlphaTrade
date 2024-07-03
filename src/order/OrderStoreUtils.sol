@@ -34,8 +34,9 @@ library OrderStoreUtils {
     bytes32 public constant IS_FROZEN = keccak256(abi.encode("IS_FROZEN"));
 
     function set(DataStore dataStore, bytes32 key, Order.Props memory order) external {
+        // all orders in system
         dataStore.addBytes32(Keys.ORDER_LIST, key);
-
+        // all orders of user
         dataStore.addBytes32(Keys.accountOrderListKey(order.account()), key);
 
         dataStore.setAddress(keccak256(abi.encode(key, ACCOUNT)), order.account());
@@ -81,5 +82,108 @@ library OrderStoreUtils {
         dataStore.setBool(keccak256(abi.encode(key, SHOULD_UNWRAP_NATIVE_TOKEN)), order.shouldUnwrapNativeToken());
 
         dataStore.setBool(keccak256(abi.encode(key, IS_FROZEN)), order.isFrozen());
+    }
+
+    function get(DataStore dataStore, bytes32 key) external view returns (Order.Props memory) {
+        Order.Props memory order;
+        if (!dataStore.containsBytes32(Keys.ORDER_LIST, key)) {
+            return order;
+        }
+
+        order.setAccount(dataStore.getAddress(keccak256(abi.encode(key, ACCOUNT))));
+
+        order.setReceiver(dataStore.getAddress(keccak256(abi.encode(key, RECEIVER))));
+
+        order.setCallbackContract(dataStore.getAddress(keccak256(abi.encode(key, CALLBACK_CONTRACT))));
+
+        order.setUiFeeReceiver(dataStore.getAddress(keccak256(abi.encode(key, UI_FEE_RECEIVER))));
+
+        order.setMarket(dataStore.getAddress(keccak256(abi.encode(key, MARKET))));
+
+        order.setInitialCollateralToken(dataStore.getAddress(keccak256(abi.encode(key, INITIAL_COLLATERAL_TOKEN))));
+
+        order.setSwapPath(dataStore.getAddressArray(keccak256(abi.encode(key, SWAP_PATH))));
+
+        order.setOrderType(Order.OrderType(dataStore.getUint(keccak256(abi.encode(key, ORDER_TYPE)))));
+
+        order.setDecreasePositionSwapType(
+            Order.DecreasePositionSwapType(dataStore.getUint(keccak256(abi.encode(key, DECREASE_POSITION_SWAP_TYPE))))
+        );
+
+        order.setSizeDeltaUsd(dataStore.getUint(keccak256(abi.encode(key, SIZE_DELTA_USD))));
+
+        order.setInitialCollateralDeltaAmount(
+            dataStore.getUint(keccak256(abi.encode(key, INITIAL_COLLATERAL_DELTA_AMOUNT)))
+        );
+
+        order.setTriggerPrice(dataStore.getUint(keccak256(abi.encode(key, TRIGGER_PRICE))));
+
+        order.setAcceptablePrice(dataStore.getUint(keccak256(abi.encode(key, ACCEPTABLE_PRICE))));
+
+        order.setExecutionFee(dataStore.getUint(keccak256(abi.encode(key, EXECUTION_FEE))));
+
+        order.setCallbackGasLimit(dataStore.getUint(keccak256(abi.encode(key, CALLBACK_GAS_LIMIT))));
+
+        order.setMinOutputAmount(dataStore.getUint(keccak256(abi.encode(key, MIN_OUTPUT_AMOUNT))));
+
+        order.setUpdatedAtBlock(dataStore.getUint(keccak256(abi.encode(key, UPDATED_AT_BLOCK))));
+
+        order.setIsLong(dataStore.getBool(keccak256(abi.encode(key, IS_LONG))));
+
+        order.setShouldUnwrapNativeToken(dataStore.getBool(keccak256(abi.encode(key, SHOULD_UNWRAP_NATIVE_TOKEN))));
+
+        order.setIsFrozen(dataStore.getBool(keccak256(abi.encode(key, IS_FROZEN))));
+
+        return order;
+    }
+
+    function remove(DataStore dataStore, bytes32 key, address account) external {
+        if (!dataStore.containsBytes32(Keys.ORDER_LIST, key)) {
+            revert Errors.OrderNotFound(key);
+        }
+
+        dataStore.removeBytes32(Keys.ORDER_LIST, key);
+
+        dataStore.removeBytes32(Keys.accountOrderListKey(account), key);
+
+        dataStore.removeAddress(keccak256(abi.encode(key, ACCOUNT)));
+
+        dataStore.removeAddress(keccak256(abi.encode(key, RECEIVER)));
+
+        dataStore.removeAddress(keccak256(abi.encode(key, CALLBACK_CONTRACT)));
+
+        dataStore.removeAddress(keccak256(abi.encode(key, UI_FEE_RECEIVER)));
+
+        dataStore.removeAddress(keccak256(abi.encode(key, MARKET)));
+
+        dataStore.removeAddress(keccak256(abi.encode(key, INITIAL_COLLATERAL_TOKEN)));
+
+        dataStore.removeAddressArray(keccak256(abi.encode(key, SWAP_PATH)));
+
+        dataStore.removeUint(keccak256(abi.encode(key, ORDER_TYPE)));
+
+        dataStore.removeUint(keccak256(abi.encode(key, DECREASE_POSITION_SWAP_TYPE)));
+
+        dataStore.removeUint(keccak256(abi.encode(key, SIZE_DELTA_USD)));
+
+        dataStore.removeUint(keccak256(abi.encode(key, INITIAL_COLLATERAL_DELTA_AMOUNT)));
+
+        dataStore.removeUint(keccak256(abi.encode(key, TRIGGER_PRICE)));
+
+        dataStore.removeUint(keccak256(abi.encode(key, ACCEPTABLE_PRICE)));
+
+        dataStore.removeUint(keccak256(abi.encode(key, EXECUTION_FEE)));
+
+        dataStore.removeUint(keccak256(abi.encode(key, CALLBACK_GAS_LIMIT)));
+
+        dataStore.removeUint(keccak256(abi.encode(key, MIN_OUTPUT_AMOUNT)));
+
+        dataStore.removeUint(keccak256(abi.encode(key, UPDATED_AT_BLOCK)));
+
+        dataStore.removeBool(keccak256(abi.encode(key, IS_LONG)));
+
+        dataStore.removeBool(keccak256(abi.encode(key, SHOULD_UNWRAP_NATIVE_TOKEN)));
+
+        dataStore.removeBool(keccak256(abi.encode(key, IS_FROZEN)));
     }
 }
