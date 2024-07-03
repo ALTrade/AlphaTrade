@@ -2,34 +2,25 @@
 
 pragma solidity ^0.8.0;
 
-import "./IOrderHandler.sol";
-import "../role/RoleModule.sol";
-import "../library/GlobalReentrancyGuard.sol";
-import "../library/FeatureUtils.sol";
-import "../referral/IReferralStorage.sol";
-import "../order/OrderUtils.sol";
-import "../event/EventEmitter.sol";
 import "./BaseOrderHandler.sol";
+import "../error/ErrorUtils.sol";
+import "./IOrderHandler.sol";
+import "../library/FeatureUtils.sol";
+import "../order/OrderUtils.sol";
 
 contract OrderHandler is IOrderHandler, BaseOrderHandler {
     using SafeCast for uint256;
     using Order for Order.Props;
     using Array for uint256[];
 
-    constructor(RoleStore _roleStore, DataStore _dataStore, IReferralStorage _referralStorage)
-        RoleModule(_roleStore)
-        GlobalReentrancyGuard(_dataStore)
-    {
-        referralStorage = _referralStorage;
-    }
-
+    // todo oracle swapHandler
     constructor(
         RoleStore _roleStore,
         DataStore _dataStore,
-        IReferralStorage _referralStorage,
+        EventEmitter _eventRmitter,
         OrderVault _orderVault,
-        EventEmitter _eventEmitter
-    ) BaseOrderHandler(_roleStore, _dataStore, _eventEmitter, _orderVault, _referralStorage) {}
+        IReferralStorage _referralStorage
+    ) BaseOrderHandler(_roleStore, _dataStore, _eventRmitter, _orderVault, _referralStorage) {}
 
     // @dev creates an order in the order store
     // @param account the order's account
@@ -46,5 +37,31 @@ contract OrderHandler is IOrderHandler, BaseOrderHandler {
         );
 
         return OrderUtils.createOrder(dataStore, eventEmitter, orderVault, referralStorage, account, params);
+    }
+
+    /**
+     * @dev Cancels the given order. The `cancelOrder()` feature must be enabled for the given order
+     * type. The caller must be the owner of the order. The order is cancelled by calling the `cancelOrder()`
+     * function in the `OrderUtils` contract. This function also records the starting gas amount and the
+     * reason for cancellation, which is passed to the `cancelOrder()` function.
+     *
+     * @param key The unique ID of the order to be cancelled
+     */
+    function cancelOrder(bytes32 key) external payable globalNonReentrant onlyController {
+        uint256 startingGas = gasleft();
+
+        DataStore _dataStore = dataStore;
+        Order.Props memory order = OrderStoreUtils.get(_dataStore, key);
+
+        FeatureUtils.validateFeature(
+            dataStore, Keys.cancelOrderFeatureDisabledKey(address(this), uint256(params.orderType))
+        );
+
+        if (BaseOrderHandler.isMarketOrder(order.orderType())) {
+            ExchangeUtils.validateRequestCancellation(_dataStore, order.updatedAtBlock(), "Order");
+        }
+        OrderUtils.cancelOrder(
+            dataStore, eventEmitter, orderVault, key, order.account(), startingGas, Keys.USER_INITIATED_CANCEL, ""
+        );
     }
 }

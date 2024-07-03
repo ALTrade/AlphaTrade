@@ -52,4 +52,13 @@ library BaseOrderUtils {
     function isSwapOrder(Order.OrderType orderType) internal pure returns (bool) {
         return orderType == Order.OrderType.MarketSwap || orderType == Order.OrderType.LimitSwap;
     }
+
+    // @dev check if an orderType is a market order
+    // @param orderType the order type
+    // @return whether an orderType is a market order
+    function isMarketOrder(Order.OrderType orderType) internal pure returns (bool) {
+        // a liquidation order is not considered as a market order
+        return orderType == Order.OrderType.MarketSwap || orderType == Order.OrderType.MarketIncrease
+            || orderType == Order.OrderType.MarketDecrease;
+    }
 }
