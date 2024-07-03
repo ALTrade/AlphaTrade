@@ -10,4 +10,13 @@ interface IOrderHandler {
         returns (bytes32);
 
     function cancelOrder(bytes32 key) external;
+
+    function updateOrder(
+        bytes32 key,
+        uint256 sizeDeltaUsd,
+        uint256 acceptablePrice,
+        uint256 triggerPrice,
+        uint256 minOutputAmount,
+        Order.Props memory order
+    ) external;
 }

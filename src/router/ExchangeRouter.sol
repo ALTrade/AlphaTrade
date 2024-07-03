@@ -90,4 +90,19 @@ contract ExchangeRouter is IExchangeRouter, BaseRouter {
 
         orderHandler.cancelOrder(key);
     }
+
+    function updateOrder(
+        bytes32 key,
+        uint256 sizeDeltaUsd,
+        uint256 acceptablePrice,
+        uint256 triggerPrice,
+        uint256 minOutputAmount
+    ) external payable nonReentrant {
+        Order.Props memory order = OrderStoreUtils.get(dataStore, key);
+        if (order.account() != msg.sender) {
+            revert Errors.Unauthorized(msg.sender, "account for updateOrder");
+        }
+
+        orderHandler.updateOrder(key, sizeDeltaUsd, acceptablePrice, triggerPrice, minOutputAmount, order);
+    }
 }
