@@ -2,15 +2,15 @@
 
 pragma solidity ^0.8.0;
 
-import "../../data/DataStore.sol";
-import "../../event/EventEmitter.sol";
+import "../data/DataStore.sol";
+import "../event/EventEmitter.sol";
 import "./DepositVault.sol";
 import "../market/MarketUtils.sol";
 import "./Deposit.sol";
-import "../chain/Chain.sol";
-import "../../callback/CallbackUtils.sol";
-import "../GasUtils.sol";
-import "../NonceUtils.sol";
+import "../library/chain/Chain.sol";
+import "../callback/CallbackUtils.sol";
+import "../library/GasUtils.sol";
+import "../library/NonceUtils.sol";
 import "./DepositStoreUtils.sol";
 
 library DepositUtils {

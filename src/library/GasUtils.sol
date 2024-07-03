@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "../data/DataStore.sol";
 import "../data/Keys.sol";
-import "./deposit/Deposit.sol";
+import "../deposit/Deposit.sol";
 import "../withdrawal/Withdrawal.sol";
 import "./Precision.sol";
 import "../event/EventUtils.sol";

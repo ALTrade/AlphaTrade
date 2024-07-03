@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../event/EventUtils.sol";
-import "../library/deposit/Deposit.sol";
+import "../deposit/Deposit.sol";
 
 // @title IDepositCallbackReceiver
 // @dev interface for a deposit callback contract

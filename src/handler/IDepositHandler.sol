@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../library/deposit/DepositUtils.sol";
+import "../deposit/DepositUtils.sol";
 
 interface IDepositHandler {
     function createDeposit(address account, DepositUtils.CreateDepositParams calldata params)
