@@ -16,7 +16,7 @@ import "../token/TokenUtils.sol";
 import "./Router.sol";
 import "../library/PayableMulticall.sol";
 
-contract BaseRouter is RoleModule, ReentrancyGuard, PayableMulticall {
+contract BaseRouter is ReentrancyGuard, PayableMulticall, RoleModule {
     Router public immutable router;
     DataStore public immutable dataStore;
     EventEmitter public immutable eventEmitter;

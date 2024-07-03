@@ -11,10 +11,12 @@ contract Router is RoleModule {
 
     constructor(RoleStore _roleStore) RoleModule(_roleStore) {}
 
-    function pluginTransfer(address token, address account, address receiver, uint256 amount)
-        external
-        onlyRouterPlugin
-    {
+    function pluginTransfer(
+        address token,
+        address account,
+        address receiver,
+        uint256 amount
+    ) external onlyRouterPlugin {
         IERC20(token).safeTransferFrom(account, receiver, amount);
     }
 }

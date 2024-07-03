@@ -6,13 +6,23 @@ import "./IExchangeRouter.sol";
 import "../handler/IDepositHandler.sol";
 import "../handler/IWithdrawalHandler.sol";
 import "../handler/IOrderHandler.sol";
+import "./BaseRouter.sol";
+import "./Router.sol";
 
-contract ExchangeRouter is IExchangeRouter {
+contract ExchangeRouter is IExchangeRouter, BaseRouter {
     IDepositHandler public immutable depositHandler;
     IWithdrawalHandler public immutable withdrawalHandler;
     IOrderHandler public immutable orderHandler;
 
-    constructor(IOrderHandler _orderHandler, IDepositHandler _depositHandler, IWithdrawalHandler _withdrawalHandler) {
+    constructor(
+        Router _router,
+        RoleStore _roleStore,
+        DataStore _dataStore,
+        EventEmitter _eventEmitter,
+        IDepositHandler _depositHandler,
+        IWithdrawalHandler _withdrawalHandler,
+        IOrderHandler _orderHandler
+    ) BaseRouter(_router, _roleStore, _dataStore, _eventEmitter) {
         orderHandler = _orderHandler;
         withdrawalHandler = _withdrawalHandler;
         depositHandler = _depositHandler;
@@ -45,10 +55,22 @@ contract ExchangeRouter is IExchangeRouter {
         external
         payable
         override
+        nonReetrant
         returns (bytes32)
-    {}
+    {
+        address account = msg.sender;
+        return withdrawalHandler.createWithdrawal(account, params);
+    }
 
-    function cancelWithdrawal(bytes32 key) external payable override {}
+    function cancelWithdrawal(bytes32 key) external payable override nonReentrant {
+        Withdrawal.Props memory withdrawal = WithdrawalStoreUtils.get(dataStore, key);
+
+        if (withdrawal.account() != msg.sender) {
+            revert Errors.Unauthorized(msg.sender, "account for cancelWithdrawal");
+        }
+
+        withdrawalHandler.cancelWithdrawal(key);
+    }
 
     function createOrder(Order.CreateOrderParams calldata params) external payable returns (bytes32) {
         return orderHandler.createOrder(msg.sender, params);

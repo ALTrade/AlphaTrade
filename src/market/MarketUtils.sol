@@ -18,10 +18,10 @@ import "../order/Order.sol";
 
 // import "./MarketEventUtils.sol";
 
- import "../position/Position.sol";
+import "../position/Position.sol";
 
 // import "../oracle/Oracle.sol";
-// import "../price/Price.sol";
+import "../library/Price.sol";
 
 import "../library/Calc.sol";
 import "../library/Precision.sol";
