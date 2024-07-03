@@ -12,34 +12,45 @@ contract ExchangeRouter is IExchangeRouter {
     IWithdrawalHandler public immutable withdrawalHandler;
     IOrderHandler public immutable orderHandler;
 
-    constructor(
-        IOrderHandler _orderHandler,
-        IDepositHandler _depositHandler,
-        IWithdrawalHandler _withdrawalHandler
-    ) {
+    constructor(IOrderHandler _orderHandler, IDepositHandler _depositHandler, IWithdrawalHandler _withdrawalHandler) {
         orderHandler = _orderHandler;
         withdrawalHandler = _withdrawalHandler;
         depositHandler = _depositHandler;
     }
 
-    function createDeposit(
-        DepositHandler.CreateDepositParams calldata params
-    ) external payable override returns (bytes32) {
+    function createDeposit(DepositHandler.CreateDepositParams calldata params)
+        external
+        payable
+        override
+        returns (bytes32)
+    {
         address account = msg.sender;
         return depositHandler.createDeposit(account, params);
     }
 
-    function cancelDeposit(bytes32 key) external payable override {}
+    function cancelDeposit(bytes32 key) external payable override {
+        Deposit.Props memory deposit = DepositUtils.get(DataStore, key);
+        if (deposit.account() == address(0)) {
+            revert Errors.EmptyDeposit();
+        }
 
-    function createWithdrawal(
-        WithdrawalHandler.CreateWithdrawalParams calldata params
-    ) external payable override returns (bytes32) {}
+        if (deposit.account() != msg.sender) {
+            revert Errors.Unauthorized(msg.sender, "account for cancelDeposit");
+        }
+
+        depositHandler.cancelDeposit(key);
+    }
+
+    function createWithdrawal(WithdrawalHandler.CreateWithdrawalParams calldata params)
+        external
+        payable
+        override
+        returns (bytes32)
+    {}
 
     function cancelWithdrawal(bytes32 key) external payable override {}
 
-    function createOrder(
-        Order.CreateOrderParams calldata params
-    ) external payable returns (bytes32) {
+    function createOrder(Order.CreateOrderParams calldata params) external payable returns (bytes32) {
         return orderHandler.createOrder(msg.sender, params);
     }
 }

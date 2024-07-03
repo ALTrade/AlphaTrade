@@ -108,4 +108,58 @@ library DepositUtils {
 
         return key;
     }
+
+    // @dev cancels a deposit, funds are sent back to the user
+    function cancelDeposit(
+        DataStore dataStore,
+        EventEmitter eventEmitter,
+        DepositVault depositVault,
+        bytes32 key,
+        address keeper,
+        uint256 startingGas,
+        string memory reason,
+        bytes memory reasonBytes
+    ) external {
+        // notebook-002 gasUsed  1/64
+        // 63/64 gas is forwarded to external calls, reduce the startingGas to account for this
+        startingGas -= gasleft() / 63;
+
+        Deposit.Props memory deposit = DepositStoreUtils.get(dataStore, key);
+        if (deposit.account() == address(0)) {
+            revert Errors.EmptyDeposit();
+        }
+
+        if (deposit.initialLongTokenAmount() == 0 && deposit.initialShortTokenAmount() == 0) {
+            revert Errors.EmptyDepositAmounts();
+        }
+
+        DepositStoreUtils.remove(dataStore, key, deposit.account());
+
+        if (deposit.initialLongTokenAmount() > 0) {
+            depositVault.transferOut(
+                deposit.initialLongToken(),
+                deposit.account(),
+                deposit.initialLongTokenAmount(),
+                deposit.shouldUnwrapNativeToken()
+            );
+        }
+
+        if (deposit.initialShortTokenAmount() > 0) {
+            depositVault.transferOut(
+                deposit.initialShortToken(),
+                deposit.account(),
+                deposit.initialShortTokenAmount(),
+                deposit.shouldUnwrapNativeToken()
+            );
+        }
+
+        DepositEventUtils.emitDepositCancelled(eventEmitter, key, deposit.account(), reason, reasonBytes);
+
+        EventUtils.EventLogData memory eventData;
+        CallbackUtils.afterDepositCancellation(key, deposit, eventData);
+
+        GasUtils.payExecutionFee(
+            dataStore, eventEmitter, depositVault, deposit.executionFee(), startingGas, keeper, deposit.account()
+        );
+    }
 }

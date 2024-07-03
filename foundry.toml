@@ -8,4 +8,9 @@ remappings = [
     'prb-math/contracts=lib/prb-math/contracts',
 ]
 
+
+# gitmodules version of remappings
+# prb-math v2.4.3
+# openzeppelin-contracts v4.9.3
+
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

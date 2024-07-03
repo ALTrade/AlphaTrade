@@ -16,6 +16,12 @@ contract OrderHandler is IOrderHandler, BaseOrderHandler {
     using Order for Order.Props;
     using Array for uint256[];
 
+    constructor(RoleStore _roleStore, DataStore _dataStore, IReferralStorage _referralStorage)
+        RoleModule(_roleStore)
+        GlobalReentrancyGuard(_dataStore)
+    {
+        referralStorage = _referralStorage;
+    }
     constructor(
         RoleStore _roleStore,
         DataStore _dataStore,
@@ -34,10 +40,19 @@ contract OrderHandler is IOrderHandler, BaseOrderHandler {
         onlyController
         returns (bytes32)
     {
+    function createOrder(address account, IBaseOrderUtils.CreateOrderParams calldata params)
+        external
+        override
+        globalNonReentrant
+        onlyController
+        returns (bytes32)
+    {
         FeatureUtils.validateFeature(
+            dataStore, Keys.createOrderFeatureDisabledKey(address(this), uint256(params.orderType))
             dataStore, Keys.createOrderFeatureDisabledKey(address(this), uint256(params.orderType))
         );
 
+        return OrderUtils.createOrder(dataStore, eventEmitter, orderVault, referralStorage, account, params);
         return OrderUtils.createOrder(dataStore, eventEmitter, orderVault, referralStorage, account, params);
     }
 }
