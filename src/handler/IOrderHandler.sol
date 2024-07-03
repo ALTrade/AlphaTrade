@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../library/order/IBaseOrderUtils.sol";
+import "../order/IBaseOrderUtils.sol";
 
 interface IOrderHandler {
     function createOrder(

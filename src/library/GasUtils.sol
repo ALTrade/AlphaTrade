@@ -6,6 +6,7 @@ import "../data/DataStore.sol";
 import "../data/Keys.sol";
 import "./deposit/Deposit.sol";
 import "./Precision.sol";
+import "../order/Order.sol";
 
 library GasUtils {
     using Deposit for Deposit.Props;
@@ -54,5 +55,71 @@ library GasUtils {
         uint256 multiplierFactor = dataStore.getUint(Keys.ESTIMATED_GAS_FEE_MULTIPLIER_FACTOR);
         uint256 gasLimit = baseGasLimit + Precision.applyFactor(estimatedGasLimit, multiplierFactor);
         return gasLimit;
+    }
+
+    // @dev the estimated gas limit for orders
+    // @param dataStore DataStore
+    // @param order the order to estimate the gas limit for
+    function estimateExecuteOrderGasLimit(DataStore dataStore, Order.Props memory order)
+        internal
+        view
+        returns (uint256)
+    {
+        if (BaseOrderUtils.isIncreaseOrder(order.orderType())) {
+            return estimateExecuteIncreaseOrderGasLimit(dataStore, order);
+        }
+
+        if (BaseOrderUtils.isDecreaseOrder(order.orderType())) {
+            return estimateExecuteDecreaseOrderGasLimit(dataStore, order);
+        }
+
+        if (BaseOrderUtils.isSwapOrder(order.orderType())) {
+            return estimateExecuteSwapOrderGasLimit(dataStore, order);
+        }
+
+        revert Errors.UnsupportedOrderType();
+    }
+
+    // @dev the estimated gas limit for increase orders
+    // @param dataStore DataStore
+    // @param order the order to estimate the gas limit for
+    function estimateExecuteIncreaseOrderGasLimit(DataStore dataStore, Order.Props memory order)
+        internal
+        view
+        returns (uint256)
+    {
+        uint256 gasPerSwap = dataStore.getUint(Keys.singleSwapGasLimitKey());
+        return dataStore.getUint(Keys.increaseOrderGasLimitKey()) + gasPerSwap * order.swapPath().length
+            + order.callbackGasLimit();
+    }
+
+    // @dev the estimated gas limit for decrease orders
+    // @param dataStore DataStore
+    // @param order the order to estimate the gas limit for
+    function estimateExecuteDecreaseOrderGasLimit(DataStore dataStore, Order.Props memory order)
+        internal
+        view
+        returns (uint256)
+    {
+        uint256 gasPerSwap = dataStore.getUint(Keys.singleSwapGasLimitKey());
+        uint256 swapCount = order.swapPath().length;
+        if (order.decreasePositionSwapType() != Order.DecreasePositionSwapType.NoSwap) {
+            swapCount += 1;
+        }
+
+        return dataStore.getUint(Keys.decreaseOrderGasLimitKey()) + gasPerSwap * swapCount + order.callbackGasLimit();
+    }
+
+    // @dev the estimated gas limit for swap orders
+    // @param dataStore DataStore
+    // @param order the order to estimate the gas limit for
+    function estimateExecuteSwapOrderGasLimit(DataStore dataStore, Order.Props memory order)
+        internal
+        view
+        returns (uint256)
+    {
+        uint256 gasPerSwap = dataStore.getUint(Keys.singleSwapGasLimitKey());
+        return dataStore.getUint(Keys.swapOrderGasLimitKey()) + gasPerSwap * order.swapPath().length
+            + order.callbackGasLimit();
     }
 }
