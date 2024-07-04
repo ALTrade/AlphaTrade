@@ -11,133 +11,132 @@ library Keys {
     bytes32 public constant NONCE = keccak256(abi.encode("NONCE"));
 
     // @dev for sending received fees
-    bytes32 public constant FEE_RECEIVER =
-        keccak256(abi.encode("FEE_RECEIVER"));
+    bytes32 public constant FEE_RECEIVER = keccak256(abi.encode("FEE_RECEIVER"));
 
     // @dev for holding tokens that could not be sent out
-    bytes32 public constant HOLDING_ADDRESS =
-        keccak256(abi.encode("HOLDING_ADDRESS"));
-
-    // @dev key for in strict price feed mode
-    bytes32 public constant IN_STRICT_PRICE_FEED_MODE =
-        keccak256(abi.encode("IN_STRICT_PRICE_FEED_MODE"));
+    bytes32 public constant HOLDING_ADDRESS = keccak256(abi.encode("HOLDING_ADDRESS"));
 
     // @dev key for the minimum gas for execution error
-    bytes32 public constant MIN_HANDLE_EXECUTION_ERROR_GAS =
-        keccak256(abi.encode("MIN_HANDLE_EXECUTION_ERROR_GAS"));
+    bytes32 public constant MIN_HANDLE_EXECUTION_ERROR_GAS = keccak256(abi.encode("MIN_HANDLE_EXECUTION_ERROR_GAS"));
 
     // @dev key for the minimum gas that should be forwarded for execution error handling
     bytes32 public constant MIN_HANDLE_EXECUTION_ERROR_GAS_TO_FORWARD =
         keccak256(abi.encode("MIN_HANDLE_EXECUTION_ERROR_GAS_TO_FORWARD"));
 
     // @dev key for the min additional gas for execution
-    bytes32 public constant MIN_ADDITIONAL_GAS_FOR_EXECUTION =
-        keccak256(abi.encode("MIN_ADDITIONAL_GAS_FOR_EXECUTION"));
+    bytes32 public constant MIN_ADDITIONAL_GAS_FOR_EXECUTION = keccak256(abi.encode("MIN_ADDITIONAL_GAS_FOR_EXECUTION"));
 
     // @dev for a global reentrancy guard
-    bytes32 public constant REENTRANCY_GUARD_STATUS =
-        keccak256(abi.encode("REENTRANCY_GUARD_STATUS"));
+    bytes32 public constant REENTRANCY_GUARD_STATUS = keccak256(abi.encode("REENTRANCY_GUARD_STATUS"));
 
     // @dev key for deposit fees
-    bytes32 public constant DEPOSIT_FEE_TYPE =
-        keccak256(abi.encode("DEPOSIT_FEE_TYPE"));
+    bytes32 public constant DEPOSIT_FEE_TYPE = keccak256(abi.encode("DEPOSIT_FEE_TYPE"));
     // @dev key for withdrawal fees
-    bytes32 public constant WITHDRAWAL_FEE_TYPE =
-        keccak256(abi.encode("WITHDRAWAL_FEE_TYPE"));
+    bytes32 public constant WITHDRAWAL_FEE_TYPE = keccak256(abi.encode("WITHDRAWAL_FEE_TYPE"));
     // @dev key for swap fees
-    bytes32 public constant SWAP_FEE_TYPE =
-        keccak256(abi.encode("SWAP_FEE_TYPE"));
+    bytes32 public constant SWAP_FEE_TYPE = keccak256(abi.encode("SWAP_FEE_TYPE"));
     // @dev key for position fees
-    bytes32 public constant POSITION_FEE_TYPE =
-        keccak256(abi.encode("POSITION_FEE_TYPE"));
+    bytes32 public constant POSITION_FEE_TYPE = keccak256(abi.encode("POSITION_FEE_TYPE"));
     // @dev key for ui deposit fees
-    bytes32 public constant UI_DEPOSIT_FEE_TYPE =
-        keccak256(abi.encode("UI_DEPOSIT_FEE_TYPE"));
+    bytes32 public constant UI_DEPOSIT_FEE_TYPE = keccak256(abi.encode("UI_DEPOSIT_FEE_TYPE"));
     // @dev key for ui withdrawal fees
-    bytes32 public constant UI_WITHDRAWAL_FEE_TYPE =
-        keccak256(abi.encode("UI_WITHDRAWAL_FEE_TYPE"));
+    bytes32 public constant UI_WITHDRAWAL_FEE_TYPE = keccak256(abi.encode("UI_WITHDRAWAL_FEE_TYPE"));
     // @dev key for ui swap fees
-    bytes32 public constant UI_SWAP_FEE_TYPE =
-        keccak256(abi.encode("UI_SWAP_FEE_TYPE"));
+    bytes32 public constant UI_SWAP_FEE_TYPE = keccak256(abi.encode("UI_SWAP_FEE_TYPE"));
     // @dev key for ui position fees
-    bytes32 public constant UI_POSITION_FEE_TYPE =
-        keccak256(abi.encode("UI_POSITION_FEE_TYPE"));
+    bytes32 public constant UI_POSITION_FEE_TYPE = keccak256(abi.encode("UI_POSITION_FEE_TYPE"));
 
     // @dev key for ui fee factor
-    bytes32 public constant UI_FEE_FACTOR =
-        keccak256(abi.encode("UI_FEE_FACTOR"));
+    bytes32 public constant UI_FEE_FACTOR = keccak256(abi.encode("UI_FEE_FACTOR"));
     // @dev key for max ui fee receiver factor
-    bytes32 public constant MAX_UI_FEE_FACTOR =
-        keccak256(abi.encode("MAX_UI_FEE_FACTOR"));
+    bytes32 public constant MAX_UI_FEE_FACTOR = keccak256(abi.encode("MAX_UI_FEE_FACTOR"));
 
     // @dev key for the claimable fee amount
-    bytes32 public constant CLAIMABLE_FEE_AMOUNT =
-        keccak256(abi.encode("CLAIMABLE_FEE_AMOUNT"));
+    bytes32 public constant CLAIMABLE_FEE_AMOUNT = keccak256(abi.encode("CLAIMABLE_FEE_AMOUNT"));
     // @dev key for the claimable ui fee amount
-    bytes32 public constant CLAIMABLE_UI_FEE_AMOUNT =
-        keccak256(abi.encode("CLAIMABLE_UI_FEE_AMOUNT"));
+    bytes32 public constant CLAIMABLE_UI_FEE_AMOUNT = keccak256(abi.encode("CLAIMABLE_UI_FEE_AMOUNT"));
+    // @dev key for the max number of auto cancel orders
+    bytes32 public constant MAX_AUTO_CANCEL_ORDERS = keccak256(abi.encode("MAX_AUTO_CANCEL_ORDERS"));
+    // @dev key for the max total callback gas limit for auto cancel orders
+    bytes32 public constant MAX_TOTAL_CALLBACK_GAS_LIMIT_FOR_AUTO_CANCEL_ORDERS =
+        keccak256(abi.encode("MAX_TOTAL_CALLBACK_GAS_LIMIT_FOR_AUTO_CANCEL_ORDERS"));
 
     // @dev key for the market list
     bytes32 public constant MARKET_LIST = keccak256(abi.encode("MARKET_LIST"));
 
     // @dev key for the fee batch list
-    bytes32 public constant FEE_BATCH_LIST =
-        keccak256(abi.encode("FEE_BATCH_LIST"));
+    bytes32 public constant FEE_BATCH_LIST = keccak256(abi.encode("FEE_BATCH_LIST"));
 
     // @dev key for the deposit list
-    bytes32 public constant DEPOSIT_LIST =
-        keccak256(abi.encode("DEPOSIT_LIST"));
+    bytes32 public constant DEPOSIT_LIST = keccak256(abi.encode("DEPOSIT_LIST"));
     // @dev key for the account deposit list
-    bytes32 public constant ACCOUNT_DEPOSIT_LIST =
-        keccak256(abi.encode("ACCOUNT_DEPOSIT_LIST"));
+    bytes32 public constant ACCOUNT_DEPOSIT_LIST = keccak256(abi.encode("ACCOUNT_DEPOSIT_LIST"));
 
     // @dev key for the withdrawal list
-    bytes32 public constant WITHDRAWAL_LIST =
-        keccak256(abi.encode("WITHDRAWAL_LIST"));
+    bytes32 public constant WITHDRAWAL_LIST = keccak256(abi.encode("WITHDRAWAL_LIST"));
     // @dev key for the account withdrawal list
-    bytes32 public constant ACCOUNT_WITHDRAWAL_LIST =
-        keccak256(abi.encode("ACCOUNT_WITHDRAWAL_LIST"));
+    bytes32 public constant ACCOUNT_WITHDRAWAL_LIST = keccak256(abi.encode("ACCOUNT_WITHDRAWAL_LIST"));
+
+    // @dev key for the shift list
+    bytes32 public constant SHIFT_LIST = keccak256(abi.encode("SHIFT_LIST"));
+    // @dev key for the account shift list
+    bytes32 public constant ACCOUNT_SHIFT_LIST = keccak256(abi.encode("ACCOUNT_SHIFT_LIST"));
+
+    // @dev key for the glv list
+    bytes32 public constant GLV_LIST = keccak256(abi.encode("GLV_LIST"));
+
+    // @dev key for the glv deposit list
+    bytes32 public constant GLV_DEPOSIT_LIST = keccak256(abi.encode("GLV_DEPOSIT_LIST"));
+    // @dev key for the account glv deposit list
+    bytes32 public constant ACCOUNT_GLV_DEPOSIT_LIST = keccak256(abi.encode("ACCOUNT_GLV_DEPOSIT_LIST"));
+    // @dev key for the account glv supported market list
+    bytes32 public constant GLV_SUPPORTED_MARKET_LIST = keccak256(abi.encode("GLV_SUPPORTED_MARKET_LIST"));
 
     // @dev key for the position list
-    bytes32 public constant POSITION_LIST =
-        keccak256(abi.encode("POSITION_LIST"));
+    bytes32 public constant POSITION_LIST = keccak256(abi.encode("POSITION_LIST"));
     // @dev key for the account position list
-    bytes32 public constant ACCOUNT_POSITION_LIST =
-        keccak256(abi.encode("ACCOUNT_POSITION_LIST"));
+    bytes32 public constant ACCOUNT_POSITION_LIST = keccak256(abi.encode("ACCOUNT_POSITION_LIST"));
 
     // @dev key for the order list
     bytes32 public constant ORDER_LIST = keccak256(abi.encode("ORDER_LIST"));
     // @dev key for the account order list
-    bytes32 public constant ACCOUNT_ORDER_LIST =
-        keccak256(abi.encode("ACCOUNT_ORDER_LIST"));
+    bytes32 public constant ACCOUNT_ORDER_LIST = keccak256(abi.encode("ACCOUNT_ORDER_LIST"));
 
     // @dev key for the subaccount list
-    bytes32 public constant SUBACCOUNT_LIST =
-        keccak256(abi.encode("SUBACCOUNT_LIST"));
+    bytes32 public constant SUBACCOUNT_LIST = keccak256(abi.encode("SUBACCOUNT_LIST"));
+
+    // @dev key for the auto cancel order list
+    bytes32 public constant AUTO_CANCEL_ORDER_LIST = keccak256(abi.encode("AUTO_CANCEL_ORDER_LIST"));
 
     // @dev key for is market disabled
-    bytes32 public constant IS_MARKET_DISABLED =
-        keccak256(abi.encode("IS_MARKET_DISABLED"));
+    bytes32 public constant IS_MARKET_DISABLED = keccak256(abi.encode("IS_MARKET_DISABLED"));
 
     // @dev key for the max swap path length allowed
-    bytes32 public constant MAX_SWAP_PATH_LENGTH =
-        keccak256(abi.encode("MAX_SWAP_PATH_LENGTH"));
+    bytes32 public constant MAX_SWAP_PATH_LENGTH = keccak256(abi.encode("MAX_SWAP_PATH_LENGTH"));
     // @dev key used to store markets observed in a swap path, to ensure that a swap path contains unique markets
-    bytes32 public constant SWAP_PATH_MARKET_FLAG =
-        keccak256(abi.encode("SWAP_PATH_MARKET_FLAG"));
+    bytes32 public constant SWAP_PATH_MARKET_FLAG = keccak256(abi.encode("SWAP_PATH_MARKET_FLAG"));
     // @dev key used to store the min market tokens for the first deposit for a market
     bytes32 public constant MIN_MARKET_TOKENS_FOR_FIRST_DEPOSIT =
         keccak256(abi.encode("MIN_MARKET_TOKENS_FOR_FIRST_DEPOSIT"));
 
+    // @dev key for whether the create glv deposit feature is disabled
+    bytes32 public constant CREATE_GLV_DEPOSIT_FEATURE_DISABLED =
+        keccak256(abi.encode("CREATE_GLV_DEPOSIT_FEATURE_DISABLED"));
+    // @dev key for whether the cancel glv deposit feature is disabled
+    bytes32 public constant CANCEL_GLV_DEPOSIT_FEATURE_DISABLED =
+        keccak256(abi.encode("CANCEL_GLV_DEPOSIT_FEATURE_DISABLED"));
+    // @dev key for whether the execute glv deposit feature is disabled
+    bytes32 public constant EXECUTE_GLV_DEPOSIT_FEATURE_DISABLED =
+        keccak256(abi.encode("EXECUTE_GLV_DEPOSIT_FEATURE_DISABLED"));
+    // @dev key for whether the glv shift feature is disabled
+    bytes32 public constant GLV_SHIFT_FEATURE_DISABLED = keccak256(abi.encode("GLV_SHIFT_FEATURE_DISABLED"));
+
     // @dev key for whether the create deposit feature is disabled
-    bytes32 public constant CREATE_DEPOSIT_FEATURE_DISABLED =
-        keccak256(abi.encode("CREATE_DEPOSIT_FEATURE_DISABLED"));
+    bytes32 public constant CREATE_DEPOSIT_FEATURE_DISABLED = keccak256(abi.encode("CREATE_DEPOSIT_FEATURE_DISABLED"));
     // @dev key for whether the cancel deposit feature is disabled
-    bytes32 public constant CANCEL_DEPOSIT_FEATURE_DISABLED =
-        keccak256(abi.encode("CANCEL_DEPOSIT_FEATURE_DISABLED"));
+    bytes32 public constant CANCEL_DEPOSIT_FEATURE_DISABLED = keccak256(abi.encode("CANCEL_DEPOSIT_FEATURE_DISABLED"));
     // @dev key for whether the execute deposit feature is disabled
-    bytes32 public constant EXECUTE_DEPOSIT_FEATURE_DISABLED =
-        keccak256(abi.encode("EXECUTE_DEPOSIT_FEATURE_DISABLED"));
+    bytes32 public constant EXECUTE_DEPOSIT_FEATURE_DISABLED = keccak256(abi.encode("EXECUTE_DEPOSIT_FEATURE_DISABLED"));
 
     // @dev key for whether the create withdrawal feature is disabled
     bytes32 public constant CREATE_WITHDRAWAL_FEATURE_DISABLED =
@@ -148,24 +147,29 @@ library Keys {
     // @dev key for whether the execute withdrawal feature is disabled
     bytes32 public constant EXECUTE_WITHDRAWAL_FEATURE_DISABLED =
         keccak256(abi.encode("EXECUTE_WITHDRAWAL_FEATURE_DISABLED"));
+    // @dev key for whether the execute atomic withdrawal feature is disabled
+    bytes32 public constant EXECUTE_ATOMIC_WITHDRAWAL_FEATURE_DISABLED =
+        keccak256(abi.encode("EXECUTE_ATOMIC_WITHDRAWAL_FEATURE_DISABLED"));
+
+    // @dev key for whether the create shift feature is disabled
+    bytes32 public constant CREATE_SHIFT_FEATURE_DISABLED = keccak256(abi.encode("CREATE_SHIFT_FEATURE_DISABLED"));
+    // @dev key for whether the cancel shift feature is disabled
+    bytes32 public constant CANCEL_SHIFT_FEATURE_DISABLED = keccak256(abi.encode("CANCEL_SHIFT_FEATURE_DISABLED"));
+    // @dev key for whether the execute shift feature is disabled
+    bytes32 public constant EXECUTE_SHIFT_FEATURE_DISABLED = keccak256(abi.encode("EXECUTE_SHIFT_FEATURE_DISABLED"));
 
     // @dev key for whether the create order feature is disabled
-    bytes32 public constant CREATE_ORDER_FEATURE_DISABLED =
-        keccak256(abi.encode("CREATE_ORDER_FEATURE_DISABLED"));
+    bytes32 public constant CREATE_ORDER_FEATURE_DISABLED = keccak256(abi.encode("CREATE_ORDER_FEATURE_DISABLED"));
     // @dev key for whether the execute order feature is disabled
-    bytes32 public constant EXECUTE_ORDER_FEATURE_DISABLED =
-        keccak256(abi.encode("EXECUTE_ORDER_FEATURE_DISABLED"));
+    bytes32 public constant EXECUTE_ORDER_FEATURE_DISABLED = keccak256(abi.encode("EXECUTE_ORDER_FEATURE_DISABLED"));
     // @dev key for whether the execute adl feature is disabled
     // for liquidations, it can be disabled by using the EXECUTE_ORDER_FEATURE_DISABLED key with the Liquidation
     // order type, ADL orders have a MarketDecrease order type, so a separate key is needed to disable it
-    bytes32 public constant EXECUTE_ADL_FEATURE_DISABLED =
-        keccak256(abi.encode("EXECUTE_ADL_FEATURE_DISABLED"));
+    bytes32 public constant EXECUTE_ADL_FEATURE_DISABLED = keccak256(abi.encode("EXECUTE_ADL_FEATURE_DISABLED"));
     // @dev key for whether the update order feature is disabled
-    bytes32 public constant UPDATE_ORDER_FEATURE_DISABLED =
-        keccak256(abi.encode("UPDATE_ORDER_FEATURE_DISABLED"));
+    bytes32 public constant UPDATE_ORDER_FEATURE_DISABLED = keccak256(abi.encode("UPDATE_ORDER_FEATURE_DISABLED"));
     // @dev key for whether the cancel order feature is disabled
-    bytes32 public constant CANCEL_ORDER_FEATURE_DISABLED =
-        keccak256(abi.encode("CANCEL_ORDER_FEATURE_DISABLED"));
+    bytes32 public constant CANCEL_ORDER_FEATURE_DISABLED = keccak256(abi.encode("CANCEL_ORDER_FEATURE_DISABLED"));
 
     // @dev key for whether the claim funding fees feature is disabled
     bytes32 public constant CLAIM_FUNDING_FEES_FEATURE_DISABLED =
@@ -177,161 +181,148 @@ library Keys {
     bytes32 public constant CLAIM_AFFILIATE_REWARDS_FEATURE_DISABLED =
         keccak256(abi.encode("CLAIM_AFFILIATE_REWARDS_FEATURE_DISABLED"));
     // @dev key for whether the claim ui fees feature is disabled
-    bytes32 public constant CLAIM_UI_FEES_FEATURE_DISABLED =
-        keccak256(abi.encode("CLAIM_UI_FEES_FEATURE_DISABLED"));
+    bytes32 public constant CLAIM_UI_FEES_FEATURE_DISABLED = keccak256(abi.encode("CLAIM_UI_FEES_FEATURE_DISABLED"));
     // @dev key for whether the subaccount feature is disabled
-    bytes32 public constant SUBACCOUNT_FEATURE_DISABLED =
-        keccak256(abi.encode("SUBACCOUNT_FEATURE_DISABLED"));
+    bytes32 public constant SUBACCOUNT_FEATURE_DISABLED = keccak256(abi.encode("SUBACCOUNT_FEATURE_DISABLED"));
 
     // @dev key for the minimum required oracle signers for an oracle observation
-    bytes32 public constant MIN_ORACLE_SIGNERS =
-        keccak256(abi.encode("MIN_ORACLE_SIGNERS"));
+    bytes32 public constant MIN_ORACLE_SIGNERS = keccak256(abi.encode("MIN_ORACLE_SIGNERS"));
     // @dev key for the minimum block confirmations before blockhash can be excluded for oracle signature validation
-    bytes32 public constant MIN_ORACLE_BLOCK_CONFIRMATIONS =
-        keccak256(abi.encode("MIN_ORACLE_BLOCK_CONFIRMATIONS"));
+    bytes32 public constant MIN_ORACLE_BLOCK_CONFIRMATIONS = keccak256(abi.encode("MIN_ORACLE_BLOCK_CONFIRMATIONS"));
     // @dev key for the maximum usable oracle price age in seconds
-    bytes32 public constant MAX_ORACLE_PRICE_AGE =
-        keccak256(abi.encode("MAX_ORACLE_PRICE_AGE"));
+    bytes32 public constant MAX_ORACLE_PRICE_AGE = keccak256(abi.encode("MAX_ORACLE_PRICE_AGE"));
+    // @dev key for the maximum oracle timestamp range
+    bytes32 public constant MAX_ORACLE_TIMESTAMP_RANGE = keccak256(abi.encode("MAX_ORACLE_TIMESTAMP_RANGE"));
     // @dev key for the maximum oracle price deviation factor from the ref price
     bytes32 public constant MAX_ORACLE_REF_PRICE_DEVIATION_FACTOR =
         keccak256(abi.encode("MAX_ORACLE_REF_PRICE_DEVIATION_FACTOR"));
+    // @dev key for whether an oracle provider is enabled
+    bytes32 public constant IS_ORACLE_PROVIDER_ENABLED = keccak256(abi.encode("IS_ORACLE_PROVIDER_ENABLED"));
+    // @dev key for whether an oracle provider can be used for atomic actions
+    bytes32 public constant IS_ATOMIC_ORACLE_PROVIDER = keccak256(abi.encode("IS_ATOMIC_ORACLE_PROVIDER"));
+    // @dev key for oracle timestamp adjustment
+    bytes32 public constant ORACLE_TIMESTAMP_ADJUSTMENT = keccak256(abi.encode("ORACLE_TIMESTAMP_ADJUSTMENT"));
+    // @dev key for oracle provider for token
+    bytes32 public constant ORACLE_PROVIDER_FOR_TOKEN = keccak256(abi.encode("ORACLE_PROVIDER_FOR_TOKEN"));
+    // @dev key for the chainlink payment token
+    bytes32 public constant CHAINLINK_PAYMENT_TOKEN = keccak256(abi.encode("CHAINLINK_PAYMENT_TOKEN"));
+    // @dev key for the sequencer grace duration
+    bytes32 public constant SEQUENCER_GRACE_DURATION = keccak256(abi.encode("SEQUENCER_GRACE_DURATION"));
+
     // @dev key for the percentage amount of position fees to be received
-    bytes32 public constant POSITION_FEE_RECEIVER_FACTOR =
-        keccak256(abi.encode("POSITION_FEE_RECEIVER_FACTOR"));
+    bytes32 public constant POSITION_FEE_RECEIVER_FACTOR = keccak256(abi.encode("POSITION_FEE_RECEIVER_FACTOR"));
     // @dev key for the percentage amount of swap fees to be received
-    bytes32 public constant SWAP_FEE_RECEIVER_FACTOR =
-        keccak256(abi.encode("SWAP_FEE_RECEIVER_FACTOR"));
+    bytes32 public constant SWAP_FEE_RECEIVER_FACTOR = keccak256(abi.encode("SWAP_FEE_RECEIVER_FACTOR"));
     // @dev key for the percentage amount of borrowing fees to be received
-    bytes32 public constant BORROWING_FEE_RECEIVER_FACTOR =
-        keccak256(abi.encode("BORROWING_FEE_RECEIVER_FACTOR"));
+    bytes32 public constant BORROWING_FEE_RECEIVER_FACTOR = keccak256(abi.encode("BORROWING_FEE_RECEIVER_FACTOR"));
 
     // @dev key for the base gas limit used when estimating execution fee
-    bytes32 public constant ESTIMATED_GAS_FEE_BASE_AMOUNT =
-        keccak256(abi.encode("ESTIMATED_GAS_FEE_BASE_AMOUNT"));
+    bytes32 public constant ESTIMATED_GAS_FEE_BASE_AMOUNT_V2_1 =
+        keccak256(abi.encode("ESTIMATED_GAS_FEE_BASE_AMOUNT_V2_1"));
+    // @dev key for the gas limit used for each oracle price when estimating execution fee
+    bytes32 public constant ESTIMATED_GAS_FEE_PER_ORACLE_PRICE =
+        keccak256(abi.encode("ESTIMATED_GAS_FEE_PER_ORACLE_PRICE"));
     // @dev key for the multiplier used when estimating execution fee
     bytes32 public constant ESTIMATED_GAS_FEE_MULTIPLIER_FACTOR =
         keccak256(abi.encode("ESTIMATED_GAS_FEE_MULTIPLIER_FACTOR"));
 
     // @dev key for the base gas limit used when calculating execution fee
-    bytes32 public constant EXECUTION_GAS_FEE_BASE_AMOUNT =
-        keccak256(abi.encode("EXECUTION_GAS_FEE_BASE_AMOUNT"));
+    bytes32 public constant EXECUTION_GAS_FEE_BASE_AMOUNT_V2_1 =
+        keccak256(abi.encode("EXECUTION_GAS_FEE_BASE_AMOUNT_V2_1"));
+    // @dev key for the gas limit used for each oracle price
+    bytes32 public constant EXECUTION_GAS_FEE_PER_ORACLE_PRICE =
+        keccak256(abi.encode("EXECUTION_GAS_FEE_PER_ORACLE_PRICE"));
     // @dev key for the multiplier used when calculating execution fee
     bytes32 public constant EXECUTION_GAS_FEE_MULTIPLIER_FACTOR =
         keccak256(abi.encode("EXECUTION_GAS_FEE_MULTIPLIER_FACTOR"));
 
     // @dev key for the estimated gas limit for deposits
-    bytes32 public constant DEPOSIT_GAS_LIMIT =
-        keccak256(abi.encode("DEPOSIT_GAS_LIMIT"));
+    bytes32 public constant DEPOSIT_GAS_LIMIT = keccak256(abi.encode("DEPOSIT_GAS_LIMIT"));
     // @dev key for the estimated gas limit for withdrawals
-    bytes32 public constant WITHDRAWAL_GAS_LIMIT =
-        keccak256(abi.encode("WITHDRAWAL_GAS_LIMIT"));
+    bytes32 public constant WITHDRAWAL_GAS_LIMIT = keccak256(abi.encode("WITHDRAWAL_GAS_LIMIT"));
+    // @dev key for the estimated gas limit for each glv market
+    bytes32 public constant GLV_DEPOSIT_GAS_LIMIT = keccak256(abi.encode("GLV_DEPOSIT_GAS_LIMIT"));
+    // @dev key for the estimated gas limit for shifts
+    bytes32 public constant GLV_PER_MARKET_GAS_LIMIT = keccak256(abi.encode("GLV_PER_MARKET_GAS_LIMIT"));
+    // @dev key for the estimated gas limit for shifts
+    bytes32 public constant SHIFT_GAS_LIMIT = keccak256(abi.encode("SHIFT_GAS_LIMIT"));
     // @dev key for the estimated gas limit for single swaps
-    bytes32 public constant SINGLE_SWAP_GAS_LIMIT =
-        keccak256(abi.encode("SINGLE_SWAP_GAS_LIMIT"));
+    bytes32 public constant SINGLE_SWAP_GAS_LIMIT = keccak256(abi.encode("SINGLE_SWAP_GAS_LIMIT"));
     // @dev key for the estimated gas limit for increase orders
-    bytes32 public constant INCREASE_ORDER_GAS_LIMIT =
-        keccak256(abi.encode("INCREASE_ORDER_GAS_LIMIT"));
+    bytes32 public constant INCREASE_ORDER_GAS_LIMIT = keccak256(abi.encode("INCREASE_ORDER_GAS_LIMIT"));
     // @dev key for the estimated gas limit for decrease orders
-    bytes32 public constant DECREASE_ORDER_GAS_LIMIT =
-        keccak256(abi.encode("DECREASE_ORDER_GAS_LIMIT"));
+    bytes32 public constant DECREASE_ORDER_GAS_LIMIT = keccak256(abi.encode("DECREASE_ORDER_GAS_LIMIT"));
     // @dev key for the estimated gas limit for swap orders
-    bytes32 public constant SWAP_ORDER_GAS_LIMIT =
-        keccak256(abi.encode("SWAP_ORDER_GAS_LIMIT"));
+    bytes32 public constant SWAP_ORDER_GAS_LIMIT = keccak256(abi.encode("SWAP_ORDER_GAS_LIMIT"));
     // @dev key for the amount of gas to forward for token transfers
-    bytes32 public constant TOKEN_TRANSFER_GAS_LIMIT =
-        keccak256(abi.encode("TOKEN_TRANSFER_GAS_LIMIT"));
+    bytes32 public constant TOKEN_TRANSFER_GAS_LIMIT = keccak256(abi.encode("TOKEN_TRANSFER_GAS_LIMIT"));
     // @dev key for the amount of gas to forward for native token transfers
-    bytes32 public constant NATIVE_TOKEN_TRANSFER_GAS_LIMIT =
-        keccak256(abi.encode("NATIVE_TOKEN_TRANSFER_GAS_LIMIT"));
-    // @dev key for the maximum request block age, after which the request will be considered expired
-    bytes32 public constant REQUEST_EXPIRATION_BLOCK_AGE =
-        keccak256(abi.encode("REQUEST_EXPIRATION_BLOCK_AGE"));
+    bytes32 public constant NATIVE_TOKEN_TRANSFER_GAS_LIMIT = keccak256(abi.encode("NATIVE_TOKEN_TRANSFER_GAS_LIMIT"));
+    // @dev key for the request expiration time, after which the request will be considered expired
+    bytes32 public constant REQUEST_EXPIRATION_TIME = keccak256(abi.encode("REQUEST_EXPIRATION_TIME"));
 
-    bytes32 public constant MAX_CALLBACK_GAS_LIMIT =
-        keccak256(abi.encode("MAX_CALLBACK_GAS_LIMIT"));
-    bytes32 public constant SAVED_CALLBACK_CONTRACT =
-        keccak256(abi.encode("SAVED_CALLBACK_CONTRACT"));
+    bytes32 public constant MAX_CALLBACK_GAS_LIMIT = keccak256(abi.encode("MAX_CALLBACK_GAS_LIMIT"));
+    bytes32 public constant REFUND_EXECUTION_FEE_GAS_LIMIT = keccak256(abi.encode("REFUND_EXECUTION_FEE_GAS_LIMIT"));
+    bytes32 public constant SAVED_CALLBACK_CONTRACT = keccak256(abi.encode("SAVED_CALLBACK_CONTRACT"));
 
     // @dev key for the min collateral factor
-    bytes32 public constant MIN_COLLATERAL_FACTOR =
-        keccak256(abi.encode("MIN_COLLATERAL_FACTOR"));
+    bytes32 public constant MIN_COLLATERAL_FACTOR = keccak256(abi.encode("MIN_COLLATERAL_FACTOR"));
     // @dev key for the min collateral factor for open interest multiplier
     bytes32 public constant MIN_COLLATERAL_FACTOR_FOR_OPEN_INTEREST_MULTIPLIER =
-        keccak256(
-            abi.encode("MIN_COLLATERAL_FACTOR_FOR_OPEN_INTEREST_MULTIPLIER")
-        );
+        keccak256(abi.encode("MIN_COLLATERAL_FACTOR_FOR_OPEN_INTEREST_MULTIPLIER"));
     // @dev key for the min allowed collateral in USD
-    bytes32 public constant MIN_COLLATERAL_USD =
-        keccak256(abi.encode("MIN_COLLATERAL_USD"));
+    bytes32 public constant MIN_COLLATERAL_USD = keccak256(abi.encode("MIN_COLLATERAL_USD"));
     // @dev key for the min allowed position size in USD
-    bytes32 public constant MIN_POSITION_SIZE_USD =
-        keccak256(abi.encode("MIN_POSITION_SIZE_USD"));
+    bytes32 public constant MIN_POSITION_SIZE_USD = keccak256(abi.encode("MIN_POSITION_SIZE_USD"));
 
     // @dev key for the virtual id of tokens
-    bytes32 public constant VIRTUAL_TOKEN_ID =
-        keccak256(abi.encode("VIRTUAL_TOKEN_ID"));
+    bytes32 public constant VIRTUAL_TOKEN_ID = keccak256(abi.encode("VIRTUAL_TOKEN_ID"));
     // @dev key for the virtual id of markets
-    bytes32 public constant VIRTUAL_MARKET_ID =
-        keccak256(abi.encode("VIRTUAL_MARKET_ID"));
+    bytes32 public constant VIRTUAL_MARKET_ID = keccak256(abi.encode("VIRTUAL_MARKET_ID"));
     // @dev key for the virtual inventory for swaps
-    bytes32 public constant VIRTUAL_INVENTORY_FOR_SWAPS =
-        keccak256(abi.encode("VIRTUAL_INVENTORY_FOR_SWAPS"));
+    bytes32 public constant VIRTUAL_INVENTORY_FOR_SWAPS = keccak256(abi.encode("VIRTUAL_INVENTORY_FOR_SWAPS"));
     // @dev key for the virtual inventory for positions
-    bytes32 public constant VIRTUAL_INVENTORY_FOR_POSITIONS =
-        keccak256(abi.encode("VIRTUAL_INVENTORY_FOR_POSITIONS"));
+    bytes32 public constant VIRTUAL_INVENTORY_FOR_POSITIONS = keccak256(abi.encode("VIRTUAL_INVENTORY_FOR_POSITIONS"));
 
     // @dev key for the position impact factor
-    bytes32 public constant POSITION_IMPACT_FACTOR =
-        keccak256(abi.encode("POSITION_IMPACT_FACTOR"));
+    bytes32 public constant POSITION_IMPACT_FACTOR = keccak256(abi.encode("POSITION_IMPACT_FACTOR"));
     // @dev key for the position impact exponent factor
-    bytes32 public constant POSITION_IMPACT_EXPONENT_FACTOR =
-        keccak256(abi.encode("POSITION_IMPACT_EXPONENT_FACTOR"));
+    bytes32 public constant POSITION_IMPACT_EXPONENT_FACTOR = keccak256(abi.encode("POSITION_IMPACT_EXPONENT_FACTOR"));
     // @dev key for the max decrease position impact factor
-    bytes32 public constant MAX_POSITION_IMPACT_FACTOR =
-        keccak256(abi.encode("MAX_POSITION_IMPACT_FACTOR"));
+    bytes32 public constant MAX_POSITION_IMPACT_FACTOR = keccak256(abi.encode("MAX_POSITION_IMPACT_FACTOR"));
     // @dev key for the max position impact factor for liquidations
     bytes32 public constant MAX_POSITION_IMPACT_FACTOR_FOR_LIQUIDATIONS =
         keccak256(abi.encode("MAX_POSITION_IMPACT_FACTOR_FOR_LIQUIDATIONS"));
     // @dev key for the position fee factor
-    bytes32 public constant POSITION_FEE_FACTOR =
-        keccak256(abi.encode("POSITION_FEE_FACTOR"));
+    bytes32 public constant POSITION_FEE_FACTOR = keccak256(abi.encode("POSITION_FEE_FACTOR"));
     // @dev key for the swap impact factor
-    bytes32 public constant SWAP_IMPACT_FACTOR =
-        keccak256(abi.encode("SWAP_IMPACT_FACTOR"));
+    bytes32 public constant SWAP_IMPACT_FACTOR = keccak256(abi.encode("SWAP_IMPACT_FACTOR"));
     // @dev key for the swap impact exponent factor
-    bytes32 public constant SWAP_IMPACT_EXPONENT_FACTOR =
-        keccak256(abi.encode("SWAP_IMPACT_EXPONENT_FACTOR"));
+    bytes32 public constant SWAP_IMPACT_EXPONENT_FACTOR = keccak256(abi.encode("SWAP_IMPACT_EXPONENT_FACTOR"));
     // @dev key for the swap fee factor
-    bytes32 public constant SWAP_FEE_FACTOR =
-        keccak256(abi.encode("SWAP_FEE_FACTOR"));
+    bytes32 public constant SWAP_FEE_FACTOR = keccak256(abi.encode("SWAP_FEE_FACTOR"));
+    // @dev key for the atomic swap fee factor
+    bytes32 public constant ATOMIC_SWAP_FEE_FACTOR = keccak256(abi.encode("ATOMIC_SWAP_FEE_FACTOR"));
     // @dev key for the oracle type
     bytes32 public constant ORACLE_TYPE = keccak256(abi.encode("ORACLE_TYPE"));
     // @dev key for open interest
-    bytes32 public constant OPEN_INTEREST =
-        keccak256(abi.encode("OPEN_INTEREST"));
+    bytes32 public constant OPEN_INTEREST = keccak256(abi.encode("OPEN_INTEREST"));
     // @dev key for open interest in tokens
-    bytes32 public constant OPEN_INTEREST_IN_TOKENS =
-        keccak256(abi.encode("OPEN_INTEREST_IN_TOKENS"));
+    bytes32 public constant OPEN_INTEREST_IN_TOKENS = keccak256(abi.encode("OPEN_INTEREST_IN_TOKENS"));
     // @dev key for collateral sum for a market
-    bytes32 public constant COLLATERAL_SUM =
-        keccak256(abi.encode("COLLATERAL_SUM"));
+    bytes32 public constant COLLATERAL_SUM = keccak256(abi.encode("COLLATERAL_SUM"));
     // @dev key for pool amount
     bytes32 public constant POOL_AMOUNT = keccak256(abi.encode("POOL_AMOUNT"));
     // @dev key for max pool amount
-    bytes32 public constant MAX_POOL_AMOUNT =
-        keccak256(abi.encode("MAX_POOL_AMOUNT"));
-    // @dev key for max pool amount for deposit
-    bytes32 public constant MAX_POOL_AMOUNT_FOR_DEPOSIT =
-        keccak256(abi.encode("MAX_POOL_AMOUNT_FOR_DEPOSIT"));
+    bytes32 public constant MAX_POOL_AMOUNT = keccak256(abi.encode("MAX_POOL_AMOUNT"));
+    // @dev key for max pool usd for deposit
+    bytes32 public constant MAX_POOL_USD_FOR_DEPOSIT = keccak256(abi.encode("MAX_POOL_USD_FOR_DEPOSIT"));
     // @dev key for max open interest
-    bytes32 public constant MAX_OPEN_INTEREST =
-        keccak256(abi.encode("MAX_OPEN_INTEREST"));
+    bytes32 public constant MAX_OPEN_INTEREST = keccak256(abi.encode("MAX_OPEN_INTEREST"));
     // @dev key for position impact pool amount
-    bytes32 public constant POSITION_IMPACT_POOL_AMOUNT =
-        keccak256(abi.encode("POSITION_IMPACT_POOL_AMOUNT"));
+    bytes32 public constant POSITION_IMPACT_POOL_AMOUNT = keccak256(abi.encode("POSITION_IMPACT_POOL_AMOUNT"));
     // @dev key for min position impact pool amount
-    bytes32 public constant MIN_POSITION_IMPACT_POOL_AMOUNT =
-        keccak256(abi.encode("MIN_POSITION_IMPACT_POOL_AMOUNT"));
+    bytes32 public constant MIN_POSITION_IMPACT_POOL_AMOUNT = keccak256(abi.encode("MIN_POSITION_IMPACT_POOL_AMOUNT"));
     // @dev key for position impact pool distribution rate
     bytes32 public constant POSITION_IMPACT_POOL_DISTRIBUTION_RATE =
         keccak256(abi.encode("POSITION_IMPACT_POOL_DISTRIBUTION_RATE"));
@@ -339,64 +330,45 @@ library Keys {
     bytes32 public constant POSITION_IMPACT_POOL_DISTRIBUTED_AT =
         keccak256(abi.encode("POSITION_IMPACT_POOL_DISTRIBUTED_AT"));
     // @dev key for swap impact pool amount
-    bytes32 public constant SWAP_IMPACT_POOL_AMOUNT =
-        keccak256(abi.encode("SWAP_IMPACT_POOL_AMOUNT"));
+    bytes32 public constant SWAP_IMPACT_POOL_AMOUNT = keccak256(abi.encode("SWAP_IMPACT_POOL_AMOUNT"));
     // @dev key for price feed
     bytes32 public constant PRICE_FEED = keccak256(abi.encode("PRICE_FEED"));
     // @dev key for price feed multiplier
-    bytes32 public constant PRICE_FEED_MULTIPLIER =
-        keccak256(abi.encode("PRICE_FEED_MULTIPLIER"));
+    bytes32 public constant PRICE_FEED_MULTIPLIER = keccak256(abi.encode("PRICE_FEED_MULTIPLIER"));
     // @dev key for price feed heartbeat
-    bytes32 public constant PRICE_FEED_HEARTBEAT_DURATION =
-        keccak256(abi.encode("PRICE_FEED_HEARTBEAT_DURATION"));
-    // @dev key for realtime feed id
-    bytes32 public constant REALTIME_FEED_ID =
-        keccak256(abi.encode("REALTIME_FEED_ID"));
-    // @dev key for realtime feed multipler
-    bytes32 public constant REALTIME_FEED_MULTIPLIER =
-        keccak256(abi.encode("REALTIME_FEED_MULTIPLIER"));
+    bytes32 public constant PRICE_FEED_HEARTBEAT_DURATION = keccak256(abi.encode("PRICE_FEED_HEARTBEAT_DURATION"));
+    // @dev key for data stream feed id
+    bytes32 public constant DATA_STREAM_ID = keccak256(abi.encode("DATA_STREAM_ID"));
+    // @dev key for data stream feed multipler
+    bytes32 public constant DATA_STREAM_MULTIPLIER = keccak256(abi.encode("DATA_STREAM_MULTIPLIER"));
     // @dev key for stable price
-    bytes32 public constant STABLE_PRICE =
-        keccak256(abi.encode("STABLE_PRICE"));
+    bytes32 public constant STABLE_PRICE = keccak256(abi.encode("STABLE_PRICE"));
     // @dev key for reserve factor
-    bytes32 public constant RESERVE_FACTOR =
-        keccak256(abi.encode("RESERVE_FACTOR"));
+    bytes32 public constant RESERVE_FACTOR = keccak256(abi.encode("RESERVE_FACTOR"));
     // @dev key for open interest reserve factor
-    bytes32 public constant OPEN_INTEREST_RESERVE_FACTOR =
-        keccak256(abi.encode("OPEN_INTEREST_RESERVE_FACTOR"));
+    bytes32 public constant OPEN_INTEREST_RESERVE_FACTOR = keccak256(abi.encode("OPEN_INTEREST_RESERVE_FACTOR"));
     // @dev key for max pnl factor
-    bytes32 public constant MAX_PNL_FACTOR =
-        keccak256(abi.encode("MAX_PNL_FACTOR"));
+    bytes32 public constant MAX_PNL_FACTOR = keccak256(abi.encode("MAX_PNL_FACTOR"));
     // @dev key for max pnl factor
-    bytes32 public constant MAX_PNL_FACTOR_FOR_TRADERS =
-        keccak256(abi.encode("MAX_PNL_FACTOR_FOR_TRADERS"));
+    bytes32 public constant MAX_PNL_FACTOR_FOR_TRADERS = keccak256(abi.encode("MAX_PNL_FACTOR_FOR_TRADERS"));
     // @dev key for max pnl factor for adl
-    bytes32 public constant MAX_PNL_FACTOR_FOR_ADL =
-        keccak256(abi.encode("MAX_PNL_FACTOR_FOR_ADL"));
+    bytes32 public constant MAX_PNL_FACTOR_FOR_ADL = keccak256(abi.encode("MAX_PNL_FACTOR_FOR_ADL"));
     // @dev key for min pnl factor for adl
-    bytes32 public constant MIN_PNL_FACTOR_AFTER_ADL =
-        keccak256(abi.encode("MIN_PNL_FACTOR_AFTER_ADL"));
+    bytes32 public constant MIN_PNL_FACTOR_AFTER_ADL = keccak256(abi.encode("MIN_PNL_FACTOR_AFTER_ADL"));
     // @dev key for max pnl factor
-    bytes32 public constant MAX_PNL_FACTOR_FOR_DEPOSITS =
-        keccak256(abi.encode("MAX_PNL_FACTOR_FOR_DEPOSITS"));
+    bytes32 public constant MAX_PNL_FACTOR_FOR_DEPOSITS = keccak256(abi.encode("MAX_PNL_FACTOR_FOR_DEPOSITS"));
     // @dev key for max pnl factor for withdrawals
-    bytes32 public constant MAX_PNL_FACTOR_FOR_WITHDRAWALS =
-        keccak256(abi.encode("MAX_PNL_FACTOR_FOR_WITHDRAWALS"));
-    // @dev key for latest ADL block
-    bytes32 public constant LATEST_ADL_BLOCK =
-        keccak256(abi.encode("LATEST_ADL_BLOCK"));
+    bytes32 public constant MAX_PNL_FACTOR_FOR_WITHDRAWALS = keccak256(abi.encode("MAX_PNL_FACTOR_FOR_WITHDRAWALS"));
+    // @dev key for latest ADL at
+    bytes32 public constant LATEST_ADL_AT = keccak256(abi.encode("LATEST_ADL_AT"));
     // @dev key for whether ADL is enabled
-    bytes32 public constant IS_ADL_ENABLED =
-        keccak256(abi.encode("IS_ADL_ENABLED"));
+    bytes32 public constant IS_ADL_ENABLED = keccak256(abi.encode("IS_ADL_ENABLED"));
     // @dev key for funding factor
-    bytes32 public constant FUNDING_FACTOR =
-        keccak256(abi.encode("FUNDING_FACTOR"));
+    bytes32 public constant FUNDING_FACTOR = keccak256(abi.encode("FUNDING_FACTOR"));
     // @dev key for funding exponent factor
-    bytes32 public constant FUNDING_EXPONENT_FACTOR =
-        keccak256(abi.encode("FUNDING_EXPONENT_FACTOR"));
+    bytes32 public constant FUNDING_EXPONENT_FACTOR = keccak256(abi.encode("FUNDING_EXPONENT_FACTOR"));
     // @dev key for saved funding factor
-    bytes32 public constant SAVED_FUNDING_FACTOR_PER_SECOND =
-        keccak256(abi.encode("SAVED_FUNDING_FACTOR_PER_SECOND"));
+    bytes32 public constant SAVED_FUNDING_FACTOR_PER_SECOND = keccak256(abi.encode("SAVED_FUNDING_FACTOR_PER_SECOND"));
     // @dev key for funding increase factor
     bytes32 public constant FUNDING_INCREASE_FACTOR_PER_SECOND =
         keccak256(abi.encode("FUNDING_INCREASE_FACTOR_PER_SECOND"));
@@ -404,131 +376,140 @@ library Keys {
     bytes32 public constant FUNDING_DECREASE_FACTOR_PER_SECOND =
         keccak256(abi.encode("FUNDING_DECREASE_FACTOR_PER_SECOND"));
     // @dev key for min funding factor
-    bytes32 public constant MIN_FUNDING_FACTOR_PER_SECOND =
-        keccak256(abi.encode("MIN_FUNDING_FACTOR_PER_SECOND"));
+    bytes32 public constant MIN_FUNDING_FACTOR_PER_SECOND = keccak256(abi.encode("MIN_FUNDING_FACTOR_PER_SECOND"));
     // @dev key for max funding factor
-    bytes32 public constant MAX_FUNDING_FACTOR_PER_SECOND =
-        keccak256(abi.encode("MAX_FUNDING_FACTOR_PER_SECOND"));
+    bytes32 public constant MAX_FUNDING_FACTOR_PER_SECOND = keccak256(abi.encode("MAX_FUNDING_FACTOR_PER_SECOND"));
+    // @dev key for max funding factor limit
+    bytes32 public constant MAX_FUNDING_FACTOR_PER_SECOND_LIMIT =
+        keccak256(abi.encode("MAX_FUNDING_FACTOR_PER_SECOND_LIMIT"));
     // @dev key for threshold for stable funding
-    bytes32 public constant THRESHOLD_FOR_STABLE_FUNDING =
-        keccak256(abi.encode("THRESHOLD_FOR_STABLE_FUNDING"));
+    bytes32 public constant THRESHOLD_FOR_STABLE_FUNDING = keccak256(abi.encode("THRESHOLD_FOR_STABLE_FUNDING"));
     // @dev key for threshold for decrease funding
-    bytes32 public constant THRESHOLD_FOR_DECREASE_FUNDING =
-        keccak256(abi.encode("THRESHOLD_FOR_DECREASE_FUNDING"));
+    bytes32 public constant THRESHOLD_FOR_DECREASE_FUNDING = keccak256(abi.encode("THRESHOLD_FOR_DECREASE_FUNDING"));
     // @dev key for funding fee amount per size
-    bytes32 public constant FUNDING_FEE_AMOUNT_PER_SIZE =
-        keccak256(abi.encode("FUNDING_FEE_AMOUNT_PER_SIZE"));
+    bytes32 public constant FUNDING_FEE_AMOUNT_PER_SIZE = keccak256(abi.encode("FUNDING_FEE_AMOUNT_PER_SIZE"));
     // @dev key for claimable funding amount per size
     bytes32 public constant CLAIMABLE_FUNDING_AMOUNT_PER_SIZE =
         keccak256(abi.encode("CLAIMABLE_FUNDING_AMOUNT_PER_SIZE"));
     // @dev key for when funding was last updated at
-    bytes32 public constant FUNDING_UPDATED_AT =
-        keccak256(abi.encode("FUNDING_UPDATED_AT"));
+    bytes32 public constant FUNDING_UPDATED_AT = keccak256(abi.encode("FUNDING_UPDATED_AT"));
     // @dev key for claimable funding amount
-    bytes32 public constant CLAIMABLE_FUNDING_AMOUNT =
-        keccak256(abi.encode("CLAIMABLE_FUNDING_AMOUNT"));
+    bytes32 public constant CLAIMABLE_FUNDING_AMOUNT = keccak256(abi.encode("CLAIMABLE_FUNDING_AMOUNT"));
     // @dev key for claimable collateral amount
-    bytes32 public constant CLAIMABLE_COLLATERAL_AMOUNT =
-        keccak256(abi.encode("CLAIMABLE_COLLATERAL_AMOUNT"));
+    bytes32 public constant CLAIMABLE_COLLATERAL_AMOUNT = keccak256(abi.encode("CLAIMABLE_COLLATERAL_AMOUNT"));
     // @dev key for claimable collateral factor
-    bytes32 public constant CLAIMABLE_COLLATERAL_FACTOR =
-        keccak256(abi.encode("CLAIMABLE_COLLATERAL_FACTOR"));
+    bytes32 public constant CLAIMABLE_COLLATERAL_FACTOR = keccak256(abi.encode("CLAIMABLE_COLLATERAL_FACTOR"));
     // @dev key for claimable collateral time divisor
     bytes32 public constant CLAIMABLE_COLLATERAL_TIME_DIVISOR =
         keccak256(abi.encode("CLAIMABLE_COLLATERAL_TIME_DIVISOR"));
     // @dev key for claimed collateral amount
-    bytes32 public constant CLAIMED_COLLATERAL_AMOUNT =
-        keccak256(abi.encode("CLAIMED_COLLATERAL_AMOUNT"));
+    bytes32 public constant CLAIMED_COLLATERAL_AMOUNT = keccak256(abi.encode("CLAIMED_COLLATERAL_AMOUNT"));
+    // @dev key for optimal usage factor
+    bytes32 public constant OPTIMAL_USAGE_FACTOR = keccak256(abi.encode("OPTIMAL_USAGE_FACTOR"));
+    // @dev key for base borrowing factor
+    bytes32 public constant BASE_BORROWING_FACTOR = keccak256(abi.encode("BASE_BORROWING_FACTOR"));
+    // @dev key for above optimal usage borrowing factor
+    bytes32 public constant ABOVE_OPTIMAL_USAGE_BORROWING_FACTOR =
+        keccak256(abi.encode("ABOVE_OPTIMAL_USAGE_BORROWING_FACTOR"));
     // @dev key for borrowing factor
-    bytes32 public constant BORROWING_FACTOR =
-        keccak256(abi.encode("BORROWING_FACTOR"));
+    bytes32 public constant BORROWING_FACTOR = keccak256(abi.encode("BORROWING_FACTOR"));
     // @dev key for borrowing factor
-    bytes32 public constant BORROWING_EXPONENT_FACTOR =
-        keccak256(abi.encode("BORROWING_EXPONENT_FACTOR"));
+    bytes32 public constant BORROWING_EXPONENT_FACTOR = keccak256(abi.encode("BORROWING_EXPONENT_FACTOR"));
     // @dev key for skipping the borrowing factor for the smaller side
     bytes32 public constant SKIP_BORROWING_FEE_FOR_SMALLER_SIDE =
         keccak256(abi.encode("SKIP_BORROWING_FEE_FOR_SMALLER_SIDE"));
     // @dev key for cumulative borrowing factor
-    bytes32 public constant CUMULATIVE_BORROWING_FACTOR =
-        keccak256(abi.encode("CUMULATIVE_BORROWING_FACTOR"));
+    bytes32 public constant CUMULATIVE_BORROWING_FACTOR = keccak256(abi.encode("CUMULATIVE_BORROWING_FACTOR"));
     // @dev key for when the cumulative borrowing factor was last updated at
     bytes32 public constant CUMULATIVE_BORROWING_FACTOR_UPDATED_AT =
         keccak256(abi.encode("CUMULATIVE_BORROWING_FACTOR_UPDATED_AT"));
     // @dev key for total borrowing amount
-    bytes32 public constant TOTAL_BORROWING =
-        keccak256(abi.encode("TOTAL_BORROWING"));
+    bytes32 public constant TOTAL_BORROWING = keccak256(abi.encode("TOTAL_BORROWING"));
     // @dev key for affiliate reward
-    bytes32 public constant AFFILIATE_REWARD =
-        keccak256(abi.encode("AFFILIATE_REWARD"));
+    bytes32 public constant AFFILIATE_REWARD = keccak256(abi.encode("AFFILIATE_REWARD"));
     // @dev key for max allowed subaccount action count
     bytes32 public constant MAX_ALLOWED_SUBACCOUNT_ACTION_COUNT =
         keccak256(abi.encode("MAX_ALLOWED_SUBACCOUNT_ACTION_COUNT"));
     // @dev key for subaccount action count
-    bytes32 public constant SUBACCOUNT_ACTION_COUNT =
-        keccak256(abi.encode("SUBACCOUNT_ACTION_COUNT"));
+    bytes32 public constant SUBACCOUNT_ACTION_COUNT = keccak256(abi.encode("SUBACCOUNT_ACTION_COUNT"));
     // @dev key for subaccount auto top up amount
-    bytes32 public constant SUBACCOUNT_AUTO_TOP_UP_AMOUNT =
-        keccak256(abi.encode("SUBACCOUNT_AUTO_TOP_UP_AMOUNT"));
+    bytes32 public constant SUBACCOUNT_AUTO_TOP_UP_AMOUNT = keccak256(abi.encode("SUBACCOUNT_AUTO_TOP_UP_AMOUNT"));
     // @dev key for subaccount order action
-    bytes32 public constant SUBACCOUNT_ORDER_ACTION =
-        keccak256(abi.encode("SUBACCOUNT_ORDER_ACTION"));
+    bytes32 public constant SUBACCOUNT_ORDER_ACTION = keccak256(abi.encode("SUBACCOUNT_ORDER_ACTION"));
     // @dev key for fee distributor swap order token index
-    bytes32 public constant FEE_DISTRIBUTOR_SWAP_TOKEN_INDEX =
-        keccak256(abi.encode("FEE_DISTRIBUTOR_SWAP_TOKEN_INDEX"));
+    bytes32 public constant FEE_DISTRIBUTOR_SWAP_TOKEN_INDEX = keccak256(abi.encode("FEE_DISTRIBUTOR_SWAP_TOKEN_INDEX"));
     // @dev key for fee distributor swap fee batch
-    bytes32 public constant FEE_DISTRIBUTOR_SWAP_FEE_BATCH =
-        keccak256(abi.encode("FEE_DISTRIBUTOR_SWAP_FEE_BATCH"));
+    bytes32 public constant FEE_DISTRIBUTOR_SWAP_FEE_BATCH = keccak256(abi.encode("FEE_DISTRIBUTOR_SWAP_FEE_BATCH"));
+
+    // @dev key for the glv pending shift
+    bytes32 public constant GLV_PENDING_SHIFT = keccak256(abi.encode("GLV_PENDING_SHIFT"));
+    bytes32 public constant GLV_PENDING_SHIFT_BACKREF = keccak256(abi.encode("GLV_PENDING_SHIFT_BACKREF"));
+    // @dev key for the max market token balance usd for glv
+    bytes32 public constant GLV_MAX_MARKET_TOKEN_BALANCE_USD = keccak256(abi.encode("GLV_MAX_MARKET_TOKEN_BALANCE_USD"));
+    // @dev key for is glv market disabled
+    bytes32 public constant IS_GLV_MARKET_DISABLED = keccak256(abi.encode("IS_GLV_MARKET_DISABLED"));
 
     // @dev constant for user initiated cancel reason
     string public constant USER_INITIATED_CANCEL = "USER_INITIATED_CANCEL";
 
     // @dev key for the account deposit list
     // @param account the account for the list
-    function accountDepositListKey(
-        address account
-    ) internal pure returns (bytes32) {
+    function accountDepositListKey(address account) internal pure returns (bytes32) {
         return keccak256(abi.encode(ACCOUNT_DEPOSIT_LIST, account));
     }
 
     // @dev key for the account withdrawal list
     // @param account the account for the list
-    function accountWithdrawalListKey(
-        address account
-    ) internal pure returns (bytes32) {
+    function accountWithdrawalListKey(address account) internal pure returns (bytes32) {
         return keccak256(abi.encode(ACCOUNT_WITHDRAWAL_LIST, account));
+    }
+
+    // @dev key for the account shift list
+    // @param account the account for the list
+    function accountShiftListKey(address account) internal pure returns (bytes32) {
+        return keccak256(abi.encode(ACCOUNT_SHIFT_LIST, account));
+    }
+
+    // @dev key for the account glv deposit list
+    // @param account the account for the list
+    function accountGlvDepositListKey(address account) internal pure returns (bytes32) {
+        return keccak256(abi.encode(ACCOUNT_GLV_DEPOSIT_LIST, account));
+    }
+
+    // @dev key for the glv supported market list
+    // @param glv the glv for the supported market list
+    function glvSupportedMarketListKey(address glv) internal pure returns (bytes32) {
+        return keccak256(abi.encode(GLV_SUPPORTED_MARKET_LIST, glv));
     }
 
     // @dev key for the account position list
     // @param account the account for the list
-    function accountPositionListKey(
-        address account
-    ) internal pure returns (bytes32) {
+    function accountPositionListKey(address account) internal pure returns (bytes32) {
         return keccak256(abi.encode(ACCOUNT_POSITION_LIST, account));
     }
 
     // @dev key for the account order list
     // @param account the account for the list
-    function accountOrderListKey(
-        address account
-    ) internal pure returns (bytes32) {
+    function accountOrderListKey(address account) internal pure returns (bytes32) {
         return keccak256(abi.encode(ACCOUNT_ORDER_LIST, account));
     }
 
     // @dev key for the subaccount list
     // @param account the account for the list
-    function subaccountListKey(
-        address account
-    ) internal pure returns (bytes32) {
+    function subaccountListKey(address account) internal pure returns (bytes32) {
         return keccak256(abi.encode(SUBACCOUNT_LIST, account));
+    }
+
+    // @dev key for the auto cancel order list
+    // @param position key the position key for the list
+    function autoCancelOrderListKey(bytes32 positionKey) internal pure returns (bytes32) {
+        return keccak256(abi.encode(AUTO_CANCEL_ORDER_LIST, positionKey));
     }
 
     // @dev key for the claimable fee amount
     // @param market the market for the fee
     // @param token the token for the fee
-    function claimableFeeAmountKey(
-        address market,
-        address token
-    ) internal pure returns (bytes32) {
+    function claimableFeeAmountKey(address market, address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(CLAIMABLE_FEE_AMOUNT, market, token));
     }
 
@@ -536,10 +517,7 @@ library Keys {
     // @param market the market for the fee
     // @param token the token for the fee
     // @param account the account that can claim the ui fee
-    function claimableUiFeeAmountKey(
-        address market,
-        address token
-    ) internal pure returns (bytes32) {
+    function claimableUiFeeAmountKey(address market, address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(CLAIMABLE_UI_FEE_AMOUNT, market, token));
     }
 
@@ -547,30 +525,35 @@ library Keys {
     // @param market the market for the fee
     // @param token the token for the fee
     // @param account the account that can claim the ui fee
-    function claimableUiFeeAmountKey(
-        address market,
-        address token,
-        address account
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(CLAIMABLE_UI_FEE_AMOUNT, market, token, account)
-            );
+    function claimableUiFeeAmountKey(address market, address token, address account) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CLAIMABLE_UI_FEE_AMOUNT, market, token, account));
     }
 
     // @dev key for deposit gas limit
     // @param singleToken whether a single token or pair tokens are being deposited
     // @return key for deposit gas limit
-    function depositGasLimitKey(
-        bool singleToken
-    ) internal pure returns (bytes32) {
+    function depositGasLimitKey(bool singleToken) internal pure returns (bytes32) {
         return keccak256(abi.encode(DEPOSIT_GAS_LIMIT, singleToken));
     }
 
     // @dev key for withdrawal gas limit
     // @return key for withdrawal gas limit
     function withdrawalGasLimitKey() internal pure returns (bytes32) {
-        return keccak256(abi.encode(WITHDRAWAL_GAS_LIMIT));
+        return WITHDRAWAL_GAS_LIMIT;
+    }
+
+    // @dev key for shift gas limit
+    // @return key for shift gas limit
+    function shiftGasLimitKey() internal pure returns (bytes32) {
+        return SHIFT_GAS_LIMIT;
+    }
+
+    function glvDepositGasLimitKey() internal pure returns (bytes32) {
+        return GLV_DEPOSIT_GAS_LIMIT;
+    }
+
+    function glvPerMarketGasLimitKey() internal pure returns (bytes32) {
+        return GLV_PER_MARKET_GAS_LIMIT;
     }
 
     // @dev key for single swap gas limit
@@ -597,175 +580,170 @@ library Keys {
         return SWAP_ORDER_GAS_LIMIT;
     }
 
-    function swapPathMarketFlagKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function swapPathMarketFlagKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(SWAP_PATH_MARKET_FLAG, market));
+    }
+
+    // @dev key for whether create glv deposit is disabled
+    // @param the create deposit module
+    // @return key for whether create deposit is disabled
+    function createGlvDepositFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CREATE_GLV_DEPOSIT_FEATURE_DISABLED, module));
+    }
+
+    // @dev key for whether cancel glv deposit is disabled
+    // @param the cancel deposit module
+    // @return key for whether cancel deposit is disabled
+    function cancelGlvDepositFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CANCEL_GLV_DEPOSIT_FEATURE_DISABLED, module));
+    }
+
+    // @dev key for whether execute glv deposit is disabled
+    // @param the execute deposit module
+    // @return key for whether execute deposit is disabled
+    function executeGlvDepositFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(EXECUTE_GLV_DEPOSIT_FEATURE_DISABLED, module));
+    }
+
+    // @dev key for whether shift deposit is disabled
+    // @param the execute deposit module
+    // @return key for whether execute deposit is disabled
+    function glvShiftFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(GLV_SHIFT_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether create deposit is disabled
     // @param the create deposit module
     // @return key for whether create deposit is disabled
-    function createDepositFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
+    function createDepositFeatureDisabledKey(address module) internal pure returns (bytes32) {
         return keccak256(abi.encode(CREATE_DEPOSIT_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether cancel deposit is disabled
     // @param the cancel deposit module
     // @return key for whether cancel deposit is disabled
-    function cancelDepositFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
+    function cancelDepositFeatureDisabledKey(address module) internal pure returns (bytes32) {
         return keccak256(abi.encode(CANCEL_DEPOSIT_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether execute deposit is disabled
     // @param the execute deposit module
     // @return key for whether execute deposit is disabled
-    function executeDepositFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
+    function executeDepositFeatureDisabledKey(address module) internal pure returns (bytes32) {
         return keccak256(abi.encode(EXECUTE_DEPOSIT_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether create withdrawal is disabled
     // @param the create withdrawal module
     // @return key for whether create withdrawal is disabled
-    function createWithdrawalFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(CREATE_WITHDRAWAL_FEATURE_DISABLED, module));
+    function createWithdrawalFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CREATE_WITHDRAWAL_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether cancel withdrawal is disabled
     // @param the cancel withdrawal module
     // @return key for whether cancel withdrawal is disabled
-    function cancelWithdrawalFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(CANCEL_WITHDRAWAL_FEATURE_DISABLED, module));
+    function cancelWithdrawalFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CANCEL_WITHDRAWAL_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether execute withdrawal is disabled
     // @param the execute withdrawal module
     // @return key for whether execute withdrawal is disabled
-    function executeWithdrawalFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(EXECUTE_WITHDRAWAL_FEATURE_DISABLED, module));
+    function executeWithdrawalFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(EXECUTE_WITHDRAWAL_FEATURE_DISABLED, module));
+    }
+
+    // @dev key for whether execute atomic withdrawal is disabled
+    // @param the execute atomic withdrawal module
+    // @return key for whether execute atomic withdrawal is disabled
+    function executeAtomicWithdrawalFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(EXECUTE_ATOMIC_WITHDRAWAL_FEATURE_DISABLED, module));
+    }
+
+    // @dev key for whether create shift is disabled
+    // @param the create shift module
+    // @return key for whether create shift is disabled
+    function createShiftFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CREATE_SHIFT_FEATURE_DISABLED, module));
+    }
+
+    // @dev key for whether cancel shift is disabled
+    // @param the cancel shift module
+    // @return key for whether cancel shift is disabled
+    function cancelShiftFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CANCEL_SHIFT_FEATURE_DISABLED, module));
+    }
+
+    // @dev key for whether execute shift is disabled
+    // @param the execute shift module
+    // @return key for whether execute shift is disabled
+    function executeShiftFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(EXECUTE_SHIFT_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether create order is disabled
     // @param the create order module
     // @return key for whether create order is disabled
-    function createOrderFeatureDisabledKey(
-        address module,
-        uint256 orderType
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(CREATE_ORDER_FEATURE_DISABLED, module, orderType)
-            );
+    function createOrderFeatureDisabledKey(address module, uint256 orderType) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CREATE_ORDER_FEATURE_DISABLED, module, orderType));
     }
 
     // @dev key for whether execute order is disabled
     // @param the execute order module
     // @return key for whether execute order is disabled
-    function executeOrderFeatureDisabledKey(
-        address module,
-        uint256 orderType
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(EXECUTE_ORDER_FEATURE_DISABLED, module, orderType)
-            );
+    function executeOrderFeatureDisabledKey(address module, uint256 orderType) internal pure returns (bytes32) {
+        return keccak256(abi.encode(EXECUTE_ORDER_FEATURE_DISABLED, module, orderType));
     }
 
     // @dev key for whether execute adl is disabled
     // @param the execute adl module
     // @return key for whether execute adl is disabled
-    function executeAdlFeatureDisabledKey(
-        address module,
-        uint256 orderType
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(EXECUTE_ADL_FEATURE_DISABLED, module, orderType)
-            );
+    function executeAdlFeatureDisabledKey(address module, uint256 orderType) internal pure returns (bytes32) {
+        return keccak256(abi.encode(EXECUTE_ADL_FEATURE_DISABLED, module, orderType));
     }
 
     // @dev key for whether update order is disabled
     // @param the update order module
     // @return key for whether update order is disabled
-    function updateOrderFeatureDisabledKey(
-        address module,
-        uint256 orderType
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(UPDATE_ORDER_FEATURE_DISABLED, module, orderType)
-            );
+    function updateOrderFeatureDisabledKey(address module, uint256 orderType) internal pure returns (bytes32) {
+        return keccak256(abi.encode(UPDATE_ORDER_FEATURE_DISABLED, module, orderType));
     }
 
     // @dev key for whether cancel order is disabled
     // @param the cancel order module
     // @return key for whether cancel order is disabled
-    function cancelOrderFeatureDisabledKey(
-        address module,
-        uint256 orderType
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(CANCEL_ORDER_FEATURE_DISABLED, module, orderType)
-            );
+    function cancelOrderFeatureDisabledKey(address module, uint256 orderType) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CANCEL_ORDER_FEATURE_DISABLED, module, orderType));
     }
 
     // @dev key for whether claim funding fees is disabled
     // @param the claim funding fees module
-    function claimFundingFeesFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(CLAIM_FUNDING_FEES_FEATURE_DISABLED, module));
+    function claimFundingFeesFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CLAIM_FUNDING_FEES_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether claim colltareral is disabled
     // @param the claim funding fees module
-    function claimCollateralFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
+    function claimCollateralFeatureDisabledKey(address module) internal pure returns (bytes32) {
         return keccak256(abi.encode(CLAIM_COLLATERAL_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether claim affiliate rewards is disabled
     // @param the claim affiliate rewards module
-    function claimAffiliateRewardsFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(CLAIM_AFFILIATE_REWARDS_FEATURE_DISABLED, module)
-            );
+    function claimAffiliateRewardsFeatureDisabledKey(address module) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CLAIM_AFFILIATE_REWARDS_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether claim ui fees is disabled
     // @param the claim ui fees module
-    function claimUiFeesFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
+    function claimUiFeesFeatureDisabledKey(address module) internal pure returns (bytes32) {
         return keccak256(abi.encode(CLAIM_UI_FEES_FEATURE_DISABLED, module));
     }
 
     // @dev key for whether subaccounts are disabled
     // @param the subaccount module
-    function subaccountFeatureDisabledKey(
-        address module
-    ) internal pure returns (bytes32) {
+    function subaccountFeatureDisabledKey(address module) internal pure returns (bytes32) {
         return keccak256(abi.encode(SUBACCOUNT_FEATURE_DISABLED, module));
     }
 
@@ -776,12 +754,39 @@ library Keys {
         return keccak256(abi.encode(UI_FEE_FACTOR, account));
     }
 
+    // @dev key for whether an oracle provider is enabled
+    // @param provider the oracle provider
+    // @return key for whether an oracle provider is enabled
+    function isOracleProviderEnabledKey(address provider) internal pure returns (bytes32) {
+        return keccak256(abi.encode(IS_ORACLE_PROVIDER_ENABLED, provider));
+    }
+
+    // @dev key for whether an oracle provider is allowed to be used for atomic actions
+    // @param provider the oracle provider
+    // @return key for whether an oracle provider is allowed to be used for atomic actions
+    function isAtomicOracleProviderKey(address provider) internal pure returns (bytes32) {
+        return keccak256(abi.encode(IS_ATOMIC_ORACLE_PROVIDER, provider));
+    }
+
+    // @dev key for oracle timestamp adjustment
+    // @param provider the oracle provider
+    // @param token the token
+    // @return key for oracle timestamp adjustment
+    function oracleTimestampAdjustmentKey(address provider, address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(ORACLE_TIMESTAMP_ADJUSTMENT, provider, token));
+    }
+
+    // @dev key for oracle provider for token
+    // @param token the token
+    // @return key for oracle provider for token
+    function oracleProviderForTokenKey(address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(ORACLE_PROVIDER_FOR_TOKEN, token));
+    }
+
     // @dev key for gas to forward for token transfer
     // @param the token to check
     // @return key for gas to forward for token transfer
-    function tokenTransferGasLimit(
-        address token
-    ) internal pure returns (bytes32) {
+    function tokenTransferGasLimit(address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(TOKEN_TRANSFER_GAS_LIMIT, token));
     }
 
@@ -789,35 +794,24 @@ library Keys {
     // @param account the user's account
     // @param market the address of the market
     // @param callbackContract the callback contract
-    function savedCallbackContract(
-        address account,
-        address market
-    ) internal pure returns (bytes32) {
+    function savedCallbackContract(address account, address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(SAVED_CALLBACK_CONTRACT, account, market));
     }
 
     // @dev the min collateral factor key
     // @param the market for the min collateral factor
-    function minCollateralFactorKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function minCollateralFactorKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(MIN_COLLATERAL_FACTOR, market));
     }
 
     // @dev the min collateral factor for open interest multiplier key
     // @param the market for the factor
-    function minCollateralFactorForOpenInterestMultiplierKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    MIN_COLLATERAL_FACTOR_FOR_OPEN_INTEREST_MULTIPLIER,
-                    market,
-                    isLong
-                )
-            );
+    function minCollateralFactorForOpenInterestMultiplierKey(address market, bool isLong)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(MIN_COLLATERAL_FACTOR_FOR_OPEN_INTEREST_MULTIPLIER, market, isLong));
     }
 
     // @dev the key for the virtual token id
@@ -828,129 +822,87 @@ library Keys {
 
     // @dev the key for the virtual market id
     // @param the market to get the virtual id for
-    function virtualMarketIdKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function virtualMarketIdKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(VIRTUAL_MARKET_ID, market));
     }
 
     // @dev the key for the virtual inventory for positions
     // @param the virtualTokenId the virtual token id
-    function virtualInventoryForPositionsKey(
-        bytes32 virtualTokenId
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(VIRTUAL_INVENTORY_FOR_POSITIONS, virtualTokenId)
-            );
+    function virtualInventoryForPositionsKey(bytes32 virtualTokenId) internal pure returns (bytes32) {
+        return keccak256(abi.encode(VIRTUAL_INVENTORY_FOR_POSITIONS, virtualTokenId));
     }
 
     // @dev the key for the virtual inventory for swaps
     // @param the virtualMarketId the virtual market id
     // @param the token to check the inventory for
-    function virtualInventoryForSwapsKey(
-        bytes32 virtualMarketId,
-        bool isLongToken
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    VIRTUAL_INVENTORY_FOR_SWAPS,
-                    virtualMarketId,
-                    isLongToken
-                )
-            );
+    function virtualInventoryForSwapsKey(bytes32 virtualMarketId, bool isLongToken) internal pure returns (bytes32) {
+        return keccak256(abi.encode(VIRTUAL_INVENTORY_FOR_SWAPS, virtualMarketId, isLongToken));
     }
 
     // @dev key for position impact factor
     // @param market the market address to check
     // @param isPositive whether the impact is positive or negative
     // @return key for position impact factor
-    function positionImpactFactorKey(
-        address market,
-        bool isPositive
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(POSITION_IMPACT_FACTOR, market, isPositive));
+    function positionImpactFactorKey(address market, bool isPositive) internal pure returns (bytes32) {
+        return keccak256(abi.encode(POSITION_IMPACT_FACTOR, market, isPositive));
     }
 
     // @dev key for position impact exponent factor
     // @param market the market address to check
     // @return key for position impact exponent factor
-    function positionImpactExponentFactorKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function positionImpactExponentFactorKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(POSITION_IMPACT_EXPONENT_FACTOR, market));
     }
 
     // @dev key for the max position impact factor
     // @param market the market address to check
     // @return key for the max position impact factor
-    function maxPositionImpactFactorKey(
-        address market,
-        bool isPositive
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(MAX_POSITION_IMPACT_FACTOR, market, isPositive)
-            );
+    function maxPositionImpactFactorKey(address market, bool isPositive) internal pure returns (bytes32) {
+        return keccak256(abi.encode(MAX_POSITION_IMPACT_FACTOR, market, isPositive));
     }
 
     // @dev key for the max position impact factor for liquidations
     // @param market the market address to check
     // @return key for the max position impact factor
-    function maxPositionImpactFactorForLiquidationsKey(
-        address market
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(MAX_POSITION_IMPACT_FACTOR_FOR_LIQUIDATIONS, market)
-            );
+    function maxPositionImpactFactorForLiquidationsKey(address market) internal pure returns (bytes32) {
+        return keccak256(abi.encode(MAX_POSITION_IMPACT_FACTOR_FOR_LIQUIDATIONS, market));
     }
 
     // @dev key for position fee factor
     // @param market the market address to check
     // @param forPositiveImpact whether the fee is for an action that has a positive price impact
     // @return key for position fee factor
-    function positionFeeFactorKey(
-        address market,
-        bool forPositiveImpact
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(POSITION_FEE_FACTOR, market, forPositiveImpact)
-            );
+    function positionFeeFactorKey(address market, bool forPositiveImpact) internal pure returns (bytes32) {
+        return keccak256(abi.encode(POSITION_FEE_FACTOR, market, forPositiveImpact));
     }
 
     // @dev key for swap impact factor
     // @param market the market address to check
     // @param isPositive whether the impact is positive or negative
     // @return key for swap impact factor
-    function swapImpactFactorKey(
-        address market,
-        bool isPositive
-    ) internal pure returns (bytes32) {
+    function swapImpactFactorKey(address market, bool isPositive) internal pure returns (bytes32) {
         return keccak256(abi.encode(SWAP_IMPACT_FACTOR, market, isPositive));
     }
 
     // @dev key for swap impact exponent factor
     // @param market the market address to check
     // @return key for swap impact exponent factor
-    function swapImpactExponentFactorKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function swapImpactExponentFactorKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(SWAP_IMPACT_EXPONENT_FACTOR, market));
     }
 
     // @dev key for swap fee factor
     // @param market the market address to check
     // @return key for swap fee factor
-    function swapFeeFactorKey(
-        address market,
-        bool forPositiveImpact
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(SWAP_FEE_FACTOR, market, forPositiveImpact));
+    function swapFeeFactorKey(address market, bool forPositiveImpact) internal pure returns (bytes32) {
+        return keccak256(abi.encode(SWAP_FEE_FACTOR, market, forPositiveImpact));
+    }
+
+    // @dev key for atomic swap fee factor
+    // @param market the market address to check
+    // @return key for atomic swap fee factor
+    function atomicSwapFeeFactorKey(address market) internal pure returns (bytes32) {
+        return keccak256(abi.encode(ATOMIC_SWAP_FEE_FACTOR, market));
     }
 
     // @dev key for oracle type
@@ -965,15 +917,8 @@ library Keys {
     // @param collateralToken the collateralToken to check
     // @param isLong whether to check the long or short open interest
     // @return key for open interest
-    function openInterestKey(
-        address market,
-        address collateralToken,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(OPEN_INTEREST, market, collateralToken, isLong)
-            );
+    function openInterestKey(address market, address collateralToken, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(OPEN_INTEREST, market, collateralToken, isLong));
     }
 
     // @dev key for open interest in tokens
@@ -981,20 +926,12 @@ library Keys {
     // @param collateralToken the collateralToken to check
     // @param isLong whether to check the long or short open interest
     // @return key for open interest in tokens
-    function openInterestInTokensKey(
-        address market,
-        address collateralToken,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    OPEN_INTEREST_IN_TOKENS,
-                    market,
-                    collateralToken,
-                    isLong
-                )
-            );
+    function openInterestInTokensKey(address market, address collateralToken, bool isLong)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(OPEN_INTEREST_IN_TOKENS, market, collateralToken, isLong));
     }
 
     // @dev key for collateral sum for a market
@@ -1002,107 +939,72 @@ library Keys {
     // @param collateralToken the collateralToken to check
     // @param isLong whether to check the long or short open interest
     // @return key for collateral sum
-    function collateralSumKey(
-        address market,
-        address collateralToken,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(COLLATERAL_SUM, market, collateralToken, isLong)
-            );
+    function collateralSumKey(address market, address collateralToken, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(COLLATERAL_SUM, market, collateralToken, isLong));
     }
 
     // @dev key for amount of tokens in a market's pool
     // @param market the market to check
     // @param token the token to check
     // @return key for amount of tokens in a market's pool
-    function poolAmountKey(
-        address market,
-        address token
-    ) internal pure returns (bytes32) {
+    function poolAmountKey(address market, address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(POOL_AMOUNT, market, token));
     }
 
     // @dev the key for the max amount of pool tokens
     // @param market the market for the pool
     // @param token the token for the pool
-    function maxPoolAmountKey(
-        address market,
-        address token
-    ) internal pure returns (bytes32) {
+    function maxPoolAmountKey(address market, address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(MAX_POOL_AMOUNT, market, token));
     }
 
-    // @dev the key for the max amount of pool tokens for deposits
+    // @dev the key for the max usd of pool tokens for deposits
     // @param market the market for the pool
     // @param token the token for the pool
-    function maxPoolAmountForDepositKey(
-        address market,
-        address token
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(MAX_POOL_AMOUNT_FOR_DEPOSIT, market, token));
+    function maxPoolUsdForDepositKey(address market, address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(MAX_POOL_USD_FOR_DEPOSIT, market, token));
     }
 
     // @dev the key for the max open interest
     // @param market the market for the pool
     // @param isLong whether the key is for the long or short side
-    function maxOpenInterestKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
+    function maxOpenInterestKey(address market, bool isLong) internal pure returns (bytes32) {
         return keccak256(abi.encode(MAX_OPEN_INTEREST, market, isLong));
     }
 
     // @dev key for amount of tokens in a market's position impact pool
     // @param market the market to check
     // @return key for amount of tokens in a market's position impact pool
-    function positionImpactPoolAmountKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function positionImpactPoolAmountKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(POSITION_IMPACT_POOL_AMOUNT, market));
     }
 
     // @dev key for min amount of tokens in a market's position impact pool
     // @param market the market to check
     // @return key for min amount of tokens in a market's position impact pool
-    function minPositionImpactPoolAmountKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function minPositionImpactPoolAmountKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(MIN_POSITION_IMPACT_POOL_AMOUNT, market));
     }
 
     // @dev key for position impact pool distribution rate
     // @param market the market to check
     // @return key for position impact pool distribution rate
-    function positionImpactPoolDistributionRateKey(
-        address market
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(POSITION_IMPACT_POOL_DISTRIBUTION_RATE, market)
-            );
+    function positionImpactPoolDistributionRateKey(address market) internal pure returns (bytes32) {
+        return keccak256(abi.encode(POSITION_IMPACT_POOL_DISTRIBUTION_RATE, market));
     }
 
     // @dev key for position impact pool distributed at
     // @param market the market to check
     // @return key for position impact pool distributed at
-    function positionImpactPoolDistributedAtKey(
-        address market
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(POSITION_IMPACT_POOL_DISTRIBUTED_AT, market));
+    function positionImpactPoolDistributedAtKey(address market) internal pure returns (bytes32) {
+        return keccak256(abi.encode(POSITION_IMPACT_POOL_DISTRIBUTED_AT, market));
     }
 
     // @dev key for amount of tokens in a market's swap impact pool
     // @param market the market to check
     // @param token the token to check
     // @return key for amount of tokens in a market's swap impact pool
-    function swapImpactPoolAmountKey(
-        address market,
-        address token
-    ) internal pure returns (bytes32) {
+    function swapImpactPoolAmountKey(address market, address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(SWAP_IMPACT_POOL_AMOUNT, market, token));
     }
 
@@ -1110,10 +1012,7 @@ library Keys {
     // @param market the market to check
     // @param isLong whether to get the key for the long or short side
     // @return key for reserve factor
-    function reserveFactorKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
+    function reserveFactorKey(address market, bool isLong) internal pure returns (bytes32) {
         return keccak256(abi.encode(RESERVE_FACTOR, market, isLong));
     }
 
@@ -1121,58 +1020,38 @@ library Keys {
     // @param market the market to check
     // @param isLong whether to get the key for the long or short side
     // @return key for open interest reserve factor
-    function openInterestReserveFactorKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(OPEN_INTEREST_RESERVE_FACTOR, market, isLong));
+    function openInterestReserveFactorKey(address market, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(OPEN_INTEREST_RESERVE_FACTOR, market, isLong));
     }
 
     // @dev key for max pnl factor
     // @param market the market to check
     // @param isLong whether to get the key for the long or short side
     // @return key for max pnl factor
-    function maxPnlFactorKey(
-        bytes32 pnlFactorType,
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(MAX_PNL_FACTOR, pnlFactorType, market, isLong)
-            );
+    function maxPnlFactorKey(bytes32 pnlFactorType, address market, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(MAX_PNL_FACTOR, pnlFactorType, market, isLong));
     }
 
     // @dev the key for min PnL factor after ADL
     // @param market the market for the pool
     // @param isLong whether the key is for the long or short side
-    function minPnlFactorAfterAdlKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
+    function minPnlFactorAfterAdlKey(address market, bool isLong) internal pure returns (bytes32) {
         return keccak256(abi.encode(MIN_PNL_FACTOR_AFTER_ADL, market, isLong));
     }
 
-    // @dev key for latest adl block
+    // @dev key for latest adl time
     // @param market the market to check
     // @param isLong whether to get the key for the long or short side
-    // @return key for latest adl block
-    function latestAdlBlockKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return keccak256(abi.encode(LATEST_ADL_BLOCK, market, isLong));
+    // @return key for latest adl time
+    function latestAdlAtKey(address market, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(LATEST_ADL_AT, market, isLong));
     }
 
     // @dev key for whether adl is enabled
     // @param market the market to check
     // @param isLong whether to get the key for the long or short side
     // @return key for whether adl is enabled
-    function isAdlEnabledKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
+    function isAdlEnabledKey(address market, bool isLong) internal pure returns (bytes32) {
         return keccak256(abi.encode(IS_ADL_ENABLED, market, isLong));
     }
 
@@ -1185,67 +1064,49 @@ library Keys {
 
     // @dev the key for funding exponent
     // @param market the market for the pool
-    function fundingExponentFactorKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function fundingExponentFactorKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(FUNDING_EXPONENT_FACTOR, market));
     }
 
     // @dev the key for saved funding factor
     // @param market the market for the pool
-    function savedFundingFactorPerSecondKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function savedFundingFactorPerSecondKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(SAVED_FUNDING_FACTOR_PER_SECOND, market));
     }
 
     // @dev the key for funding increase factor
     // @param market the market for the pool
-    function fundingIncreaseFactorPerSecondKey(
-        address market
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(FUNDING_INCREASE_FACTOR_PER_SECOND, market));
+    function fundingIncreaseFactorPerSecondKey(address market) internal pure returns (bytes32) {
+        return keccak256(abi.encode(FUNDING_INCREASE_FACTOR_PER_SECOND, market));
     }
 
     // @dev the key for funding decrease factor
     // @param market the market for the pool
-    function fundingDecreaseFactorPerSecondKey(
-        address market
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(FUNDING_DECREASE_FACTOR_PER_SECOND, market));
+    function fundingDecreaseFactorPerSecondKey(address market) internal pure returns (bytes32) {
+        return keccak256(abi.encode(FUNDING_DECREASE_FACTOR_PER_SECOND, market));
     }
 
     // @dev the key for min funding factor
     // @param market the market for the pool
-    function minFundingFactorPerSecondKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function minFundingFactorPerSecondKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(MIN_FUNDING_FACTOR_PER_SECOND, market));
     }
 
     // @dev the key for max funding factor
     // @param market the market for the pool
-    function maxFundingFactorPerSecondKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function maxFundingFactorPerSecondKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(MAX_FUNDING_FACTOR_PER_SECOND, market));
     }
 
     // @dev the key for threshold for stable funding
     // @param market the market for the pool
-    function thresholdForStableFundingKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function thresholdForStableFundingKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(THRESHOLD_FOR_STABLE_FUNDING, market));
     }
 
     // @dev the key for threshold for decreasing funding
     // @param market the market for the pool
-    function thresholdForDecreaseFundingKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function thresholdForDecreaseFundingKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(THRESHOLD_FOR_DECREASE_FUNDING, market));
     }
 
@@ -1254,20 +1115,12 @@ library Keys {
     // @param collateralToken the collateralToken to get the key for
     // @param isLong whether to get the key for the long or short side
     // @return key for funding fee amount per size
-    function fundingFeeAmountPerSizeKey(
-        address market,
-        address collateralToken,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    FUNDING_FEE_AMOUNT_PER_SIZE,
-                    market,
-                    collateralToken,
-                    isLong
-                )
-            );
+    function fundingFeeAmountPerSizeKey(address market, address collateralToken, bool isLong)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(FUNDING_FEE_AMOUNT_PER_SIZE, market, collateralToken, isLong));
     }
 
     // @dev key for claimabel funding amount per size
@@ -1275,28 +1128,18 @@ library Keys {
     // @param collateralToken the collateralToken to get the key for
     // @param isLong whether to get the key for the long or short side
     // @return key for claimable funding amount per size
-    function claimableFundingAmountPerSizeKey(
-        address market,
-        address collateralToken,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    CLAIMABLE_FUNDING_AMOUNT_PER_SIZE,
-                    market,
-                    collateralToken,
-                    isLong
-                )
-            );
+    function claimableFundingAmountPerSizeKey(address market, address collateralToken, bool isLong)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(CLAIMABLE_FUNDING_AMOUNT_PER_SIZE, market, collateralToken, isLong));
     }
 
     // @dev key for when funding was last updated
     // @param market the market to check
     // @return key for when funding was last updated
-    function fundingUpdatedAtKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function fundingUpdatedAtKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(FUNDING_UPDATED_AT, market));
     }
 
@@ -1304,10 +1147,7 @@ library Keys {
     // @param market the market to check
     // @param token the token to check
     // @return key for claimable funding amount
-    function claimableFundingAmountKey(
-        address market,
-        address token
-    ) internal pure returns (bytes32) {
+    function claimableFundingAmountKey(address market, address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(CLAIMABLE_FUNDING_AMOUNT, market, token));
     }
 
@@ -1316,15 +1156,12 @@ library Keys {
     // @param token the token to check
     // @param account the account to check
     // @return key for claimable funding amount
-    function claimableFundingAmountKey(
-        address market,
-        address token,
-        address account
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(CLAIMABLE_FUNDING_AMOUNT, market, token, account)
-            );
+    function claimableFundingAmountKey(address market, address token, address account)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(CLAIMABLE_FUNDING_AMOUNT, market, token, account));
     }
 
     // @dev key for claimable collateral amount
@@ -1333,12 +1170,8 @@ library Keys {
     // @param account the account to check
     // @param timeKey the time key for the claimable amount
     // @return key for claimable funding amount
-    function claimableCollateralAmountKey(
-        address market,
-        address token
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(CLAIMABLE_COLLATERAL_AMOUNT, market, token));
+    function claimableCollateralAmountKey(address market, address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CLAIMABLE_COLLATERAL_AMOUNT, market, token));
     }
 
     // @dev key for claimable collateral amount for a timeKey for an account
@@ -1347,22 +1180,12 @@ library Keys {
     // @param account the account to check
     // @param timeKey the time key for the claimable amount
     // @return key for claimable funding amount
-    function claimableCollateralAmountKey(
-        address market,
-        address token,
-        uint256 timeKey,
-        address account
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    CLAIMABLE_COLLATERAL_AMOUNT,
-                    market,
-                    token,
-                    timeKey,
-                    account
-                )
-            );
+    function claimableCollateralAmountKey(address market, address token, uint256 timeKey, address account)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(CLAIMABLE_COLLATERAL_AMOUNT, market, token, timeKey, account));
     }
 
     // @dev key for claimable collateral factor for a timeKey
@@ -1370,15 +1193,12 @@ library Keys {
     // @param token the token to check
     // @param timeKey the time key for the claimable amount
     // @return key for claimable funding amount
-    function claimableCollateralFactorKey(
-        address market,
-        address token,
-        uint256 timeKey
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(CLAIMABLE_COLLATERAL_FACTOR, market, token, timeKey)
-            );
+    function claimableCollateralFactorKey(address market, address token, uint256 timeKey)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(CLAIMABLE_COLLATERAL_FACTOR, market, token, timeKey));
     }
 
     // @dev key for claimable collateral factor for a timeKey for an account
@@ -1387,22 +1207,12 @@ library Keys {
     // @param timeKey the time key for the claimable amount
     // @param account the account to check
     // @return key for claimable funding amount
-    function claimableCollateralFactorKey(
-        address market,
-        address token,
-        uint256 timeKey,
-        address account
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    CLAIMABLE_COLLATERAL_FACTOR,
-                    market,
-                    token,
-                    timeKey,
-                    account
-                )
-            );
+    function claimableCollateralFactorKey(address market, address token, uint256 timeKey, address account)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(CLAIMABLE_COLLATERAL_FACTOR, market, token, timeKey, account));
     }
 
     // @dev key for claimable collateral factor
@@ -1411,42 +1221,50 @@ library Keys {
     // @param account the account to check
     // @param timeKey the time key for the claimable amount
     // @return key for claimable funding amount
-    function claimedCollateralAmountKey(
-        address market,
-        address token,
-        uint256 timeKey,
-        address account
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    CLAIMED_COLLATERAL_AMOUNT,
-                    market,
-                    token,
-                    timeKey,
-                    account
-                )
-            );
+    function claimedCollateralAmountKey(address market, address token, uint256 timeKey, address account)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(CLAIMED_COLLATERAL_AMOUNT, market, token, timeKey, account));
+    }
+
+    // @dev key for optimal usage factor
+    // @param market the market to check
+    // @param isLong whether to get the key for the long or short side
+    // @return key for optimal usage factor
+    function optimalUsageFactorKey(address market, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(OPTIMAL_USAGE_FACTOR, market, isLong));
+    }
+
+    // @dev key for base borrowing factor
+    // @param market the market to check
+    // @param isLong whether to get the key for the long or short side
+    // @return key for base borrowing factor
+    function baseBorrowingFactorKey(address market, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(BASE_BORROWING_FACTOR, market, isLong));
+    }
+
+    // @dev key for above optimal usage borrowing factor
+    // @param market the market to check
+    // @param isLong whether to get the key for the long or short side
+    // @return key for above optimal usage borrowing factor
+    function aboveOptimalUsageBorrowingFactorKey(address market, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(ABOVE_OPTIMAL_USAGE_BORROWING_FACTOR, market, isLong));
     }
 
     // @dev key for borrowing factor
     // @param market the market to check
     // @param isLong whether to get the key for the long or short side
     // @return key for borrowing factor
-    function borrowingFactorKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
+    function borrowingFactorKey(address market, bool isLong) internal pure returns (bytes32) {
         return keccak256(abi.encode(BORROWING_FACTOR, market, isLong));
     }
 
     // @dev the key for borrowing exponent
     // @param market the market for the pool
     // @param isLong whether to get the key for the long or short side
-    function borrowingExponentFactorKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
+    function borrowingExponentFactorKey(address market, bool isLong) internal pure returns (bytes32) {
         return keccak256(abi.encode(BORROWING_EXPONENT_FACTOR, market, isLong));
     }
 
@@ -1454,40 +1272,23 @@ library Keys {
     // @param market the market to check
     // @param isLong whether to get the key for the long or short side
     // @return key for cumulative borrowing factor
-    function cumulativeBorrowingFactorKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(CUMULATIVE_BORROWING_FACTOR, market, isLong));
+    function cumulativeBorrowingFactorKey(address market, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CUMULATIVE_BORROWING_FACTOR, market, isLong));
     }
 
     // @dev key for cumulative borrowing factor updated at
     // @param market the market to check
     // @param isLong whether to get the key for the long or short side
     // @return key for cumulative borrowing factor updated at
-    function cumulativeBorrowingFactorUpdatedAtKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    CUMULATIVE_BORROWING_FACTOR_UPDATED_AT,
-                    market,
-                    isLong
-                )
-            );
+    function cumulativeBorrowingFactorUpdatedAtKey(address market, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(CUMULATIVE_BORROWING_FACTOR_UPDATED_AT, market, isLong));
     }
 
     // @dev key for total borrowing amount
     // @param market the market to check
     // @param isLong whether to get the key for the long or short side
     // @return key for total borrowing amount
-    function totalBorrowingKey(
-        address market,
-        bool isLong
-    ) internal pure returns (bytes32) {
+    function totalBorrowingKey(address market, bool isLong) internal pure returns (bytes32) {
         return keccak256(abi.encode(TOTAL_BORROWING, market, isLong));
     }
 
@@ -1496,53 +1297,28 @@ library Keys {
     // @param token the token to get the key for
     // @param account the account to get the key for
     // @return key for affiliate reward amount
-    function affiliateRewardKey(
-        address market,
-        address token
-    ) internal pure returns (bytes32) {
+    function affiliateRewardKey(address market, address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(AFFILIATE_REWARD, market, token));
     }
 
-    function maxAllowedSubaccountActionCountKey(
-        address account,
-        address subaccount,
-        bytes32 actionType
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    MAX_ALLOWED_SUBACCOUNT_ACTION_COUNT,
-                    account,
-                    subaccount,
-                    actionType
-                )
-            );
+    function maxAllowedSubaccountActionCountKey(address account, address subaccount, bytes32 actionType)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(MAX_ALLOWED_SUBACCOUNT_ACTION_COUNT, account, subaccount, actionType));
     }
 
-    function subaccountActionCountKey(
-        address account,
-        address subaccount,
-        bytes32 actionType
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(
-                    SUBACCOUNT_ACTION_COUNT,
-                    account,
-                    subaccount,
-                    actionType
-                )
-            );
+    function subaccountActionCountKey(address account, address subaccount, bytes32 actionType)
+        internal
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encode(SUBACCOUNT_ACTION_COUNT, account, subaccount, actionType));
     }
 
-    function subaccountAutoTopUpAmountKey(
-        address account,
-        address subaccount
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encode(SUBACCOUNT_AUTO_TOP_UP_AMOUNT, account, subaccount)
-            );
+    function subaccountAutoTopUpAmountKey(address account, address subaccount) internal pure returns (bytes32) {
+        return keccak256(abi.encode(SUBACCOUNT_AUTO_TOP_UP_AMOUNT, account, subaccount));
     }
 
     // @dev key for affiliate reward amount for an account
@@ -1550,31 +1326,22 @@ library Keys {
     // @param token the token to get the key for
     // @param account the account to get the key for
     // @return key for affiliate reward amount
-    function affiliateRewardKey(
-        address market,
-        address token,
-        address account
-    ) internal pure returns (bytes32) {
+    function affiliateRewardKey(address market, address token, address account) internal pure returns (bytes32) {
         return keccak256(abi.encode(AFFILIATE_REWARD, market, token, account));
     }
 
     // @dev key for is market disabled
     // @param market the market to check
     // @return key for is market disabled
-    function isMarketDisabledKey(
-        address market
-    ) internal pure returns (bytes32) {
+    function isMarketDisabledKey(address market) internal pure returns (bytes32) {
         return keccak256(abi.encode(IS_MARKET_DISABLED, market));
     }
 
     // @dev key for min market tokens for first deposit
     // @param market the market to check
     // @return key for min market tokens for first deposit
-    function minMarketTokensForFirstDepositKey(
-        address market
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(MIN_MARKET_TOKENS_FOR_FIRST_DEPOSIT, market));
+    function minMarketTokensForFirstDepositKey(address market) internal pure returns (bytes32) {
+        return keccak256(abi.encode(MIN_MARKET_TOKENS_FOR_FIRST_DEPOSIT, market));
     }
 
     // @dev key for price feed address
@@ -1584,34 +1351,28 @@ library Keys {
         return keccak256(abi.encode(PRICE_FEED, token));
     }
 
-    // @dev key for realtime feed ID
+    // @dev key for data stream feed ID
     // @param token the token to get the key for
-    // @return key for realtime feed ID
-    function realtimeFeedIdKey(address token) internal pure returns (bytes32) {
-        return keccak256(abi.encode(REALTIME_FEED_ID, token));
+    // @return key for data stream feed ID
+    function dataStreamIdKey(address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(DATA_STREAM_ID, token));
     }
 
-    // @dev key for realtime feed multiplier
+    // @dev key for data stream feed multiplier
     // @param token the token to get the key for
-    // @return key for realtime feed multiplier
-    function realtimeFeedMultiplierKey(
-        address token
-    ) internal pure returns (bytes32) {
-        return keccak256(abi.encode(REALTIME_FEED_MULTIPLIER, token));
+    // @return key for data stream feed multiplier
+    function dataStreamMultiplierKey(address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(DATA_STREAM_MULTIPLIER, token));
     }
 
     // @dev key for price feed multiplier
     // @param token the token to get the key for
     // @return key for price feed multiplier
-    function priceFeedMultiplierKey(
-        address token
-    ) internal pure returns (bytes32) {
+    function priceFeedMultiplierKey(address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(PRICE_FEED_MULTIPLIER, token));
     }
 
-    function priceFeedHeartbeatDurationKey(
-        address token
-    ) internal pure returns (bytes32) {
+    function priceFeedHeartbeatDurationKey(address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(PRICE_FEED_HEARTBEAT_DURATION, token));
     }
 
@@ -1625,19 +1386,39 @@ library Keys {
     // @dev key for fee distributor swap token index
     // @param orderKey the swap order key
     // @return key for fee distributor swap token index
-    function feeDistributorSwapTokenIndexKey(
-        bytes32 orderKey
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(abi.encode(FEE_DISTRIBUTOR_SWAP_TOKEN_INDEX, orderKey));
+    function feeDistributorSwapTokenIndexKey(bytes32 orderKey) internal pure returns (bytes32) {
+        return keccak256(abi.encode(FEE_DISTRIBUTOR_SWAP_TOKEN_INDEX, orderKey));
     }
 
     // @dev key for fee distributor swap fee batch key
     // @param orderKey the swap order key
     // @return key for fee distributor swap fee batch key
-    function feeDistributorSwapFeeBatchKey(
-        bytes32 orderKey
-    ) internal pure returns (bytes32) {
+    function feeDistributorSwapFeeBatchKey(bytes32 orderKey) internal pure returns (bytes32) {
         return keccak256(abi.encode(FEE_DISTRIBUTOR_SWAP_FEE_BATCH, orderKey));
+    }
+
+    // @dev key for glv pending shift
+    // @param glv the glv for the pending shift
+    function glvPendingShiftKey(address glv) internal pure returns (bytes32) {
+        return keccak256(abi.encode(GLV_PENDING_SHIFT, glv));
+    }
+
+    function glvPendingShiftBackrefKey(bytes32 shiftKey) internal pure returns (bytes32) {
+        return keccak256(abi.encode(GLV_PENDING_SHIFT_BACKREF, shiftKey));
+    }
+
+    // @dev key for max market token balance for glv
+    // @param glv the glv to check the market token balance for
+    // @param market the market to check balance
+    function glvMaxMarketTokenBalanceUsdKey(address glv, address market) internal pure returns (bytes32) {
+        return keccak256(abi.encode(GLV_MAX_MARKET_TOKEN_BALANCE_USD, glv, market));
+    }
+
+    // @dev key for is glv market disabled
+    // @param glv the glv to check
+    // @param market the market to check
+    // @return key for is market disabled
+    function isGlvMarketDisabledKey(address glv, address market) internal pure returns (bytes32) {
+        return keccak256(abi.encode(IS_GLV_MARKET_DISABLED, glv, market));
     }
 }
