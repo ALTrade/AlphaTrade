@@ -7,7 +7,11 @@ import "./Oracle.sol";
 // @title OracleModule
 // @dev Provides convenience functions for interacting with the Oracle
 contract OracleModule {
-    event OracleError(string reason);
+    Oracle public immutable oracle;
+
+    constructor(Oracle _oracle) {
+        oracle = _oracle;
+    }
 
     // @dev sets oracle prices, perform any additional tasks required,
     // and clear the oracle prices after
@@ -18,18 +22,10 @@ contract OracleModule {
     // the tokensWithPrices.length check in oracle.setPrices should help
     // mitigate this
     //
-    // @param oracle Oracle
-    // @param dataStore DataStore
-    // @param eventEmitter EventEmitter
     // @param params OracleUtils.SetPricesParams
-    modifier withOraclePrices(
-        Oracle oracle,
-        DataStore dataStore,
-        EventEmitter eventEmitter,
-        OracleUtils.SetPricesParams memory params
-    ) {
-        oracle.setPrices(dataStore, eventEmitter, params);
+    modifier withOraclePrices(OracleUtils.SetPricesParams memory params) {
+        oracle.setPrices(params);
         _;
-        oracle.clearAllPrices();
+        // todo
     }
 }

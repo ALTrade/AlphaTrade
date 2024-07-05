@@ -64,7 +64,7 @@ contract Oracle is RoleModule {
         // sequencerUptimeFeed = _sequencerUptimeFeed;
     }
 
-    function setPrice(OracleUtils.SetPricesParams memory params) external onlyController {
+    function setPrices(OracleUtils.SetPricesParams memory params) external onlyController {
         OracleUtils.ValidatedPrice[] memory prices = _validatePrices(params, false);
 
         _setPrices(prices);
