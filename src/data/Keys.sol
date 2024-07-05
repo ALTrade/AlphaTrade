@@ -360,6 +360,22 @@ library Keys {
     // @dev constant for user initiated cancel reason
     string public constant USER_INITIATED_CANCEL = "USER_INITIATED_CANCEL";
 
+    //oracle new
+    // @dev key for whether an oracle provider is enabled
+    bytes32 public constant IS_ORACLE_PROVIDER_ENABLED = keccak256(abi.encode("IS_ORACLE_PROVIDER_ENABLED"));
+
+    // @dev key for whether an oracle provider can be used for atomic actions
+    bytes32 public constant IS_ATOMIC_ORACLE_PROVIDER = keccak256(abi.encode("IS_ATOMIC_ORACLE_PROVIDER"));
+
+    // @dev key for oracle provider for token
+    bytes32 public constant ORACLE_PROVIDER_FOR_TOKEN = keccak256(abi.encode("ORACLE_PROVIDER_FOR_TOKEN"));
+
+    // @dev key for oracle timestamp adjustment
+    bytes32 public constant ORACLE_TIMESTAMP_ADJUSTMENT = keccak256(abi.encode("ORACLE_TIMESTAMP_ADJUSTMENT"));
+
+    // @dev key for the maximum oracle timestamp range
+    bytes32 public constant MAX_ORACLE_TIMESTAMP_RANGE = keccak256(abi.encode("MAX_ORACLE_TIMESTAMP_RANGE"));
+
     // @dev key for the account deposit list
     // @param account the account for the list
     function accountDepositListKey(address account) internal pure returns (bytes32) {
@@ -1149,5 +1165,36 @@ library Keys {
     // @return key for fee distributor swap fee batch key
     function feeDistributorSwapFeeBatchKey(bytes32 orderKey) internal pure returns (bytes32) {
         return keccak256(abi.encode(FEE_DISTRIBUTOR_SWAP_FEE_BATCH, orderKey));
+    }
+
+    //oracle new
+
+    // @dev key for whether an oracle provider is enabled
+    // @param provider the oracle provider
+    // @return key for whether an oracle provider is enabled
+    function isOracleProviderEnabledKey(address provider) internal pure returns (bytes32) {
+        return keccak256(abi.encode(IS_ORACLE_PROVIDER_ENABLED, provider));
+    }
+
+    // @dev key for whether an oracle provider is allowed to be used for atomic actions
+    // @param provider the oracle provider
+    // @return key for whether an oracle provider is allowed to be used for atomic actions
+    function isAtomicOracleProviderKey(address provider) internal pure returns (bytes32) {
+        return keccak256(abi.encode(IS_ATOMIC_ORACLE_PROVIDER, provider));
+    }
+
+    // @dev key for oracle provider for token
+    // @param token the token
+    // @return key for oracle provider for token
+    function oracleProviderForTokenKey(address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(ORACLE_PROVIDER_FOR_TOKEN, token));
+    }
+
+    // @dev key for oracle timestamp adjustment
+    // @param provider the oracle provider
+    // @param token the token
+    // @return key for oracle timestamp adjustment
+    function oracleTimestampAdjustmentKey(address provider, address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(ORACLE_TIMESTAMP_ADJUSTMENT, provider, token));
     }
 }

@@ -300,4 +300,19 @@ library Errors {
     // Uint256Mask errors
     error MaskIndexOutOfBounds(uint256 index, string label);
     error DuplicatedIndex(uint256 index, string label);
+
+    //oracle new
+    error OracleTimestampsAreLargerThanRequestExpirationTime(
+        uint256 maxOracleTimestamp, uint256 requestTimestamp, uint256 requestExpirationTime
+    );
+    error OracleTimestampsAreSmallerThanRequired(uint256 minOracleTimestamp, uint256 expectedTimestamp);
+    error InvalidOracleSetPricesProvidersParam(uint256 tokensLength, uint256 providersLength);
+    error InvalidOracleSetPricesDataParam(uint256 tokensLength, uint256 dataLength);
+    error InvalidOracleProvider(address provider);
+    error NonAtomicOracleProvider(address provider);
+    error InvalidOracleProviderForToken(address provider, address expectedProvider);
+    error ChainlinkPriceFeedNotUpdated(address token, uint256 timestamp, uint256 heartbeatDuration);
+    error EmptyChainlinkPriceFeedMultiplier(address token);
+    error EmptyValidatedPrices();
+    error MaxOracleTimestampRangeExceeded(uint256 range, uint256 maxRange);
 }
