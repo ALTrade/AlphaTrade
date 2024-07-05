@@ -214,6 +214,22 @@ contract Oracle is RoleModule {
         tokensWithPrices.add(token);
     }
 
+    function clearAllPrices() external onlyController {
+        uint256 length = tokensWithPrices.length();
+        for (uint256 i; i < length; i++) {
+            address token = tokensWithPrices.at(0);
+            _removePrimaryPrice(token);
+        }
+    }
+
+    function _removePrimaryPrice(address token) internal {
+        delete primaryPrices[token];
+        tokensWithPrices.remove(token);
+
+        minTimestamp = 0;
+        maxTimestamp = 0;
+    }
+
     function _emitOraclePriceUpdated(
         address token,
         uint256 minPrice,

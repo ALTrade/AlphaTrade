@@ -26,6 +26,6 @@ contract OracleModule {
     modifier withOraclePrices(OracleUtils.SetPricesParams memory params) {
         oracle.setPrices(params);
         _;
-        // todo
+        oracle.clearAllPrices();
     }
 }
