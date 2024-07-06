@@ -6,11 +6,13 @@ libs = ["lib"]
 remappings = [
     '@openzeppelin/contracts=lib/openzeppelin-contracts/contracts',
     'prb-math/contracts=lib/prb-math/contracts',
+    '@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/'
 ]
 
 
 # gitmodules version of remappings
 # prb-math v2.4.3
 # openzeppelin-contracts v4.9.3
+# chainlink-brownie-contracts v1.1.0
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

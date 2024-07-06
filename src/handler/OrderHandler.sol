@@ -7,6 +7,7 @@ import "../error/ErrorUtils.sol";
 import "./IOrderHandler.sol";
 import "../library/FeatureUtils.sol";
 import "../order/OrderUtils.sol";
+import "../oracle/OracleUtils.sol";
 
 contract OrderHandler is IOrderHandler, BaseOrderHandler {
     using SafeCast for uint256;
@@ -48,6 +49,7 @@ contract OrderHandler is IOrderHandler, BaseOrderHandler {
      * @param key The unique ID of the order to be cancelled
      */
     function cancelOrder(bytes32 key) external payable globalNonReentrant onlyController {
+        //记录了最初的gas
         uint256 startingGas = gasleft();
 
         DataStore _dataStore = dataStore;
@@ -129,4 +131,11 @@ contract OrderHandler is IOrderHandler, BaseOrderHandler {
             eventEmitter, key, order.account(), sizeDeltaUsd, acceptablePrice, triggerPrice, minOutputAmount
         );
     }
+
+    function executeOrder(bytes32 key, OracleUtils.SetPricesParams calldata oracleParams)
+        external
+        globalNonReentrant
+        onlyOrderKeeper
+        withOraclePrices
+    {}
 }
