@@ -11,7 +11,7 @@ import "../library/chain/Chain.sol";
 import "../callback/CallbackUtils.sol";
 import "../library/GasUtils.sol";
 import "../library/NonceUtils.sol";
-import "./DepositStoreUtils.sol";
+// import "./DepositStoreUtils.sol";
 
 library DepositUtils {
     // @dev CreateDepositParams struct used in createDeposit to avoid stack
@@ -99,7 +99,7 @@ library DepositUtils {
 
         CallbackUtils.validateCallbackGasLimit(dataStore, deposit.callbackGasLimit());
 
-        uint256 estimatedGasLimit = GasUtils.extimateExecuteDepositGasLimit(dataStore, deposit);
+        uint256 estimatedGasLimit = GasUtils.estimateExecuteDepositGasLimit(dataStore, deposit);
         GasUtils.validateExecutionFee(dataStore, estimatedGasLimit, params.executionFee);
 
         bytes32 key = NonceUtils.getNextKey(dataStore);

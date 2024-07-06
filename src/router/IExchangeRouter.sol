@@ -20,10 +20,6 @@ interface IExchangeRouter {
         payable
         returns (bytes32);
 
-    // function createWithdrawal(
-    //     WithdrawalHandler.CreateWithdrawalParams calldata params
-    // ) external payable returns (bytes32);
-
     function cancelWithdrawal(bytes32 key) external payable;
 
     function createOrder(Order.CreateOrderParams calldata params) external payable returns (bytes32);

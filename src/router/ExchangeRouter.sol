@@ -8,6 +8,7 @@ import "../handler/IWithdrawalHandler.sol";
 import "../handler/IOrderHandler.sol";
 import "./BaseRouter.sol";
 import "./Router.sol";
+import "../oracle/OracleUtils.sol";
 
 import "../order/OrderStoreUtils.sol";
 
@@ -72,6 +73,14 @@ contract ExchangeRouter is IExchangeRouter, BaseRouter {
         }
 
         withdrawalHandler.cancelWithdrawal(key);
+    }
+
+    function simulateExecuteDeposit(bytes32 key, OracleUtils.SimulatePricesParams memory simulatedOracleParams)
+        external
+        payable
+        nonReetrant
+    {
+        depositHandler.simulatedExecuteDeposit(key, simulatedOracleParams);
     }
 
     function createOrder(Order.CreateOrderParams calldata params) external payable returns (bytes32) {
