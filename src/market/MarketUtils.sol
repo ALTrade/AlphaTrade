@@ -13,14 +13,13 @@ import "./MarketToken.sol";
 import "./MarketStoreUtils.sol";
 import "../order/Order.sol";
 
-//todo
-// import "./MarketPoolValueInfo.sol";
+import "./MarketPoolValueInfo.sol";
 
-// import "./MarketEventUtils.sol";
+import "./MarketEventUtils.sol";
 
 import "../position/Position.sol";
 
-// import "../oracle/Oracle.sol";
+import "../oracle/Oracle.sol";
 import "../library/Price.sol";
 
 import "../library/Calc.sol";

@@ -9,15 +9,15 @@ import "../data/DataStore.sol";
 import "./Withdrawal.sol";
 import "./WithdrawalVault.sol";
 import "./WithdrawalStoreUtils.sol";
-// import "./WithdrawalEventUtils.sol";
+import "./WithdrawalEventUtils.sol";
 
-// import "../nonce/NonceUtils.sol";
+import "../library/NonceUtils.sol";
 // import "../pricing/SwapPricingUtils.sol";
 // import "../oracle/Oracle.sol";
 // import "../oracle/OracleUtils.sol";
 
-// import "../gas/GasUtils.sol";
-// import "../callback/CallbackUtils.sol";
+import "../library/GasUtils.sol";
+import "../callback/CallbackUtils.sol";
 
 import "../library/Array.sol";
 import "../library/Price.sol";
@@ -40,6 +40,12 @@ library WithdrawalUtils {
     using EventUtils for EventUtils.Bytes32Items;
     using EventUtils for EventUtils.BytesItems;
     using EventUtils for EventUtils.StringItems;
+
+    enum WithdrawalType {
+        Normal,
+        Shift,
+        Glv
+    }
 
     /**
      * @param receiver The address that will receive the withdrawal tokens.

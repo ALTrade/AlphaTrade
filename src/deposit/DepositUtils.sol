@@ -11,9 +11,22 @@ import "../library/chain/Chain.sol";
 import "../callback/CallbackUtils.sol";
 import "../library/GasUtils.sol";
 import "../library/NonceUtils.sol";
-// import "./DepositStoreUtils.sol";
+import "./DepositStoreUtils.sol";
+import "./DepositEventUtils.sol";
 
 library DepositUtils {
+    using SafeCast for uint256;
+    using SafeCast for int256;
+
+    using Price for Price.Props;
+    using Deposit for Deposit.Props;
+
+    enum DepositType {
+        Normal,
+        Shift,
+        Glv
+    }
+
     // @dev CreateDepositParams struct used in createDeposit to avoid stack
     // too deep errors
     //

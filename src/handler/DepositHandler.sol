@@ -23,14 +23,13 @@ contract DepositHandler is IDepositHandler, GlobalReentrancyGuard, RoleModule, O
     EventEmitter public immutable eventEmitter;
     DepositVault public immutable depositVault;
 
-    Oracle public immutable oracle;
-
-    constructor(RoleStore _roleStore, DataStore _dataStore, EventEmitter _eventEmitter, DepositVault _depositVault)
-        Oracle()
-        _oracle()
-        RoleModule(_roleStore)
-        GlobalReentrancyGuard(_dataStore)
-    {
+    constructor(
+        RoleStore _roleStore,
+        DataStore _dataStore,
+        EventEmitter _eventEmitter,
+        Oracle _oracle,
+        DepositVault _depositVault
+    ) GlobalReentrancyGuard(_dataStore) RoleModule(_roleStore) OracleModule(_oracle) {
         eventEmitter = _eventEmitter;
         depositVault = _depositVault;
         oracle = _oracle;
@@ -88,22 +87,28 @@ contract DepositHandler is IDepositHandler, GlobalReentrancyGuard, RoleModule, O
     {
         //todo  这个没有初始化
         OracleUtils.SetPricesParams memory oracleParams;
-        Deposit.Props memory deposit = DepositStoreUtils.get(dataSote, key);
+        Deposit.Props memory deposit = DepositStoreUtils.get(dataStore, key);
         this._executeDeposit(key, deposit, oracleParams, msg.sender);
     }
 
-    function _executeDeposit(
-        bytes32 key,
-        Deposit.Props memory deposit,
-        Oracleutils.SetPricesParams memory oracleParams,
-        address keeper
-    ) external onlySelf {
+    function _executeDeposit(bytes32 key, Deposit.Props memory deposit, address keeper) external onlySelf {
         uint256 startingGas = gasleft();
 
         FeatureUtils.validateFeature(dataStore, Keys.executeDepositFeatureDisabledKey(address(this)));
 
-        OracleUtils.RealtimeFeedReport[] memory reports =
-            oracle.validateRealtimeFeeds(dataStore, oracleParams.realtimeFeedTokens, oracleParams.realtimeFeedData);
+        // ExecuteDepositUtils.ExecuteDepositParams memory params = ExecuteDepositUtils.ExecuteDepositParams(
+        //     dataStore,
+        //     eventEmitter,
+        //     depositVault,
+        //     oracle,
+        //     key,
+        //     keeper,
+        //     startingGas,
+        //     ISwapPricingUtils.SwapPricingType.TwoStep,
+        //     true // includeVirtualInventoryImpact
+        // );
+
+        // ExecuteDepositUtils.executeDeposit(params, deposit);
     }
 
     function _handleDepositError(bytes32 key, uint256 startingGas, bytes memory reasonBytes) internal {
