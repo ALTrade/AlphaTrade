@@ -15,6 +15,7 @@ import "../library/FeatureUtils.sol";
 
 import "../deposit/DepositUtils.sol";
 import "../library/ExchangeUtils.sol";
+import "../deposit/DepositStoreUtils.sol";
 
 contract DepositHandler is IDepositHandler, GlobalReentrancyGuard, RoleModule, OracleModule {
     using Deposit for Deposit.Props;
@@ -60,6 +61,24 @@ contract DepositHandler is IDepositHandler, GlobalReentrancyGuard, RoleModule, O
         );
     }
 
+    function executeDeposit(bytes32 key, OracleUtils.SetPricesParams calldata oracleParams)
+        external
+        globalNonReentrant
+        onlyOrderKeeper
+        withOraclePrices(oracleParams)
+    {
+        uint256 startingGas = gasleft();
+        Deposit.Props memory deposit = DepositStoreUtils.get(dataStore, key);
+        uint256 estimatedGasLimit = GasUtils.estimateExecuteDepositGasLimit(dataStore, deposit);
+        GasUtils.validateExecutionGas(dataStore, startingGas, estimatedGasLimit);
+
+        uint256 executionGas = GasUtils.getExecutionGas(dataStore, startingGas);
+        try this._executeDeposit{gas: executionGas}(key, deposit, msg.sender) {}
+        catch (bytes memory reasonBytes) {
+            _handleDepositError(key, startingGas, reasonBytes);
+        }
+    }
+
     function simulateExecuteDeposit(bytes32 key, OracleUtils.SimulatePricesParams memory params)
         external
         override
@@ -85,5 +104,9 @@ contract DepositHandler is IDepositHandler, GlobalReentrancyGuard, RoleModule, O
 
         OracleUtils.RealtimeFeedReport[] memory reports =
             oracle.validateRealtimeFeeds(dataStore, oracleParams.realtimeFeedTokens, oracleParams.realtimeFeedData);
+    }
+
+    function _handleDepositError(bytes32 key, uint256 startingGas, bytes memory reasonBytes) internal {
+        GasUtils.validateExecutionErrorGas(dataStore, reasonBytes);
     }
 }
