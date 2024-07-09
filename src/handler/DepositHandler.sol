@@ -16,6 +16,7 @@ import "../library/FeatureUtils.sol";
 import "../deposit/DepositUtils.sol";
 import "../library/ExchangeUtils.sol";
 import "../deposit/DepositStoreUtils.sol";
+import "../deposit/ExecuteDepositUtils.sol";
 
 contract DepositHandler is IDepositHandler, GlobalReentrancyGuard, RoleModule, OracleModule {
     using Deposit for Deposit.Props;
@@ -96,19 +97,19 @@ contract DepositHandler is IDepositHandler, GlobalReentrancyGuard, RoleModule, O
 
         FeatureUtils.validateFeature(dataStore, Keys.executeDepositFeatureDisabledKey(address(this)));
 
-        // ExecuteDepositUtils.ExecuteDepositParams memory params = ExecuteDepositUtils.ExecuteDepositParams(
-        //     dataStore,
-        //     eventEmitter,
-        //     depositVault,
-        //     oracle,
-        //     key,
-        //     keeper,
-        //     startingGas,
-        //     ISwapPricingUtils.SwapPricingType.TwoStep,
-        //     true // includeVirtualInventoryImpact
-        // );
+        ExecuteDepositUtils.ExecuteDepositParams memory params = ExecuteDepositUtils.ExecuteDepositParams(
+            dataStore,
+            eventEmitter,
+            depositVault,
+            oracle,
+            key,
+            keeper,
+            startingGas,
+            ISwapPricingUtils.SwapPricingType.TwoStep,
+            true // includeVirtualInventoryImpact
+        );
 
-        // ExecuteDepositUtils.executeDeposit(params, deposit);
+        ExecuteDepositUtils.executeDeposit(params, deposit);
     }
 
     function _handleDepositError(bytes32 key, uint256 startingGas, bytes memory reasonBytes) internal {
