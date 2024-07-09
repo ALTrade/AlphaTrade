@@ -21,6 +21,7 @@ import "../event/EventUtils.sol";
 import "../library/Precision.sol";
 import "../library/Cast.sol";
 import "../library/Uint256Mask.sol";
+import "../error/Errors.sol";
 
 // @title Oracle
 // @dev Contract to validate and store signed values
@@ -44,7 +45,7 @@ contract Oracle is RoleModule {
 
     DataStore public immutable dataStore;
     EventEmitter public immutable eventEmitter;
-    // AggregatorV2V3Interface public immutable sequencerUptimeFeed;
+    AggregatorV2V3Interface public immutable sequencerUptimeFeed;
 
     // tokensWithPrices stores the tokens with prices that have been set
     // this is used in clearAllPrices to help ensure that all token prices
@@ -55,19 +56,123 @@ contract Oracle is RoleModule {
     uint256 public minTimestamp;
     uint256 public maxTimestamp;
 
-    constructor(RoleStore _roleStore, DataStore _dataStore, EventEmitter _eventEmitter)
-        // AggregatorV2V3Interface _sequencerUptimeFeed
-        RoleModule(_roleStore)
-    {
+    constructor(
+        RoleStore _roleStore,
+        DataStore _dataStore,
+        EventEmitter _eventEmitter,
+        AggregatorV2V3Interface _sequencerUptimeFeed
+    ) RoleModule(_roleStore) {
         dataStore = _dataStore;
         eventEmitter = _eventEmitter;
-        // sequencerUptimeFeed = _sequencerUptimeFeed;
+        sequencerUptimeFeed = _sequencerUptimeFeed;
+    }
+
+    // this can be used to help ensure that on-chain prices are updated
+    // before actions dependent on those on-chain prices are allowed
+    // additionally, this can also be used to provide a grace period for
+    // users to top up collateral before liquidations occur
+    function validateSequencerUp() external view {
+        if (address(sequencerUptimeFeed) == address(0)) {
+            return;
+        }
+
+        (
+            /*uint80 roundID*/
+            ,
+            int256 answer,
+            uint256 startedAt,
+            /*uint256 updatedAt*/
+            ,
+            /*uint80 answeredInRound*/
+        ) = sequencerUptimeFeed.latestRoundData();
+
+        // answer == 0: sequencer is up
+        // answer == 1: sequencer is down
+        bool isSequencerUp = answer == 0;
+        if (!isSequencerUp) {
+            revert Errors.SequencerDown();
+        }
+
+        uint256 sequencerGraceDuration = dataStore.getUint(Keys.SEQUENCER_GRACE_DURATION);
+
+        // ensure the grace duration has passed after the
+        // sequencer is back up.
+        uint256 timeSinceUp = block.timestamp - startedAt;
+        if (timeSinceUp <= sequencerGraceDuration) {
+            revert Errors.SequencerGraceDurationNotYetPassed(timeSinceUp, sequencerGraceDuration);
+        }
     }
 
     function setPrices(OracleUtils.SetPricesParams memory params) external onlyController {
         OracleUtils.ValidatedPrice[] memory prices = _validatePrices(params, false);
 
         _setPrices(prices);
+    }
+
+    function setPricesForAtomicAction(OracleUtils.SetPricesParams memory params) external onlyController {
+        OracleUtils.ValidatedPrice[] memory prices = _validatePrices(params, true);
+
+        _setPrices(prices);
+    }
+
+    // @dev set the primary price
+    // @param token the token to set the price for
+    // @param price the price value to set to
+    function setPrimaryPrice(address token, Price.Props memory price) external onlyController {
+        _setPrimaryPrice(token, price);
+    }
+
+    function setTimestamps(uint256 _minTimestamp, uint256 _maxTimestamp) external onlyController {
+        minTimestamp = _minTimestamp;
+        maxTimestamp = _maxTimestamp;
+    }
+
+    // @dev clear all prices
+    function clearAllPrices() external onlyController {
+        uint256 length = tokensWithPrices.length();
+        for (uint256 i; i < length; i++) {
+            address token = tokensWithPrices.at(0);
+            _removePrimaryPrice(token);
+        }
+
+        minTimestamp = 0;
+        maxTimestamp = 0;
+    }
+
+    // @dev get the length of tokensWithPrices
+    // @return the length of tokensWithPrices
+    function getTokensWithPricesCount() external view returns (uint256) {
+        return tokensWithPrices.length();
+    }
+
+    // @dev get the tokens of tokensWithPrices for the specified indexes
+    // @param start the start index, the value for this index will be included
+    // @param end the end index, the value for this index will not be included
+    // @return the tokens of tokensWithPrices for the specified indexes
+    function getTokensWithPrices(uint256 start, uint256 end) external view returns (address[] memory) {
+        return tokensWithPrices.valuesAt(start, end);
+    }
+
+    // @dev get the primary price of a token
+    // @param token the token to get the price for
+    // @return the primary price of a token
+    function getPrimaryPrice(address token) external view returns (Price.Props memory) {
+        if (token == address(0)) return Price.Props(0, 0);
+
+        Price.Props memory price = primaryPrices[token];
+        if (price.isEmpty()) {
+            revert Errors.EmptyPrimaryPrice(token);
+        }
+
+        return price;
+    }
+
+    function validatePrices(OracleUtils.SetPricesParams memory params, bool forAtomicAction)
+        external
+        onlyController
+        returns (OracleUtils.ValidatedPrice[] memory)
+    {
+        return _validatePrices(params, forAtomicAction);
     }
 
     function _validatePrices(OracleUtils.SetPricesParams memory params, bool forAtomicAction)
@@ -212,14 +317,6 @@ contract Oracle is RoleModule {
 
         primaryPrices[token] = price;
         tokensWithPrices.add(token);
-    }
-
-    function clearAllPrices() external onlyController {
-        uint256 length = tokensWithPrices.length();
-        for (uint256 i; i < length; i++) {
-            address token = tokensWithPrices.at(0);
-            _removePrimaryPrice(token);
-        }
     }
 
     function _removePrimaryPrice(address token) internal {
