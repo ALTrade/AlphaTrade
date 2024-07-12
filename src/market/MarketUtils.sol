@@ -6,18 +6,15 @@ import "@openzeppelin/contracts/utils/math/SafeCast.sol";
 
 import "../data/DataStore.sol";
 import "../event/EventEmitter.sol";
-import "../bank/StrictBank.sol";
 
 import "./Market.sol";
-import "./MarketToken.sol";
-import "./MarketStoreUtils.sol";
-import "../order/Order.sol";
-
 import "./MarketPoolValueInfo.sol";
-
+import "./MarketToken.sol";
 import "./MarketEventUtils.sol";
+import "./MarketStoreUtils.sol";
 
 import "../position/Position.sol";
+import "../order/Order.sol";
 
 import "../oracle/Oracle.sol";
 import "../library/Price.sol";
@@ -413,7 +410,9 @@ library MarketUtils {
         bool isLong,
         bool maximize
     ) internal view returns (int256) {
+        //做多或者做空的未平仓量
         int256 openInterest = getOpenInterest(dataStore, market, isLong).toInt256();
+        //做多或者做空未平仓的indexToken的数量
         uint256 openInterestInTokens = getOpenInterestInTokens(dataStore, market, isLong);
         if (openInterest == 0 || openInterestInTokens == 0) {
             return 0;
@@ -422,7 +421,9 @@ library MarketUtils {
         uint256 price = indexTokenPrice.pickPriceForPnl(isLong, maximize);
 
         // openInterest is the cost of all positions, openInterestValue is the current worth of all positions
+        //当前做多或者做空的未平仓量
         int256 openInterestValue = (openInterestInTokens * price).toInt256();
+        //计算做多或者做空的当前未平仓盈亏
         int256 pnl = isLong ? openInterestValue - openInterest : openInterest - openInterestValue;
 
         return pnl;
@@ -454,17 +455,30 @@ library MarketUtils {
         return dataStore.getUint(Keys.maxPoolAmountKey(market, token));
     }
 
-    // @dev get the max amount of tokens allowed to be deposited in the pool
-    // @param dataStore DataStore
-    // @param market the market to check
-    // @param token the token to check
-    // @return the max amount of tokens that can be deposited in the pool
-    function getMaxPoolAmountForDeposit(DataStore dataStore, address market, address token)
+    function getMaxPoolUsdForDeposit(DataStore dataStore, address market, address token)
         internal
         view
         returns (uint256)
     {
-        return dataStore.getUint(Keys.maxPoolAmountForDepositKey(market, token));
+        return dataStore.getUint(Keys.maxPoolUsdForDepositKey(market, token));
+    }
+
+    function getUsageFactor(
+        DataStore dataStore,
+        Market.Props memory market,
+        bool isLong,
+        uint256 reservedUsd,
+        uint256 poolUsd
+    ) internal view returns (uint256) {
+        uint256 reserveFactor = getOpenInterestReserveFactor(dataStore, market.marketToken, isLong);
+        uint256 maxReservedUsd = Precision.applyFactor(poolUsd, reserveFactor);
+        uint256 reserveUsageFactor = Precision.toFactor(reservedUsd, maxReservedUsd);
+
+        uint256 maxOpenInterest = getMaxOpenInterest(dataStore, market.marketToken, isLong);
+        uint256 openInterest = getOpenInterest(dataStore, market, isLong);
+        uint256 openInterestUsageFactor = Precision.toFactor(openInterest, maxOpenInterest);
+
+        return reserveUsageFactor > openInterestUsageFactor ? reserveUsageFactor : openInterestUsageFactor;
     }
 
     // @dev get the max open interest allowed for the market
@@ -589,6 +603,10 @@ library MarketUtils {
                 dataStore.getUint(Keys.claimableCollateralFactorKey(market, token, timeKey, account));
             claimableFactor =
                 claimableFactorForTime > claimableFactorForAccount ? claimableFactorForTime : claimableFactorForAccount;
+        }
+
+        if (claimableFactor > Precision.FLOAT_PRECISION) {
+            revert Errors.InvalidClaimableFactor(claimableFactor);
         }
 
         uint256 claimedAmount = dataStore.getUint(Keys.claimedCollateralAmountKey(market, token, timeKey, account));
@@ -1190,13 +1208,17 @@ library MarketUtils {
 
         if (configCache.fundingIncreaseFactorPerSecond == 0) {
             cache.fundingFactor = getFundingFactor(dataStore, market);
+            uint256 maxFundingFactorPerSecond = dataStore.getUint(Keys.maxFundingFactorPerSecondKey(market));
 
             // if there is no fundingIncreaseFactorPerSecond then return the static fundingFactor based on open interest difference
-            return (
-                Precision.applyFactor(cache.diffUsdToOpenInterestFactor, cache.fundingFactor),
-                longOpenInterest > shortOpenInterest,
-                0
-            );
+            uint256 fundingFactorPerSecond =
+                Precision.applyFactor(cache.diffUsdToOpenInterestFactor, cache.fundingFactor);
+
+            if (fundingFactorPerSecond > maxFundingFactorPerSecond) {
+                fundingFactorPerSecond = maxFundingFactorPerSecond;
+            }
+
+            return (fundingFactorPerSecond, longOpenInterest > shortOpenInterest, 0);
         }
 
         // if the savedFundingFactorPerSecond is positive then longs pay shorts
@@ -1360,14 +1382,15 @@ library MarketUtils {
         bool isLong,
         bool maximize
     ) internal view returns (int256) {
+        //资金池中的某种token的当前总价值
         uint256 poolUsd = getPoolUsdWithoutPnl(dataStore, market, prices, isLong, !maximize);
 
         if (poolUsd == 0) {
             return 0;
         }
-
+        //当前做多或者做空的未平仓盈亏
         int256 pnl = getPnl(dataStore, market, prices.indexTokenPrice, isLong, maximize);
-
+        //计算pnl与poolUsd的比率
         return Precision.toFactor(pnl, poolUsd);
     }
 
@@ -1393,19 +1416,18 @@ library MarketUtils {
         }
     }
 
-    // @dev validate that the pool amount is within the max allowed deposit amount
-    // @param dataStore DataStore
-    // @param market the market to check
-    // @param token the token to check
-    function validatePoolAmountForDeposit(DataStore dataStore, Market.Props memory market, address token)
-        internal
-        view
-    {
+    function validatePoolUsdForDeposit(
+        DataStore dataStore,
+        Market.Props memory market,
+        address token,
+        uint256 tokenPrice
+    ) internal view {
         uint256 poolAmount = getPoolAmount(dataStore, market, token);
-        uint256 maxPoolAmount = getMaxPoolAmountForDeposit(dataStore, market.marketToken, token);
+        uint256 poolUsd = poolAmount * tokenPrice;
+        uint256 maxPoolUsd = getMaxPoolUsdForDeposit(dataStore, market.marketToken, token);
 
-        if (poolAmount > maxPoolAmount) {
-            revert Errors.MaxPoolAmountForDepositExceeded(poolAmount, maxPoolAmount);
+        if (poolUsd > maxPoolUsd) {
+            revert Errors.MaxPoolUsdForDepositExceeded(poolUsd, maxPoolUsd);
         }
     }
 
@@ -1472,14 +1494,15 @@ library MarketUtils {
         address token,
         Price.Props memory tokenPrice,
         int256 priceImpactUsd
-    ) internal returns (int256) {
-        int256 impactAmount = getSwapImpactAmountWithCap(dataStore, market, token, tokenPrice, priceImpactUsd);
+    ) internal returns (int256, uint256) {
+        (int256 impactAmount, uint256 cappedDiffUsd) =
+            getSwapImpactAmountWithCap(dataStore, market, token, tokenPrice, priceImpactUsd);
 
         // if there is a positive impact, the impact pool amount should be reduced
         // if there is a negative impact, the impact pool amount should be increased
         applyDeltaToSwapImpactPool(dataStore, eventEmitter, market, token, -impactAmount);
 
-        return impactAmount;
+        return (impactAmount, cappedDiffUsd);
     }
 
     function getSwapImpactAmountWithCap(
@@ -1488,8 +1511,9 @@ library MarketUtils {
         address token,
         Price.Props memory tokenPrice,
         int256 priceImpactUsd
-    ) internal view returns (int256) {
+    ) internal view returns (int256, uint256) {
         int256 impactAmount;
+        uint256 cappedDiffUsd;
 
         if (priceImpactUsd > 0) {
             // positive impact: minimize impactAmount, use tokenPrice.max
@@ -1498,6 +1522,7 @@ library MarketUtils {
 
             int256 maxImpactAmount = getSwapImpactPoolAmount(dataStore, market, token).toInt256();
             if (impactAmount > maxImpactAmount) {
+                cappedDiffUsd = (impactAmount - maxImpactAmount).toUint256() * tokenPrice.max;
                 impactAmount = maxImpactAmount;
             }
         } else {
@@ -1506,7 +1531,7 @@ library MarketUtils {
             impactAmount = Calc.roundUpMagnitudeDivision(priceImpactUsd, tokenPrice.min);
         }
 
-        return impactAmount;
+        return (impactAmount, cappedDiffUsd);
     }
 
     // @dev get the funding amount to be deducted or distributed
@@ -2086,6 +2111,10 @@ library MarketUtils {
         return dataStore.getUint(Keys.borrowingFactorKey(market, isLong));
     }
 
+    function getOptimalUsageFactor(DataStore dataStore, address market, bool isLong) internal view returns (uint256) {
+        return dataStore.getUint(Keys.optimalUsageFactorKey(market, isLong));
+    }
+
     // @dev get the borrowing exponent factor for a market
     // @param dataStore DataStore
     // @param market the market to check
@@ -2280,6 +2309,12 @@ library MarketUtils {
             revert Errors.UnableToGetBorrowingFactorEmptyPoolUsd();
         }
 
+        uint256 optimalUsageFactor = getOptimalUsageFactor(dataStore, market.marketToken, isLong);
+
+        if (optimalUsageFactor != 0) {
+            return getKinkBorrowingFactor(dataStore, market, isLong, reservedUsd, poolUsd, optimalUsageFactor);
+        }
+
         uint256 borrowingExponentFactor = getBorrowingExponentFactor(dataStore, market.marketToken, isLong);
         uint256 reservedUsdAfterExponent = Precision.applyExponentFactor(reservedUsd, borrowingExponentFactor);
 
@@ -2289,15 +2324,50 @@ library MarketUtils {
         return Precision.applyFactor(reservedUsdToPoolFactor, borrowingFactor);
     }
 
+    function getKinkBorrowingFactor(
+        DataStore dataStore,
+        Market.Props memory market,
+        bool isLong,
+        uint256 reservedUsd,
+        uint256 poolUsd,
+        uint256 optimalUsageFactor
+    ) internal view returns (uint256) {
+        uint256 usageFactor = getUsageFactor(dataStore, market, isLong, reservedUsd, poolUsd);
+
+        uint256 baseBorrowingFactor = dataStore.getUint(Keys.baseBorrowingFactorKey(market.marketToken, isLong));
+
+        uint256 borrowingFactorPerSecond = Precision.applyFactor(usageFactor, baseBorrowingFactor);
+
+        if (usageFactor > optimalUsageFactor && Precision.FLOAT_PRECISION > optimalUsageFactor) {
+            uint256 diff = usageFactor - optimalUsageFactor;
+
+            uint256 aboveOptimalUsageBorrowingFactor =
+                dataStore.getUint(Keys.aboveOptimalUsageBorrowingFactorKey(market.marketToken, isLong));
+            uint256 additionalBorrowingFactorPerSecond;
+
+            if (aboveOptimalUsageBorrowingFactor > baseBorrowingFactor) {
+                additionalBorrowingFactorPerSecond = aboveOptimalUsageBorrowingFactor - baseBorrowingFactor;
+            }
+
+            uint256 divisor = Precision.FLOAT_PRECISION - optimalUsageFactor;
+
+            borrowingFactorPerSecond += additionalBorrowingFactorPerSecond * diff / divisor;
+        }
+
+        return borrowingFactorPerSecond;
+    }
+
     function distributePositionImpactPool(DataStore dataStore, EventEmitter eventEmitter, address market) external {
         (uint256 distributionAmount, uint256 nextPositionImpactPoolAmount) =
             getPendingPositionImpactPoolDistributionAmount(dataStore, market);
 
-        applyDeltaToPositionImpactPool(dataStore, eventEmitter, market, -distributionAmount.toInt256());
+        if (distributionAmount != 0) {
+            applyDeltaToPositionImpactPool(dataStore, eventEmitter, market, -distributionAmount.toInt256());
 
-        MarketEventUtils.emitPositionImpactPoolDistributed(
-            eventEmitter, market, distributionAmount, nextPositionImpactPoolAmount
-        );
+            MarketEventUtils.emitPositionImpactPoolDistributed(
+                eventEmitter, market, distributionAmount, nextPositionImpactPoolAmount
+            );
+        }
 
         dataStore.setUint(Keys.positionImpactPoolDistributedAtKey(market), Chain.currentTimestamp());
     }
@@ -2599,9 +2669,11 @@ library MarketUtils {
         bool isLong,
         bytes32 pnlFactorType
     ) internal view returns (bool, int256, uint256) {
+        //获取池中做多或者做空仓位的pnl和LongToken或者shortToken的总价值的比率
         int256 pnlToPoolFactor = getPnlToPoolFactor(dataStore, market, prices, isLong, true);
+        //获取market中设置的最大的比率
         uint256 maxPnlFactor = getMaxPnlFactor(dataStore, pnlFactorType, market.marketToken, isLong);
-
+        //是否超过
         bool isExceeded = pnlToPoolFactor > 0 && pnlToPoolFactor.toUint256() > maxPnlFactor;
 
         return (isExceeded, pnlToPoolFactor, maxPnlFactor);
