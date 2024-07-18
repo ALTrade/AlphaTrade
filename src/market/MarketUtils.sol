@@ -1013,7 +1013,7 @@ library MarketUtils {
 
         uint256 divisor = getPoolDivisor(market.longToken, market.shortToken);
 
-        // get the open interest values by long / short and by collateral used
+        // 获取当前 抵押品/多空 维度仓位的大小
         cache.openInterest.long.longToken =
             getOpenInterest(dataStore, market.marketToken, market.longToken, true, divisor);
         cache.openInterest.long.shortToken =

@@ -11,7 +11,7 @@ import "./Position.sol";
 import "../data/DataStore.sol";
 import "../data/Keys.sol";
 
-// import "../pricing/PositionPricingUtils.sol";
+import "../pricing/PositionPricingUtils.sol";
 import "../library/Price.sol";
 import "../order/BaseOrderUtils.sol";
 

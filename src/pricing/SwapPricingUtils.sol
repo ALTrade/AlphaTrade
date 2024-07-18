@@ -109,7 +109,7 @@ library SwapPricingUtils {
         //计算swap前后tokenA，tokenB的价值分别是多少
         PoolParams memory poolParams = getNextPoolAmountsUsd(params);
 
-        //计算
+        //计算priceImpactUsd的值
         int256 priceImpactUsd = _getPriceImpactUsd(params.dataStore, params.market, poolParams);
 
         // the virtual price impact calculation is skipped if the price impact
